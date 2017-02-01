@@ -1,0 +1,265 @@
+﻿<controls:MetroWindow x:Class="TibiaBotUI.MainWindow"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:viewModels="clr-namespace:TibiaBotUI.ViewModels"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:TibiaBotUI.Converters"
+        xmlns:local="clr-namespace:TibiaBotUI"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:attachedBehaviors="clr-namespace:TibiaBotUI.AttachedBehaviors"
+        xmlns:models="clr-namespace:TibiaBotUI.Models"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Background="{DynamicResource ControlBackgroundBrush}"
+        Title="{Binding WindowTitle}" Height="600" Width="748">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <ObjectDataProvider x:Key="WaypointTypes" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:WaypointType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <converters:CheckboxContentConverter x:Key="CheckboxContentConverter"/>
+        <converters:RemoveNewLineConverter x:Key="RemoveNewLineConverter"/>
+        <converters:RadioButtonToEnumConverter x:Key="RadioButtonToEnumConverter"/>
+        <converters:LocationContentConverter x:Key="LocationContentConverter"/>
+        <converters:DummyConverter x:Key="DummyConverter"/>
+        <Style x:Key="QuickMenuButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="Margin" Value="55,0,0,0"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Light"></Setter>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="ToggleButton" x:Key="BurgerMainButton" >
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
+            <Setter Property="Margin" Value="15,0,0,0"/>
+            <Setter Property="FontSize" Value="30"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="{DynamicResource  FlatButtonPressedBackgroundBrush}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource IdealForegroundDisabledBrush }"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button" x:Key="MainMenuButtons">
+            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Margin" Value="0,1,0,1"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource FlyoutForegroundBrush}"></Setter>
+                    <Setter Property="Background" Value="{DynamicResource AccentBaseColorBrush}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+            <Setter Property="Margin" Value="5,0,5,0"></Setter>
+        </Style>
+        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+            <Setter Property="FontFamily" Value="Wingdings"/>
+        </Style>
+    </Window.Resources>
+    <!--Flyouts-->
+    <controls:MetroWindow.Flyouts >
+        <controls:FlyoutsControl >
+            <controls:Flyout Theme="Adapt" Header="Main Menu" IsOpen="{Binding IsChecked, ElementName=MainManuToggle}">
+                <StackPanel>
+                    <Button Content="Healer" Command="{Binding SwitchPage}" CommandParameter="0" Style="{DynamicResource MainMenuButtons}"/>
+                    <Button Content="Cavebot" Command="{Binding SwitchPage}" CommandParameter="1"  Style="{DynamicResource MainMenuButtons}"/>
+                    <Button Content="Targeting" Command="{Binding SwitchPage}" CommandParameter="2"  Style="{DynamicResource MainMenuButtons}"/>
+                    <Button Content="Looting" Command="{Binding SwitchPage}" CommandParameter="3"  Style="{DynamicResource MainMenuButtons}"/>
+                    <Button Content="Peristent" Command="{Binding SwitchPage}" CommandParameter="4"  Style="{DynamicResource MainMenuButtons}"/>
+                    <Button Content="Hotkey" Command="{Binding SwitchPage}" CommandParameter="5"  Style="{DynamicResource MainMenuButtons}"/>
+                    <Button Content="Application Settings" Command="{Binding SwitchPage}" CommandParameter="6" Style="{StaticResource MainMenuButtons}"/>
+                </StackPanel>
+            </controls:Flyout>
+            <controls:Flyout Position="Right" Theme="Adapt" IsOpen="{Binding EditingAction}" Header="Edit Action" MinWidth="420">
+                <Grid>
+                    <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{Binding TextEditorForeground}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
+                        <i:Interaction.Behaviors>
+                            <attachedBehaviors:AvalonEditBehaviour GiveMeTheText="{Binding ElementName=WaypointDataGrid, Path=SelectedItem.Action, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </i:Interaction.Behaviors>
+                    </avalonEdit:TextEditor>
+                </Grid>
+            </controls:Flyout>
+            <controls:Flyout Position="Right" Theme="Adapt" IsOpen="{Binding ElementName=EditWaypointsToggleButton, Path=IsChecked}" Header="Edit Cavebot" MinWidth="200">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="5,2,5,2" Text="Type" Grid.Column="0" Grid.Row="2"/>
+                    <ComboBox ItemsSource="{ Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding WaypointType}" Margin="5,2,5,2"  Grid.Column="1" Grid.Row="2" />
+                    <TextBlock Margin="5,2,5,2"  Text="Range" Grid.Row="3" Grid.Column="0"/>
+                    <StackPanel  Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="5">
+                        <controls:NumericUpDown Value="{Binding XWaypointRange}" Minimum="1" Maximum="5"/>
+                        <controls:NumericUpDown  Value="{Binding YWaypointRange}" Minimum="1" Maximum="5"/>
+                    </StackPanel>
+                    <TextBlock Margin="5,2,5,2" Text="Location" Grid.Row="4" Grid.Column="0"/>
+                    <TextBox Margin="5,2,5,2" Grid.Row="4"   Grid.Column="1"/>
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add"  HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Grid.Row="5" Grid.Column="0"  Content="a" Command="{Binding AddWaypoint}"/>
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Grid.Row="5" Grid.Column="1" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                    <WrapPanel Margin="0,30,0,30" Width="110"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}" Name="NorthWest"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"  Name="North" Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthEast }}" Name="NorthEast" Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="ì" />
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.West }}"  Name="West" Margin="-3,0,5,0"   GroupName="WaypointDirectionGroup" Content="ç" FlowDirection="RightToLeft"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.Center }}"  Name="Center" Margin="0,0,0,2"  GroupName="WaypointDirectionGroup"  />
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.East }}"  Name="East" Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="è"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthWest }}"  Name="SouthWest"  Margin="0,0,5,2"  GroupName="WaypointDirectionGroup" Content="í" FlowDirection="RightToLeft"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.South }}"  Name="South"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthEast }}"  Name="SouthEast" Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="î"/>
+                    </WrapPanel>
+                </Grid>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ToggleButton Style="{StaticResource BurgerMainButton}" IsChecked="{Binding ActiveMainMenu}" Grid.Column="0" Name="MainManuToggle" Content="≡" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <!--Main TabControl-->
+        <TabControl Grid.Column="0" Name="MainTabControl" SelectedIndex="{Binding CurrentPage}">
+            <TabItem Name="HealerTab" TabIndex="0">
+                <Grid>
+                    <TextBlock Text="Healer" Style="{StaticResource HeaderText}"/>
+                </Grid>
+            </TabItem>
+            <!--Cavebot Tab-->
+            <TabItem Name="CavebotTab" TabIndex="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1"  Grid.Row="0" Text="Cavebot" Style="{StaticResource HeaderText}"/>
+                    <CheckBox FontSize="15" Margin="10,0,20,0" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Content="{Binding CavebotEnabled, Converter={StaticResource CheckboxContentConverter}}" IsChecked="{Binding CavebotEnabled}" />
+                    <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5,5,5,5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
+                    <DataGrid HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList}" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}" Header="Id"/>
+                            <DataGridTextColumn Binding="{Binding Type}"  Header="Type"/>
+                            <DataGridTextColumn Binding="{Binding Label}" Header="Label"/>
+                            <DataGridTextColumn Binding="{Binding Location, Converter={StaticResource LocationContentConverter}}" Header="Location"/>
+                            <DataGridTextColumn Header="Range">
+                                <DataGridTextColumn.Binding >
+                                    <MultiBinding StringFormat="{}{0} x {1}" Converter="{StaticResource DummyConverter}">
+                                        <Binding  Path="XWaypointRange" />
+                                        <Binding  Path="YWaypointRange" />
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Header="Action" Binding="{Binding Action, Converter={StaticResource RemoveNewLineConverter}}" IsReadOnly="True" Width="450"/>
+                        </DataGrid.Columns>
+
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditWaypointAction}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}" />
+                        </DataGrid.InputBindings>
+                    </DataGrid>
+                   
+                </Grid>
+            </TabItem>
+            <TabItem Name="TargetingTab" TabIndex="2">
+                <Grid>
+                    <TextBlock Text="Targeting" Style="{StaticResource HeaderText}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="LootingTab" TabIndex="3">
+                <Grid>
+                    <TextBlock Text="Looting" Style="{StaticResource HeaderText}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="PesistentTab" TabIndex="4">
+                <Grid>
+                    <TextBlock Text="Persistent" Style="{StaticResource HeaderText}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="HotkeyTab" TabIndex="5">
+                <Grid>
+                    <TextBlock Text="Hotkey" Style="{StaticResource HeaderText}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="ApplicationSettingsTab" TabIndex="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Text="Application Settings" Style="{StaticResource HeaderText}"/>
+                    <TextBlock Grid.Column="0" Width="70" HorizontalAlignment="Left" Grid.Row="1" Text="Color Accent"/>
+                    <ComboBox ItemsSource="{Binding ColorAccents}" SelectedItem="{Binding ColorAccent}" Grid.Column="1" Grid.Row="1"></ComboBox>
+                    <TextBlock Grid.Column="0" Width="70" HorizontalAlignment="Left" Grid.Row="2" Text="Theme Base"/>
+                    <controls:ToggleSwitch IsChecked="{Binding BaseDarkTheme}" FlowDirection="RightToLeft" OnLabel="Dark" OffLabel="Light" Grid.Column="1" Grid.Row="2"></controls:ToggleSwitch>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+
+    </Grid>
+    
+</controls:MetroWindow>
+
