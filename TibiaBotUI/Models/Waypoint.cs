@@ -10,8 +10,15 @@ namespace TibiaBotUI.Models
 {
     public class Waypoint : INotifyPropertyChanged
     {
-     
-        private int _id { get; set; }
+
+        private int _id;
+        private WaypointType _type;
+        private string _label;
+        private WaypointDirection _waypointDirection;
+        private int _xWaypointRange;
+        private int _yWaypointRange;
+        private WaypointLocation _location;
+        private string _action;
 
         public int Id
         {
@@ -24,8 +31,6 @@ namespace TibiaBotUI.Models
             }
         }
 
-        private WaypointType _type { get; set; }
-
         public WaypointType Type
         {
             get { return _type; }
@@ -36,7 +41,6 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        private string _label { get; set; }
 
         public string Label
         {
@@ -49,8 +53,6 @@ namespace TibiaBotUI.Models
             }
         }
 
-        private WaypointDirection _waypointDirection { get; set; }
-
         public WaypointDirection WaypointDirection
         {
             get { return _waypointDirection; }
@@ -61,8 +63,6 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        private int _xWaypointRange;
-       
 
         public int XWaypointRange
         {
@@ -74,7 +74,7 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        private int _yWaypointRange;
+        
         public int YWaypointRange
         {
             get { return _yWaypointRange; }
@@ -85,7 +85,6 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        private WaypointLocation _location { get; set; }
 
         public WaypointLocation Location
         {
@@ -97,8 +96,6 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-
-        private string _action { get; set; }
 
         public string Action
         {
@@ -125,13 +122,12 @@ namespace TibiaBotUI.Models
         }
 
 
-        #region PropertyChanged
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion
     }
 }

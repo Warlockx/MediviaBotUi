@@ -69,15 +69,23 @@
     </ApplicationDefinition>
     <Compile Include="AttachedBehaviors\AvalonTextBehavior.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\BaseThemeConverter.cs" />
     <Compile Include="Converters\CheckboxContentConverter.cs" />
     <Compile Include="Converters\DummyConverter.cs" />
     <Compile Include="Converters\LocationContentConverter.cs" />
     <Compile Include="Converters\RadioButtonToEnumConverter.cs" />
     <Compile Include="Converters\RemoveNewLineConverter.cs" />
+    <Compile Include="Converters\WaypointRangeConverter.cs" />
+    <Compile Include="Models\ThemeAccents.cs" />
+    <Compile Include="Models\ThemeBaseColors.cs" />
     <Compile Include="Models\WaypointType.cs" />
     <Compile Include="Models\Waypoint.cs" />
     <Compile Include="Models\WaypointDirection.cs" />
     <Compile Include="Models\WaypointLocation.cs" />
+    <Compile Include="Services\CavebotService.cs" />
+    <Compile Include="Services\ThemingService.cs" />
+    <Compile Include="ViewModels\AppConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\CavebotViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

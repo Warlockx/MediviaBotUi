@@ -11,7 +11,6 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:attachedBehaviors="clr-namespace:TibiaBotUI.AttachedBehaviors"
         xmlns:models="clr-namespace:TibiaBotUI.Models"
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Background="{DynamicResource ControlBackgroundBrush}"
         Title="{Binding WindowTitle}" Height="600" Width="748">
@@ -19,17 +18,8 @@
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <ObjectDataProvider x:Key="WaypointTypes" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="models:WaypointType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-        <converters:CheckboxContentConverter x:Key="CheckboxContentConverter"/>
-        <converters:RemoveNewLineConverter x:Key="RemoveNewLineConverter"/>
-        <converters:RadioButtonToEnumConverter x:Key="RadioButtonToEnumConverter"/>
-        <converters:LocationContentConverter x:Key="LocationContentConverter"/>
-        <converters:DummyConverter x:Key="DummyConverter"/>
+        <viewModels:CavebotViewModel x:Key="CavebotViewModel"/>
+        <viewModels:AppConfigurationViewModel x:Key="AppConfigurationViewModel"/>
         <Style x:Key="QuickMenuButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Width" Value="30"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -112,16 +102,16 @@
                     <Button Content="Application Settings" Command="{Binding SwitchPage}" CommandParameter="6" Style="{StaticResource MainMenuButtons}"/>
                 </StackPanel>
             </controls:Flyout>
-            <controls:Flyout Position="Right" Theme="Adapt" IsOpen="{Binding EditingAction}" Header="Edit Action" MinWidth="420">
+            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Theme="Adapt" IsOpen="{Binding EditingAction}" Header="Edit Action" MinWidth="420">
                 <Grid>
-                    <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{Binding TextEditorForeground}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
+                    <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{DynamicResource FlyoutForegroundBrush}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
                         <i:Interaction.Behaviors>
                             <attachedBehaviors:AvalonEditBehaviour GiveMeTheText="{Binding ElementName=WaypointDataGrid, Path=SelectedItem.Action, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </avalonEdit:TextEditor>
                 </Grid>
             </controls:Flyout>
-            <controls:Flyout Position="Right" Theme="Adapt" IsOpen="{Binding ElementName=EditWaypointsToggleButton, Path=IsChecked}" Header="Edit Cavebot" MinWidth="200">
+            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Theme="Adapt" IsOpen="{Binding ElementName=EditWaypointsToggleButton, Path=IsChecked}" Header="Edit Cavebot" MinWidth="200">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -144,7 +134,7 @@
                     </StackPanel>
                     <TextBlock Margin="5,2,5,2" Text="Location" Grid.Row="4" Grid.Column="0"/>
                     <TextBox Margin="5,2,5,2" Grid.Row="4"   Grid.Column="1"/>
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add"  HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Grid.Row="5" Grid.Column="0"  Content="a" Command="{Binding AddWaypoint}"/>
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add"  HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Grid.Row="5" Grid.Column="0"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
                     <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Grid.Row="5" Grid.Column="1" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
                     <WrapPanel Margin="0,30,0,30" Width="110"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
                         <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}" Name="NorthWest"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
@@ -175,7 +165,7 @@
                 </Grid>
             </TabItem>
             <!--Cavebot Tab-->
-            <TabItem Name="CavebotTab" TabIndex="1">
+            <TabItem DataContext="{StaticResource CavebotViewModel}" Name="CavebotTab" TabIndex="1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -190,22 +180,21 @@
                     <TextBlock Grid.Column="1"  Grid.Row="0" Text="Cavebot" Style="{StaticResource HeaderText}"/>
                     <CheckBox FontSize="15" Margin="10,0,20,0" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Content="{Binding CavebotEnabled, Converter={StaticResource CheckboxContentConverter}}" IsChecked="{Binding CavebotEnabled}" />
                     <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5,5,5,5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
-                    <DataGrid HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList}" >
+                    <DataGrid SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Id}" Header="Id"/>
-                            <DataGridTextColumn Binding="{Binding Type}"  Header="Type"/>
+                            <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True"/>
+                            <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding Source={StaticResource WaypointTypes}}" SelectedItemBinding="{Binding Type, UpdateSourceTrigger=PropertyChanged}"  EditingElementStyle="{StaticResource {x:Type ComboBox}}"/>
                             <DataGridTextColumn Binding="{Binding Label}" Header="Label"/>
                             <DataGridTextColumn Binding="{Binding Location, Converter={StaticResource LocationContentConverter}}" Header="Location"/>
                             <DataGridTextColumn Header="Range">
-                                <DataGridTextColumn.Binding >
-                                    <MultiBinding StringFormat="{}{0} x {1}" Converter="{StaticResource DummyConverter}">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0} x {1}" Converter="{StaticResource WaypointRangeConverter}">
                                         <Binding  Path="XWaypointRange" />
                                         <Binding  Path="YWaypointRange" />
                                     </MultiBinding>
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
-
-                            <DataGridTextColumn Header="Action" Binding="{Binding Action, Converter={StaticResource RemoveNewLineConverter}}" IsReadOnly="True" Width="450"/>
+                            <DataGridTextColumn Header="Action" Binding="{Binding Action, Converter={StaticResource RemoveNewLineConverter}}" IsReadOnly="True" Width="*"/>
                         </DataGrid.Columns>
 
                         <DataGrid.InputBindings>
@@ -235,7 +224,7 @@
                     <TextBlock Text="Hotkey" Style="{StaticResource HeaderText}"/>
                 </Grid>
             </TabItem>
-            <TabItem Name="ApplicationSettingsTab" TabIndex="5">
+            <TabItem Name="ApplicationSettingsTab" TabIndex="5" DataContext="{StaticResource AppConfigurationViewModel}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -250,9 +239,9 @@
 
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Text="Application Settings" Style="{StaticResource HeaderText}"/>
                     <TextBlock Grid.Column="0" Width="70" HorizontalAlignment="Left" Grid.Row="1" Text="Color Accent"/>
-                    <ComboBox ItemsSource="{Binding ColorAccents}" SelectedItem="{Binding ColorAccent}" Grid.Column="1" Grid.Row="1"></ComboBox>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource ThemeAccents}}" SelectedItem="{Binding ThemeAccent}" Grid.Column="1" Grid.Row="1"/>
                     <TextBlock Grid.Column="0" Width="70" HorizontalAlignment="Left" Grid.Row="2" Text="Theme Base"/>
-                    <controls:ToggleSwitch IsChecked="{Binding BaseDarkTheme}" FlowDirection="RightToLeft" OnLabel="Dark" OffLabel="Light" Grid.Column="1" Grid.Row="2"></controls:ToggleSwitch>
+                    <controls:ToggleSwitch IsChecked="{Binding BaseTheme, Converter={StaticResource BaseThemeConverter}}" FlowDirection="RightToLeft" OnLabel="Dark" OffLabel="Light" Grid.Column="1" Grid.Row="2"/>
                 </Grid>
             </TabItem>
         </TabControl>

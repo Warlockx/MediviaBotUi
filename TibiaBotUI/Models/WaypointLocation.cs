@@ -48,14 +48,6 @@ namespace TibiaBotUI.Models
 
         public WaypointLocation(int x,int y, int z, WaypointDirection direction)
         {
-            X = x;
-            Y = y;
-            Z = z;
-            AddOffset(direction);
-        }
-
-        public WaypointLocation AddOffset(WaypointDirection direction)
-        {
             Tuple<int, int> directionOffset = new Tuple<int, int>(0, 0); //Horizontal Axis, Vertical Axis
             switch (direction)
             {
@@ -89,8 +81,52 @@ namespace TibiaBotUI.Models
             }
             X = X + directionOffset.Item1;
             Y = Y + directionOffset.Item2;
-            Z = Z;
-           return this;
+            Z = z;
+        }
+
+        public WaypointLocation(WaypointLocation location, WaypointDirection direction)
+        {
+            Tuple<int, int> directionOffset = new Tuple<int, int>(0, 0); //Horizontal Axis, Vertical Axis
+            switch (direction)
+            {
+                case WaypointDirection.NorthWest:
+                    directionOffset = new Tuple<int, int>(-1, -1);
+                    break;
+                case WaypointDirection.North:
+                    directionOffset = new Tuple<int, int>(0, -1);
+                    break;
+                case WaypointDirection.NorthEast:
+                    directionOffset = new Tuple<int, int>(+1, -1);
+                    break;
+                case WaypointDirection.East:
+                    directionOffset = new Tuple<int, int>(+1, 0);
+                    break;
+                case WaypointDirection.SouthEast:
+                    directionOffset = new Tuple<int, int>(+1, +1);
+                    break;
+                case WaypointDirection.South:
+                    directionOffset = new Tuple<int, int>(0, +1);
+                    break;
+                case WaypointDirection.SouthWest:
+                    directionOffset = new Tuple<int, int>(-1, +1);
+                    break;
+                case WaypointDirection.West:
+                    directionOffset = new Tuple<int, int>(-1, 0);
+                    break;
+                case WaypointDirection.Center:
+                    directionOffset = new Tuple<int, int>(0, 0);
+                    break;
+            }
+            X = location.X + directionOffset.Item1;
+            Y = location.Y + directionOffset.Item2;
+            Z = location.Z;
+        }
+
+
+
+        public string ToString()
+        {
+            return $"{X},{Y},{Z}";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
