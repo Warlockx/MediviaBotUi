@@ -26,6 +26,10 @@ namespace TibiaBotUI.ViewModels
         private int _yWaypointRange = 1;
         private string _actionCode;
         private CavebotService _cavebotService;
+        private bool _walkOnFire = false;
+        private bool _walkOnPoison = false;
+        private bool _walkOnEnergy= false;
+
         public ICommand AddWaypoint { get; set; }
         public ICommand EditWaypointAction { get; set; }
         public ICommand DeleteWaypoint { get; set; }
@@ -135,6 +139,37 @@ namespace TibiaBotUI.ViewModels
             {
                 if(value == _currentWaypoint) return;
                 _currentWaypoint = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool WalkOnFire
+        {
+            get { return _walkOnFire; }
+            set
+            {
+                if (value == _walkOnFire) return;
+                _walkOnFire = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool WalkOnPoison
+        {
+            get { return _walkOnFire; }
+            set
+            {
+                if (value == _walkOnPoison) return;
+                _walkOnPoison = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool WalkOnEnergy
+        {
+            get { return _walkOnEnergy; }
+            set
+            {
+                if (value == _walkOnEnergy) return;
+                _walkOnEnergy = value;
                 OnPropertyChanged();
             }
         }
