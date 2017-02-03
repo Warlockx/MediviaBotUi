@@ -115,8 +115,8 @@ namespace TibiaBotUI.ViewModels
             get { return _yWaypointRange; }
             set
             {
-                if (value == _xWaypointRange) return;
-                _xWaypointRange = value;
+                if (value == _yWaypointRange) return;
+                _yWaypointRange = value;
                 OnPropertyChanged();
             }
         }
