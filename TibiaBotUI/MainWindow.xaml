@@ -118,13 +118,18 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="70"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+
+                  
                     <TextBlock Margin="5,2,5,2" Text="Type" Grid.Column="0" Grid.Row="2"/>
                     <ComboBox ItemsSource="{ Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding WaypointType}" Margin="5,2,5,2"  Grid.Column="1" Grid.Row="2" />
                     <TextBlock Margin="5,2,5,2"  Text="Range" Grid.Row="3" Grid.Column="0"/>
@@ -132,10 +137,14 @@
                         <controls:NumericUpDown Value="{Binding XWaypointRange}" Minimum="1" Maximum="5"/>
                         <controls:NumericUpDown  Value="{Binding YWaypointRange}" Minimum="1" Maximum="5"/>
                     </StackPanel>
-                    <TextBlock Margin="5,2,5,2" Text="Location" Grid.Row="4" Grid.Column="0"/>
-                    <TextBox Margin="5,2,5,2" Grid.Row="4"   Grid.Column="1"/>
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add"  HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Grid.Row="5" Grid.Column="0"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Grid.Row="5" Grid.Column="1" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add" HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                    </StackPanel>
+                    <TextBlock Text="Additional Configurations" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <CheckBox Margin="5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Fire"/>
+                    <CheckBox Margin="5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Poison"/>
+                    <CheckBox Margin="5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Energy"/>
                     <WrapPanel Margin="0,30,0,30" Width="110"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
                         <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}" Name="NorthWest"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
                         <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"  Name="North" Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
@@ -155,6 +164,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
+
         <ToggleButton Style="{StaticResource BurgerMainButton}" IsChecked="{Binding ActiveMainMenu}" Grid.Column="0" Name="MainManuToggle" Content="≡" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <!--Main TabControl-->
