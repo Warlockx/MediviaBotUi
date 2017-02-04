@@ -24,7 +24,7 @@ namespace TibiaBotUI.ViewModels
     {
         #region Variables
      
-        private string _windowTitle = "Medivia Botter 0.0.1";
+        private string _windowTitle = "TibiaBotUi 0.1";
         private int _currentPage;
         private bool _activeMainMenu;
 

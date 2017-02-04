@@ -79,8 +79,8 @@ namespace TibiaBotUI.Models
                     directionOffset = new Tuple<int, int>(0, 0);
                     break;
             }
-            X = X + directionOffset.Item1;
-            Y = Y + directionOffset.Item2;
+            X = x + directionOffset.Item1;
+            Y = y + directionOffset.Item2;
             Z = z;
         }
 
@@ -124,7 +124,7 @@ namespace TibiaBotUI.Models
 
 
 
-        public string ToString()
+        public override string ToString()
         {
             return $"{X},{Y},{Z}";
         }

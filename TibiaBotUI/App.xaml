@@ -11,40 +11,26 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+
+               
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Crimson.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="DataProviders.xaml" />
+                <ResourceDictionary Source="Converters.xaml" />
+              
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <ObjectDataProvider x:Key="WaypointTypes" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="models:WaypointType"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-            <ObjectDataProvider x:Key="ThemeAccents" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="models:ThemeAccents"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
-            <ObjectDataProvider x:Key="ThemeBaseColor" MethodName="GetValues"
-                            ObjectType="{x:Type System:Enum}">
-                <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="models:ThemeBaseColors"/>
-                </ObjectDataProvider.MethodParameters>
-            </ObjectDataProvider>
+            
+        
+          
            
-            <converters:BaseThemeConverter x:Key="BaseThemeConverter"/>
-            <converters:CheckboxContentConverter x:Key="CheckboxContentConverter"/>
-            <converters:RemoveNewLineConverter x:Key="RemoveNewLineConverter"/>
-            <converters:RadioButtonToEnumConverter x:Key="RadioButtonToEnumConverter"/>
-            <converters:LocationContentConverter x:Key="LocationContentConverter"/>
-            <converters:DummyConverter x:Key="DummyConverter"/>
-            <converters:WaypointRangeConverter x:Key="WaypointRangeConverter"/>
+            
+
+
         </ResourceDictionary>
-      
     </Application.Resources>
 </Application>

@@ -20,73 +20,7 @@
     <Window.Resources>
         <viewModels:CavebotViewModel x:Key="CavebotViewModel"/>
         <viewModels:AppConfigurationViewModel x:Key="AppConfigurationViewModel"/>
-        <Style x:Key="QuickMenuButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-        </Style>
-        <Style x:Key="HeaderText" TargetType="TextBlock">
-            <Setter Property="Margin" Value="55,0,0,0"/>
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="FontWeight" Value="Light"></Setter>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5"/>
-        </Style>
-        <Style TargetType="ToggleButton" x:Key="BurgerMainButton" >
-            <Setter Property="MinHeight" Value="30"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-            <Setter Property="Margin" Value="15,0,0,0"/>
-            <Setter Property="FontSize" Value="30"></Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="Background" Value="{DynamicResource  FlatButtonPressedBackgroundBrush}"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-                    <Setter Property="Foreground" Value="{DynamicResource IdealForegroundDisabledBrush }"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="Button" x:Key="MainMenuButtons">
-            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}"/>
-            <Setter Property="MinHeight" Value="30"/>
-            <Setter Property="Margin" Value="0,1,0,1"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource FlyoutForegroundBrush}"></Setter>
-                    <Setter Property="Background" Value="{DynamicResource AccentBaseColorBrush}"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
-            <Setter Property="Margin" Value="5,0,5,0"></Setter>
-        </Style>
-        <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
-            <Setter Property="FontFamily" Value="Wingdings"/>
-        </Style>
+      
     </Window.Resources>
     <!--Flyouts-->
     <controls:MetroWindow.Flyouts >
@@ -142,19 +76,19 @@
                         <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
                     </StackPanel>
                     <TextBlock Text="Additional Configurations" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
-                    <CheckBox Margin="5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Fire"/>
-                    <CheckBox Margin="5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Poison"/>
-                    <CheckBox Margin="5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Energy"/>
-                    <WrapPanel Margin="0,30,0,30" Width="110"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}" Name="NorthWest"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"  Name="North" Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthEast }}" Name="NorthEast" Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="ì" />
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.West }}"  Name="West" Margin="-3,0,5,0"   GroupName="WaypointDirectionGroup" Content="ç" FlowDirection="RightToLeft"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.Center }}"  Name="Center" Margin="0,0,0,2"  GroupName="WaypointDirectionGroup"  />
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.East }}"  Name="East" Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="è"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthWest }}"  Name="SouthWest"  Margin="0,0,5,2"  GroupName="WaypointDirectionGroup" Content="í" FlowDirection="RightToLeft"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.South }}"  Name="South"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthEast }}"  Name="SouthEast" Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="î"/>
+                    <CheckBox IsChecked="{Binding WalkOnFire}" Margin="5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Fire"/>
+                    <CheckBox IsChecked="{Binding WalkOnPoison}" Margin="5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Poison"/>
+                    <CheckBox IsChecked="{Binding WalkOnEnergy}" Margin="5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Energy"/>
+                    <WrapPanel Margin="0,30,0,30" Width="120"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthEast }}"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="ì" />
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.West }}"   Margin="-3,0,5,0"   GroupName="WaypointDirectionGroup" Content="ç" FlowDirection="RightToLeft"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.Center }}"   Margin="0,0,0,2"  GroupName="WaypointDirectionGroup"  />
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.East }}"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="è"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthWest }}"    Margin="0,0,5,2"  GroupName="WaypointDirectionGroup" Content="í" FlowDirection="RightToLeft"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.South }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
+                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthEast }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="î"/>
                     </WrapPanel>
                 </Grid>
             </controls:Flyout>

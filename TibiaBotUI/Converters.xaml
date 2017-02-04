@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TibiaBotUI"
+                    xmlns:converters="clr-namespace:TibiaBotUI.Converters">
+    <converters:BaseThemeConverter x:Key="BaseThemeConverter"/>
+    <converters:CheckboxContentConverter x:Key="CheckboxContentConverter"/>
+    <converters:RemoveNewLineConverter x:Key="RemoveNewLineConverter"/>
+    <converters:RadioButtonToEnumConverter x:Key="RadioButtonToEnumConverter"/>
+    <converters:LocationContentConverter x:Key="LocationContentConverter"/>
+    <converters:DummyConverter x:Key="DummyConverter"/>
+    <converters:WaypointRangeConverter x:Key="WaypointRangeConverter"/>
+</ResourceDictionary>

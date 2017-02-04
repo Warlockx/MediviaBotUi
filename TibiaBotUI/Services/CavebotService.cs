@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,39 +12,48 @@ namespace TibiaBotUI.Services
 {
     public class CavebotService
     {
-        private CavebotViewModel _cavebotViewModel;
+        private readonly CavebotViewModel _cavebotViewModel;
 
-        public CavebotService(CavebotViewModel cavebotViewModel)
+        private Waypoint CurrentWaypoint
         {
-            _cavebotViewModel = cavebotViewModel;
+            get { return _cavebotViewModel.CurrentWaypoint; }
+            set { _cavebotViewModel.CurrentWaypoint = value; }
         }
 
-
+        #region CavebotVariables
+        private bool CavebotEnabled => _cavebotViewModel.CavebotEnabled;
+        private ObservableCollection<Waypoint> WaypointList => _cavebotViewModel.WaypointList;
+        private bool WalkOnFire => _cavebotViewModel.WalkOnFire;
+        private bool WalkOnPoison => _cavebotViewModel.WalkOnPoison;
+        private bool WalkOnEnergy => _cavebotViewModel.WalkOnEnergy;
+        #endregion
         public void Start()
         {
             Task.Factory.StartNew(() =>
             {
-                while (true)
+                while (CavebotEnabled)
                 {
-                    Thread.Sleep(1000);
-                    if (!_cavebotViewModel.CavebotEnabled) continue;
+                    if (CurrentWaypoint == null)
+                        CurrentWaypoint = _cavebotViewModel.WaypointList.First();
 
-
-                    if (_cavebotViewModel.CurrentWaypoint == null)
-                        _cavebotViewModel.CurrentWaypoint = _cavebotViewModel.WaypointList.First();
-
-                    Waypoint currentWaypoint = _cavebotViewModel.CurrentWaypoint;
-                    string debugString = currentWaypoint.Type == WaypointType.Action
-                        ? $"Id = {currentWaypoint.Id} | Waypoint Type action, waiting 1000ms"
-                        : $"Id = {currentWaypoint.Id} | Walked into {currentWaypoint.Location.ToString()}";
+                    string debugString = CurrentWaypoint.Type == WaypointType.Action
+                        ? $"Id = {CurrentWaypoint.Id} | Waypoint Type action, waiting 1000ms"
+                        : $"Id = {CurrentWaypoint.Id} | Walked into {CurrentWaypoint.Location.ToString()}";
 
                     Console.WriteLine(debugString);
                     Thread.Sleep(1000);
 
-                    _cavebotViewModel.CurrentWaypoint = currentWaypoint == _cavebotViewModel.WaypointList.Last() ? _cavebotViewModel.WaypointList.First() : _cavebotViewModel.WaypointList[currentWaypoint.Id + 1]; 
+                    CurrentWaypoint = CurrentWaypoint == WaypointList.Last() ? WaypointList.First() : WaypointList[CurrentWaypoint.Id + 1];
                 }
 
             });
+        }
+
+
+
+        public CavebotService(CavebotViewModel cavebotViewModel)
+        {
+            _cavebotViewModel = cavebotViewModel;
         }
     }
 }
