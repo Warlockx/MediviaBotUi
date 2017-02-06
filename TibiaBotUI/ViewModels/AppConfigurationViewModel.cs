@@ -20,8 +20,7 @@ namespace TibiaBotUI.ViewModels
         private IHighlightingDefinition _highlightingDefinition;
         private ThemeBaseColors _baseTheme = ThemeBaseColors.BaseDark;
         private ThemeAccents _themeAccent = ThemeAccents.Crimson;
-
-
+      
         public IHighlightingDefinition HighlightingDefinition
         {
             get { return _highlightingDefinition; }

@@ -43,6 +43,10 @@
       <HintPath>..\packages\MahApps.Metro.1.4.1\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -76,6 +80,8 @@
     <Compile Include="Converters\RadioButtonToEnumConverter.cs" />
     <Compile Include="Converters\RemoveNewLineConverter.cs" />
     <Compile Include="Converters\WaypointRangeConverter.cs" />
+    <Compile Include="Models\HealerRule.cs" />
+    <Compile Include="Models\Spell.cs" />
     <Compile Include="Models\ThemeAccents.cs" />
     <Compile Include="Models\ThemeBaseColors.cs" />
     <Compile Include="Models\WaypointType.cs" />
@@ -83,9 +89,11 @@
     <Compile Include="Models\WaypointDirection.cs" />
     <Compile Include="Models\WaypointLocation.cs" />
     <Compile Include="Services\CavebotService.cs" />
+    <Compile Include="Services\SpellListProviderService.cs" />
     <Compile Include="Services\ThemingService.cs" />
     <Compile Include="ViewModels\AppConfigurationViewModel.cs" />
     <Compile Include="ViewModels\CavebotViewModel.cs" />
+    <Compile Include="ViewModels\HealerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="Converters.xaml">
       <SubType>Designer</SubType>
@@ -130,7 +138,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="LuaLight.xshd" />
     <EmbeddedResource Include="LuaDark.xshd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -138,6 +145,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="spells.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

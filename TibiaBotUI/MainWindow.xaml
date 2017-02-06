@@ -20,6 +20,7 @@
     <Window.Resources>
         <viewModels:CavebotViewModel x:Key="CavebotViewModel"/>
         <viewModels:AppConfigurationViewModel x:Key="AppConfigurationViewModel"/>
+        <viewModels:HealerViewModel x:Key="HealerViewModel"/>
     </Window.Resources>
     <!--Flyouts-->
     <controls:MetroWindow.Flyouts >
@@ -104,9 +105,23 @@
 
         <!--Main TabControl-->
         <TabControl Grid.Column="0" Name="MainTabControl" SelectedIndex="{Binding CurrentPage}">
-            <TabItem Name="HealerTab" TabIndex="0">
+            <TabItem Name="HealerTab" TabIndex="0" DataContext="{StaticResource HealerViewModel}" >
                 <Grid>
-                    <TextBlock Text="Healer" Style="{StaticResource HeaderText}"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Healer" Style="{StaticResource HeaderText}"/>
+                    <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Spell" Binding="{Binding Spell.Name}">
+                                
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <!--Cavebot Tab-->
