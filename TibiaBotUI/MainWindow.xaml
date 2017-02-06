@@ -20,7 +20,6 @@
     <Window.Resources>
         <viewModels:CavebotViewModel x:Key="CavebotViewModel"/>
         <viewModels:AppConfigurationViewModel x:Key="AppConfigurationViewModel"/>
-      
     </Window.Resources>
     <!--Flyouts-->
     <controls:MetroWindow.Flyouts >
@@ -36,6 +35,7 @@
                     <Button Content="Application Settings" Command="{Binding SwitchPage}" CommandParameter="6" Style="{StaticResource MainMenuButtons}"/>
                 </StackPanel>
             </controls:Flyout>
+            <!--Cavebot Flyout-->
             <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Theme="Adapt" IsOpen="{Binding EditingAction}" Header="Edit Action" MinWidth="420">
                 <Grid>
                     <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{DynamicResource FlyoutForegroundBrush}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
@@ -149,26 +149,31 @@
                    
                 </Grid>
             </TabItem>
+            <!--Targeting Tab-->
             <TabItem Name="TargetingTab" TabIndex="2">
                 <Grid>
                     <TextBlock Text="Targeting" Style="{StaticResource HeaderText}"/>
                 </Grid>
             </TabItem>
+            <!--Looting Tab-->
             <TabItem Name="LootingTab" TabIndex="3">
                 <Grid>
                     <TextBlock Text="Looting" Style="{StaticResource HeaderText}"/>
                 </Grid>
             </TabItem>
+            <!--Peristent Tab-->
             <TabItem Name="PesistentTab" TabIndex="4">
                 <Grid>
                     <TextBlock Text="Persistent" Style="{StaticResource HeaderText}"/>
                 </Grid>
             </TabItem>
+            <!--Hotkey Tab-->
             <TabItem Name="HotkeyTab" TabIndex="5">
                 <Grid>
                     <TextBlock Text="Hotkey" Style="{StaticResource HeaderText}"/>
                 </Grid>
             </TabItem>
+            <!--Application Settings Tab-->
             <TabItem Name="ApplicationSettingsTab" TabIndex="5" DataContext="{StaticResource AppConfigurationViewModel}">
                 <Grid>
                     <Grid.RowDefinitions>
