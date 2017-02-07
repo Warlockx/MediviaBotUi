@@ -7,20 +7,21 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TibiaBotUI.Models;
+using TibiaBotUI.Services;
 
 namespace TibiaBotUI.ViewModels
 {
     public class HealerViewModel : INotifyPropertyChanged
     {
-        private IEnumerable<Spell> _spells;
-        private ObservableCollection<HealerRule> _healerRules;
+        private ObservableCollection<Spell> _spells;
+        private ObservableCollection<HealerRule> _healerRules = new ObservableCollection<HealerRule>();
         private string _currentRuleName;
         private Spell _currentRuleSpell;
         private int _currentRuleMinTrigger;
         private int _currentRuleMaxTrigger;
         private int _currentRulePriority;
 
-        public IEnumerable<Spell> Spells
+        public ObservableCollection<Spell> Spells
         {
             get { return _spells; }
             set
@@ -115,6 +116,13 @@ namespace TibiaBotUI.ViewModels
                 _currentRulePriority = value;
                 OnPropertyChanged();
             }
+        }
+
+
+        public HealerViewModel()
+        {
+            Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
+            HealerRules.Add(new HealerRule("test",Spells?.First(),50,50,1));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

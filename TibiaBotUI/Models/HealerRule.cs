@@ -62,7 +62,15 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-       
+
+        public HealerRule(string name, Spell spell, int minTrigger, int maxTrigger, int priority)
+        {
+            _name = name;
+            _spell = spell;
+            _minTrigger = minTrigger;
+            _maxTrigger = maxTrigger;
+            _priority = priority;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

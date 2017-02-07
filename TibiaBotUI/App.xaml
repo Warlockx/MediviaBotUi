@@ -20,9 +20,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Crimson.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
                 
-                <ResourceDictionary Source="DataProviders.xaml" />
-                <ResourceDictionary Source="Converters.xaml" />
-                <ResourceDictionary Source="Styles.xaml" />
+                <ResourceDictionary Source="Resources/DataProviders.xaml" />
+                <ResourceDictionary Source="Resources/Converters.xaml" />
+                <ResourceDictionary Source="Resources/Styles.xaml" />
+                <ResourceDictionary Source="Resources/DataTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
         

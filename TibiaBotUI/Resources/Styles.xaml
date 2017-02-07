@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TibiaBotUI">
+                    xmlns:local="clr-namespace:TibiaBotUI"
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
     <Style x:Key="QuickMenuButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Width" Value="30"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -67,5 +68,8 @@
     </Style>
     <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
         <Setter Property="FontFamily" Value="Wingdings"/>
+    </Style>
+    <Style TargetType="DataGridCellsPresenter">
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
     </Style>
 </ResourceDictionary>

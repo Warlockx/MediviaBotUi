@@ -117,8 +117,14 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Spell" Binding="{Binding Spell.Name}">
-                                
+                            <DataGridTextColumn Header="Spell" Binding="{Binding ElementName=Spell,Path=Name}"/>
+                            <DataGridTextColumn Header="Range">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0}% ~ {1}%" Converter="{StaticResource HealTriggerRangeConverter}">
+                                        <Binding  Path="MinTrigger"/>
+                                        <Binding  Path="MaxTrigger"/>
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
@@ -142,20 +148,14 @@
                     <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5,5,5,5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
                     <DataGrid SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
                         <DataGrid.Columns>
+                            
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True"/>
-                            <DataGridComboBoxColumn Header="Type" ItemsSource="{Binding Source={StaticResource WaypointTypes}}" SelectedItemBinding="{Binding Type, UpdateSourceTrigger=PropertyChanged}"  EditingElementStyle="{StaticResource {x:Type ComboBox}}"/>
-                            <DataGridTextColumn Binding="{Binding Label}" Header="Label"/>
-                            <DataGridTextColumn Binding="{Binding Location, Converter={StaticResource LocationContentConverter}}" Header="Location"/>
-                            <DataGridTextColumn Header="Range">
-                                <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0} x {1}" Converter="{StaticResource WaypointRangeConverter}">
-                                        <Binding  Path="XWaypointRange" />
-                                        <Binding  Path="YWaypointRange" />
-                                    </MultiBinding>
-                                </DataGridTextColumn.Binding>
-                            </DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Type" CellTemplate="{StaticResource WaypointTypeDataTemplate}" CellEditingTemplate="{StaticResource WaypointTypeEditingDataTemplate}"/>
+                             <DataGridTextColumn Binding="{Binding Label}" Header="Label"/>
+                            <DataGridTemplateColumn Header="Location" CellTemplate="{StaticResource WaypoinLocationDataTemplate}" CellEditingTemplate="{StaticResource WaypoinLocationEditingDataTemplate}"/>
+                            <DataGridTemplateColumn Header="Range" CellTemplate="{StaticResource WaypointRangeDataTemplate}" CellEditingTemplate="{StaticResource WaypointRangeEditingDataTemplate}"/>
                             <DataGridTextColumn Header="Action" Binding="{Binding Action, Converter={StaticResource RemoveNewLineConverter}}" IsReadOnly="True" Width="*"/>
-                        </DataGrid.Columns>
+                              </DataGrid.Columns>
 
                         <DataGrid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditWaypointAction}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}" />

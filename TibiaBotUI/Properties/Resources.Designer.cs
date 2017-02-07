@@ -59,14 +59,5 @@ namespace TibiaBotUI.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Id = {0} | Waypoint Type action, waiting 1000ms.
-        /// </summary>
-        internal static string CavebotService_Start_ {
-            get {
-                return ResourceManager.GetString("CavebotService_Start_", resourceCulture);
-            }
-        }
     }
 }

@@ -60,6 +60,7 @@ namespace TibiaBotUI.ViewModels
         {
             using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream("TibiaBotUI.LuaDark.xshd"))
             {
+                if (s == null) return;
                 using (XmlTextReader reader = new XmlTextReader(s))
                 {
                     HighlightingDefinition = HighlightingLoader.Load(reader, HighlightingManager.Instance);

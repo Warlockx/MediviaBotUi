@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,31 +13,37 @@ using TibiaBotUI.Models;
 
 namespace TibiaBotUI.Services
 {
-    public class SpellListProviderService
+    public static class SpellListProviderService
     {
-        public static IEnumerable<Spell> LoadSpells(string filter)
+        public static IEnumerable<Spell> LoadSpells(SpellGroup filter)
         {
-            string fileLocation = $@"{Directory.GetCurrentDirectory()}\spells.json";
-            if (File.Exists(fileLocation))
+            Stream fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TibiaBotUI.Resources.spells.json");
+            if (fileStream == null) return new List<Spell>();
+            try
             {
-                try
-                {
-                    string json = File.ReadAllText(fileLocation);
+                StreamReader reader = new StreamReader(fileStream);
+                string json = reader.ReadToEnd();
 
-                    IEnumerable<Spell> spells = JsonConvert.DeserializeObject<IEnumerable<Spell>>(json);
+                if (string.IsNullOrWhiteSpace(json)) return new List<Spell>();
 
-                    return string.IsNullOrEmpty(filter) ? spells : spells.Where(s => s.Type == filter);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show($"{e.Message} at {nameof(LoadSpells)}.");
-                }
+                IEnumerable<Spell> spells = JsonConvert.DeserializeObject<IEnumerable<Spell>>(json);
+                reader.Dispose();
+                fileStream.Dispose();
+                return string.IsNullOrEmpty(filter.ToString())
+                    ? spells
+                    : spells.Where(s => s.Group == filter.ToString());
             }
-            else
+            catch (Exception e)
             {
-                MessageBox.Show($"Error: spell.json couldnt be found at = {fileLocation}.");
+#if DEBUG
+                Console.WriteLine($"{e.Message} at {nameof(LoadSpells)}.");
+#endif
+#if RELEASE
+                MessageBox.Show($"{e.Message} at {nameof(LoadSpells)}.");
+#endif
             }
             return new List<Spell>();
         }
     }
+
 }

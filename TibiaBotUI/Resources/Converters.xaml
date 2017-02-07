@@ -6,7 +6,6 @@
     <converters:CheckboxContentConverter x:Key="CheckboxContentConverter"/>
     <converters:RemoveNewLineConverter x:Key="RemoveNewLineConverter"/>
     <converters:RadioButtonToEnumConverter x:Key="RadioButtonToEnumConverter"/>
-    <converters:LocationContentConverter x:Key="LocationContentConverter"/>
     <converters:DummyConverter x:Key="DummyConverter"/>
-    <converters:WaypointRangeConverter x:Key="WaypointRangeConverter"/>
+    <converters:HealTriggerRangeConverter x:Key="HealTriggerRangeConverter"/>
 </ResourceDictionary>

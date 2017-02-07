@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
+    <DataTemplate x:Key="WaypointRangeDataTemplate">
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} x {1}">
+                    <!--Converter="{StaticResource WaypointRangeConverter}"-->
+                    <Binding  Path="XWaypointRange" />
+                    <Binding  Path="YWaypointRange" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="WaypointRangeEditingDataTemplate">
+        <StackPanel Orientation="Horizontal">
+            <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Minimum="1" Maximum="5" Value="{Binding XWaypointRange}"/>
+            <TextBlock Text="x"/>
+            <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Minimum="1" Maximum="5" Value="{Binding YWaypointRange}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="WaypoinLocationDataTemplate">
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0},{1},{2}">
+                    <Binding Path="Location.X"/>
+                    <Binding Path="Location.Y"/>
+                    <Binding Path="Location.Z"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="WaypoinLocationEditingDataTemplate">
+        <StackPanel Orientation="Horizontal">
+            <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Value="{Binding Location.X}"/>
+            <TextBlock Text=","/>
+            <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Value="{Binding Location.Y}"/>
+            <TextBlock Text=","/>
+            <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Value="{Binding Location.Z}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="WaypointTypeDataTemplate">
+        <TextBlock Text="{Binding Type}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="WaypointTypeEditingDataTemplate">
+        <ComboBox ItemsSource="{Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"/>
+    </DataTemplate>
+</ResourceDictionary>
