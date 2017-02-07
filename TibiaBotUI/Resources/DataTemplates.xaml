@@ -13,7 +13,7 @@
         </TextBlock>
     </DataTemplate>
     <DataTemplate x:Key="WaypointRangeEditingDataTemplate">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Minimum="1" Maximum="5" Value="{Binding XWaypointRange}"/>
             <TextBlock Text="x"/>
             <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Minimum="1" Maximum="5" Value="{Binding YWaypointRange}"/>
@@ -31,7 +31,7 @@
         </TextBlock>
     </DataTemplate>
     <DataTemplate x:Key="WaypoinLocationEditingDataTemplate">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Value="{Binding Location.X}"/>
             <TextBlock Text=","/>
             <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Value="{Binding Location.Y}"/>
@@ -39,7 +39,7 @@
             <controls:NumericUpDown MinWidth="10" HideUpDownButtons="True" Value="{Binding Location.Z}"/>
         </StackPanel>
     </DataTemplate>
-    <DataTemplate x:Key="WaypointTypeDataTemplate">
+    <DataTemplate x:Key="WaypointTypeDataTemplate" >
         <TextBlock Text="{Binding Type}"/>
     </DataTemplate>
     <DataTemplate x:Key="WaypointTypeEditingDataTemplate">

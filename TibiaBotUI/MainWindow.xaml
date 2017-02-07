@@ -53,7 +53,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="100"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -65,21 +65,21 @@
                     </Grid.ColumnDefinitions>
 
                   
-                    <TextBlock Margin="5,2,5,2" Text="Type" Grid.Column="0" Grid.Row="2"/>
+                    <TextBlock Margin="10,2,5,2" Text="Type" Grid.Column="0" Grid.Row="2"/>
                     <ComboBox ItemsSource="{ Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding WaypointType}" Margin="5,2,5,2"  Grid.Column="1" Grid.Row="2" />
-                    <TextBlock Margin="5,2,5,2"  Text="Range" Grid.Row="3" Grid.Column="0"/>
+                    <TextBlock Margin="10,2,5,2"  Text="Range" Grid.Row="3" Grid.Column="0"/>
                     <StackPanel  Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="5">
                         <controls:NumericUpDown Value="{Binding XWaypointRange}" Minimum="1" Maximum="5"/>
                         <controls:NumericUpDown  Value="{Binding YWaypointRange}" Minimum="1" Maximum="5"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel Grid.Row="4" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add" HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
                         <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
                     </StackPanel>
-                    <TextBlock Text="Additional Configurations" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
-                    <CheckBox IsChecked="{Binding WalkOnFire}" Margin="5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Fire"/>
-                    <CheckBox IsChecked="{Binding WalkOnPoison}" Margin="5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Poison"/>
-                    <CheckBox IsChecked="{Binding WalkOnEnergy}" Margin="5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Energy"/>
+                    <TextBlock Text="Additional Configurations" Margin="10,50,0,0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <CheckBox IsChecked="{Binding WalkOnFire}" Margin="10,5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Fire"/>
+                    <CheckBox IsChecked="{Binding WalkOnPoison}" Margin="10,5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Poison"/>
+                    <CheckBox IsChecked="{Binding WalkOnEnergy}" Margin="10,5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Energy"/>
                     <WrapPanel Margin="0,30,0,30" Width="120"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
                         <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
                         <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
@@ -148,14 +148,13 @@
                     <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5,5,5,5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
                     <DataGrid SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
                         <DataGrid.Columns>
-                            
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True"/>
                             <DataGridTemplateColumn Header="Type" CellTemplate="{StaticResource WaypointTypeDataTemplate}" CellEditingTemplate="{StaticResource WaypointTypeEditingDataTemplate}"/>
                              <DataGridTextColumn Binding="{Binding Label}" Header="Label"/>
                             <DataGridTemplateColumn Header="Location" CellTemplate="{StaticResource WaypoinLocationDataTemplate}" CellEditingTemplate="{StaticResource WaypoinLocationEditingDataTemplate}"/>
                             <DataGridTemplateColumn Header="Range" CellTemplate="{StaticResource WaypointRangeDataTemplate}" CellEditingTemplate="{StaticResource WaypointRangeEditingDataTemplate}"/>
                             <DataGridTextColumn Header="Action" Binding="{Binding Action, Converter={StaticResource RemoveNewLineConverter}}" IsReadOnly="True" Width="*"/>
-                              </DataGrid.Columns>
+                         </DataGrid.Columns>
 
                         <DataGrid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditWaypointAction}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}" />
