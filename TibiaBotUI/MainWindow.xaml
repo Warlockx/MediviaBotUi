@@ -103,7 +103,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
 
         <ToggleButton Style="{StaticResource BurgerMainButton}" IsChecked="{Binding ActiveMainMenu}" Grid.Column="0" Name="MainManuToggle" Content="≡" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
@@ -117,8 +117,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Healer" Style="{StaticResource HeaderText}"/>
-                 
-                    <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
+                    <DataGrid x:Name="HealerRulesDatagrid" Grid.Row="2" Margin="5" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -151,21 +150,22 @@
                     <TextBlock Grid.Column="1"  Grid.Row="0" Text="Cavebot" Style="{StaticResource HeaderText}"/>
                     <CheckBox FontSize="15" Margin="10,0,20,0" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Content="{Binding CavebotEnabled, Converter={StaticResource CheckboxContentConverter}}" IsChecked="{Binding CavebotEnabled}" />
                     <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5,5,5,5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
+
                     <DataGrid SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True"/>
                             <DataGridTemplateColumn Header="Type" CellTemplate="{StaticResource WaypointTypeDataTemplate}" CellEditingTemplate="{StaticResource WaypointTypeEditingDataTemplate}"/>
-                             <DataGridTextColumn Binding="{Binding Label}" Header="Label"/>
+                            <DataGridTextColumn Binding="{Binding Label}" Header="Label"/>
                             <DataGridTemplateColumn Header="Location" CellTemplate="{StaticResource WaypoinLocationDataTemplate}" CellEditingTemplate="{StaticResource WaypoinLocationEditingDataTemplate}"/>
                             <DataGridTemplateColumn Header="Range" CellTemplate="{StaticResource WaypointRangeDataTemplate}" CellEditingTemplate="{StaticResource WaypointRangeEditingDataTemplate}"/>
                             <DataGridTextColumn Header="Action" Binding="{Binding Action, Converter={StaticResource RemoveNewLineConverter}}" IsReadOnly="True" Width="*"/>
-                         </DataGrid.Columns>
+                        </DataGrid.Columns>
 
                         <DataGrid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditWaypointAction}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}" />
                         </DataGrid.InputBindings>
                     </DataGrid>
-                   
+
                 </Grid>
             </TabItem>
             <!--Targeting Tab-->
@@ -218,6 +218,6 @@
 
 
     </Grid>
-    
+
 </controls:MetroWindow>
 

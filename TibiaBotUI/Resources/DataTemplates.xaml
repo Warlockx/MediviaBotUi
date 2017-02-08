@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls" xmlns:TibiaBotUI="clr-namespace:TibiaBotUI">
     <DataTemplate x:Key="WaypointRangeDataTemplate">
         <TextBlock>
             <TextBlock.Text>
@@ -46,14 +46,10 @@
         <ComboBox ItemsSource="{Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"/>
     </DataTemplate>
     <DataTemplate x:Key="HealRuleNameDataTemplate">
-       <TextBlock>
-            <TextBlock.Text>
-                <Binding Path="Spell.Name"/>
-            </TextBlock.Text>
-        </TextBlock>
+        <TextBlock Text="{Binding Spell.Name}"/>
     </DataTemplate>
     <DataTemplate x:Key="HealRuleNameEditingDataTemplate">
-        <ComboBox  />
+        <ComboBox ItemsSource="{Binding DataContext.Spells, ElementName=HealerRulesDatagrid}" SelectedItem="{Binding Spell}" DisplayMemberPath="Name"/>
     </DataTemplate>
     <DataTemplate x:Key="HealRuleRangeEditingDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="{DynamicResource ControlBackgroundBrush}">
