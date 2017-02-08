@@ -72,4 +72,15 @@
     <Style TargetType="DataGridCellsPresenter">
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
     </Style>
+    <Style x:Key="BordelessNumericUpDown" TargetType="controls:NumericUpDown">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="MinWidth" Value="10"/>
+        <Setter Property="HideUpDownButtons" Value="True"/>
+    </Style>
+    <Style x:Key="ThresholdNumericUpDown" TargetType="controls:NumericUpDown">
+        <Setter Property="Margin" Value="10,5"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="255"/>
+        <Setter Property="ToolTip" Value="Amount of sqm's before the pathfinding considers walking on this field. 0 = Aways walk on fields. X = path betwhen a and b > x, if walking on top of the field is faster, do it."></Setter>
+    </Style>
 </ResourceDictionary>

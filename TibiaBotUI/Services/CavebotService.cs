@@ -23,9 +23,9 @@ namespace TibiaBotUI.Services
         #region CavebotVariables
         private bool CavebotEnabled => _cavebotViewModel.CavebotEnabled;
         private ObservableCollection<Waypoint> WaypointList => _cavebotViewModel.WaypointList;
-        private bool WalkOnFire => _cavebotViewModel.WalkOnFire;
-        private bool WalkOnPoison => _cavebotViewModel.WalkOnPoison;
-        private bool WalkOnEnergy => _cavebotViewModel.WalkOnEnergy;
+        private int WalkOnFire => _cavebotViewModel.WalkOnFireThreshold;
+        private int WalkOnPoison => _cavebotViewModel.WalkOnPoisonThreshold;
+        private int WalkOnEnergy => _cavebotViewModel.WalkOnEnergyThreshold;
         #endregion
         public void Start()
         {
@@ -38,7 +38,7 @@ namespace TibiaBotUI.Services
 
                     string debugString = CurrentWaypoint.Type == WaypointType.Action
                         ? $"Id = {CurrentWaypoint.Id} | Waypoint Type action, waiting 1000ms"
-                        : $"Id = {CurrentWaypoint.Id} | Walked into {CurrentWaypoint.Location.ToString()}";
+                        : $"Id = {CurrentWaypoint.Id} | Walked into {CurrentWaypoint.Location}";
 
                     Console.WriteLine(debugString);
                     Thread.Sleep(1000);

@@ -105,6 +105,7 @@
     <Compile Include="Models\Waypoint.cs" />
     <Compile Include="Models\WaypointDirection.cs" />
     <Compile Include="Models\WaypointLocation.cs" />
+    <Compile Include="Properties\Annotations7.cs" />
     <Compile Include="Services\CavebotService.cs" />
     <Compile Include="Services\SpellListProviderService.cs" />
     <Compile Include="Services\ThemingService.cs" />

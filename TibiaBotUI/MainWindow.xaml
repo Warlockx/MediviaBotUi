@@ -58,13 +58,12 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
-                  
                     <TextBlock Margin="10,2,5,2" Text="Type" Grid.Column="0" Grid.Row="2"/>
                     <ComboBox ItemsSource="{ Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding WaypointType}" Margin="5,2,5,2"  Grid.Column="1" Grid.Row="2" />
                     <TextBlock Margin="10,2,5,2"  Text="Range" Grid.Row="3" Grid.Column="0"/>
@@ -73,13 +72,18 @@
                         <controls:NumericUpDown  Value="{Binding YWaypointRange}" Minimum="1" Maximum="5"/>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Add" HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
-                        <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                        <Button Style="{StaticResource MetroCircleButtonStyle}" ToolTip="Add" HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                        <Button Style="{StaticResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
                     </StackPanel>
-                    <TextBlock Text="Additional Configurations" Margin="10,50,0,0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
-                    <CheckBox IsChecked="{Binding WalkOnFire}" Margin="10,5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Fire"/>
-                    <CheckBox IsChecked="{Binding WalkOnPoison}" Margin="10,5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Poison"/>
-                    <CheckBox IsChecked="{Binding WalkOnEnergy}" Margin="10,5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Content="Walk on Energy"/>
+                    <TextBlock Text="Additional Configurations" Margin="10,30,0,0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <TextBlock Margin="10,0" Text="Walk On Fire" Grid.Row="6" Grid.Column="0"/>
+                    <controls:NumericUpDown Style="{StaticResource ThresholdNumericUpDown}" Grid.Row="6" Grid.Column="1" Value="{Binding WalkOnFireThreshold}"/>
+                    <TextBlock Margin="10,0" Text="Walk On Energy" Grid.Row="7" Grid.Column="0"/>
+                    <controls:NumericUpDown Style="{StaticResource ThresholdNumericUpDown}" Grid.Row="7" Grid.Column="1" Value="{Binding WalkOnEnergyThreshold}"/>
+                    <TextBlock Margin="10,0" Text="Walk On Poison" Grid.Row="8" Grid.Column="0"/>
+                    <controls:NumericUpDown Style="{StaticResource ThresholdNumericUpDown}" Grid.Row="8" Grid.Column="1" Value="{Binding WalkOnPoisonThreshold}"/>
+                    <TextBlock Margin="10,0" Text="Walkable Ids" Grid.Row="9" Grid.Column="0"/>
+                    <TextBox Margin="10,5" Text="{Binding WalkableIds}" Grid.Row="9" Grid.Column="1"/>
                     <WrapPanel Margin="0,30,0,30" Width="120"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
                         <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
                         <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
@@ -113,11 +117,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Healer" Style="{StaticResource HeaderText}"/>
+                 
                     <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Spell" Binding="{Binding ElementName=Spell,Path=Name}"/>
+                            <DataGridTemplateColumn Header="Spell" CellTemplate="{StaticResource HealRuleNameDataTemplate}" CellEditingTemplate="{StaticResource HealRuleNameEditingDataTemplate}"/>
                             <DataGridTextColumn Header="Range">
                                 <DataGridTextColumn.Binding>
                                     <MultiBinding StringFormat="{}{0}% ~ {1}%" Converter="{StaticResource HealTriggerRangeConverter}">

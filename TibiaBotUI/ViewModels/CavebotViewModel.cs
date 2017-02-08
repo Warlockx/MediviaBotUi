@@ -26,9 +26,9 @@ namespace TibiaBotUI.ViewModels
         private int _yWaypointRange = 1;
         private string _actionCode;
         private readonly CavebotService _cavebotService;
-        private bool _walkOnFire;
-        private bool _walkOnPoison;
-        private bool _walkOnEnergy;
+        private int _walkOnFireThreshold;
+        private int _walkOnPoisonThreshold;
+        private int _walkOnEnergyThreshold;
 
         public ICommand AddWaypoint { get; set; }
         public ICommand EditWaypointAction { get; set; }
@@ -89,6 +89,7 @@ namespace TibiaBotUI.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public bool EditingAction
         {
             get { return _editingAction; }
@@ -99,7 +100,6 @@ namespace TibiaBotUI.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
         public int XWaypointRange
         {
@@ -145,33 +145,35 @@ namespace TibiaBotUI.ViewModels
             }
         }
 
-        public bool WalkOnFire
+        public int WalkOnFireThreshold
         {
-            get { return _walkOnFire; }
+            get { return _walkOnFireThreshold; }
             set
             {
-                if (value == _walkOnFire) return;
-                _walkOnFire = value;
+                if (value == _walkOnFireThreshold) return;
+                _walkOnFireThreshold = value;
                 OnPropertyChanged();
             }
         }
-        public bool WalkOnPoison
+
+        public int WalkOnPoisonThreshold
         {
-            get { return _walkOnFire; }
+            get { return _walkOnFireThreshold; }
             set
             {
-                if (value == _walkOnPoison) return;
-                _walkOnPoison = value;
+                if (value == _walkOnPoisonThreshold) return;
+                _walkOnPoisonThreshold = value;
                 OnPropertyChanged();
             }
         }
-        public bool WalkOnEnergy
+
+        public int WalkOnEnergyThreshold
         {
-            get { return _walkOnEnergy; }
+            get { return _walkOnEnergyThreshold; }
             set
             {
-                if (value == _walkOnEnergy) return;
-                _walkOnEnergy = value;
+                if (value == _walkOnEnergyThreshold) return;
+                _walkOnEnergyThreshold = value;
                 OnPropertyChanged();
             }
         }

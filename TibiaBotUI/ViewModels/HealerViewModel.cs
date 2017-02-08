@@ -13,7 +13,7 @@ namespace TibiaBotUI.ViewModels
 {
     public class HealerViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Spell> _spells;
+        private ObservableCollection<Spell> _spells = new ObservableCollection<Spell>();
         private ObservableCollection<HealerRule> _healerRules = new ObservableCollection<HealerRule>();
         private string _currentRuleName;
         private Spell _currentRuleSpell;
@@ -122,7 +122,7 @@ namespace TibiaBotUI.ViewModels
         public HealerViewModel()
         {
             Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
-            HealerRules.Add(new HealerRule("test",Spells?.First(),50,50,1));
+            HealerRules.Add(new HealerRule("test", Spells?.First(), 50, 50, 1));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
