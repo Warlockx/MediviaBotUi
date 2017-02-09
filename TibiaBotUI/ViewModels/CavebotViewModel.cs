@@ -29,6 +29,7 @@ namespace TibiaBotUI.ViewModels
         private int _walkOnFireThreshold;
         private int _walkOnPoisonThreshold;
         private int _walkOnEnergyThreshold;
+        private int[] _walkableIds;
 
         public ICommand AddWaypoint { get; set; }
         public ICommand EditWaypointAction { get; set; }
@@ -174,6 +175,17 @@ namespace TibiaBotUI.ViewModels
             {
                 if (value == _walkOnEnergyThreshold) return;
                 _walkOnEnergyThreshold = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int[] WalkableIds
+        {
+            get { return _walkableIds; }
+            set
+            {
+                if(value == _walkableIds) return;
+                _walkableIds = value;
                 OnPropertyChanged();
             }
         }
