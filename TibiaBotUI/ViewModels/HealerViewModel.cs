@@ -122,7 +122,9 @@ namespace TibiaBotUI.ViewModels
         public HealerViewModel()
         {
             Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
-            HealerRules.Add(new HealerRule("test", Spells?.First(), 50, 50, 1));
+            HealerRules.Add(new HealerRule("test", Spells?.First(),"hppc >=", 50, 50,1));
+            HealerRules.Add(new HealerRule("test", Spells?.Last(), "hppc >=", 50, 50, 2));
+            HealerRules.Add(new HealerRule("test", Spells?.First(), "hppc >=", 50, 50, 3));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

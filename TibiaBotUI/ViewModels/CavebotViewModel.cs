@@ -247,14 +247,14 @@ namespace TibiaBotUI.ViewModels
 
         private void _deleteWaypoint(object obj)
         {
-            Waypoint waypoint = (Waypoint) obj;
-            if (waypoint == null) return;
-            foreach (Waypoint _waypoint in WaypointList)
+            Waypoint selectedWaypoint = (Waypoint) obj;
+            if (selectedWaypoint == null) return;
+            foreach (Waypoint waypoint in WaypointList)
             {
-                if (_waypoint.Id >= waypoint.Id)
-                    _waypoint.Id = _waypoint.Id - 1;
+                if (waypoint.Id >= selectedWaypoint.Id)
+                    waypoint.Id = waypoint.Id - 1;
             }
-            WaypointList.Remove(waypoint);
+            WaypointList.Remove(selectedWaypoint);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

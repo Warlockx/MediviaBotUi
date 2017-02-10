@@ -51,11 +51,25 @@
     <DataTemplate x:Key="HealRuleNameEditingDataTemplate">
         <ComboBox ItemsSource="{Binding DataContext.Spells, ElementName=HealerRulesDatagrid}" SelectedItem="{Binding Spell}" DisplayMemberPath="Name"/>
     </DataTemplate>
+
+    <DataTemplate x:Key="HealRuleRangeDataTemplate">
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0} {1} ~ {2}">
+                    <Binding Path="TriggerType"/>
+                    <Binding Path="MinTrigger"/>
+                    <Binding Path="MaxTrigger"/>
+                 
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
     <DataTemplate x:Key="HealRuleRangeEditingDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="{DynamicResource ControlBackgroundBrush}">
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Maximum="5" Value="{Binding XWaypointRange}"/>
-            <TextBlock Text="x"/>
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Maximum="5" Value="{Binding YWaypointRange}"/>
+            <TextBlock Text="{Binding TriggerType}"/>
+            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Value="{Binding MinTrigger}"/>
+            <TextBlock Text="~"/>
+            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Value="{Binding MaxTrigger}"/>
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
