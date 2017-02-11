@@ -81,6 +81,19 @@
         <Setter Property="Margin" Value="10,5"/>
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Maximum" Value="255"/>
-        <Setter Property="ToolTip" Value="Amount of sqm's before the pathfinding considers walking on this field. 0 = Aways walk on fields. X = path betwhen a and b > x, if walking on top of the field is faster, do it."></Setter>
+        <Setter Property="ToolTip" Value="Amount of sqm's before the pathfinding considers walking on this field. 0 = Aways walk on fields. X = path betwhen a and b > x, if walking on top of the field is faster, do it."/>
+    </Style>
+    <Style x:Key="RoundButtons" TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="FontFamily" Value="Webdings"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+    <Style x:Key="SpamRateNumericUpDown" TargetType="controls:NumericUpDown">
+        <Setter Property="Interval" Value="100"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Minimum" Value="100"/>
+        <Setter Property="StringFormat" Value="# ms"/>
     </Style>
 </ResourceDictionary>

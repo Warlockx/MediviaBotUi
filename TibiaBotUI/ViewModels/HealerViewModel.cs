@@ -20,6 +20,8 @@ namespace TibiaBotUI.ViewModels
         private int _currentRuleMinTrigger;
         private int _currentRuleMaxTrigger;
         private int _currentRulePriority;
+        private bool _healerEnabled;
+        private int _currentHealerTab;
 
         public ObservableCollection<Spell> Spells
         {
@@ -114,6 +116,28 @@ namespace TibiaBotUI.ViewModels
             {
                 if (value == _currentRulePriority) return;
                 _currentRulePriority = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool HealerEnabled
+        {
+            get { return _healerEnabled; }
+            set
+            {
+                if(value == _healerEnabled) return;
+                _healerEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int CurrentHealerTab
+        {
+            get { return _currentHealerTab; }
+            set
+            {
+                if (value == _currentHealerTab) return;
+                _currentHealerTab = value;
                 OnPropertyChanged();
             }
         }

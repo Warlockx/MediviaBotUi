@@ -72,8 +72,8 @@
                         <controls:NumericUpDown  Value="{Binding YWaypointRange}" Minimum="1" Maximum="5"/>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button Style="{StaticResource MetroCircleButtonStyle}" ToolTip="Add" HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
-                        <Button Style="{StaticResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                        <Button Style="{StaticResource RoundButtons}" ToolTip="Add"  Content="a" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
+                        <Button Style="{StaticResource RoundButtons}" ToolTip="Delete" Content="r" Command="{Binding DeleteWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
                     </StackPanel>
                     <TextBlock Text="Additional Configurations" Margin="0,30,0,0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
                     <TextBlock Text="Walk On Fire" Grid.Row="6" Grid.Column="0"/>
@@ -97,6 +97,42 @@
                     </WrapPanel>
                 </Grid>
             </controls:Flyout>
+            <controls:Flyout MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" IsOpen="{Binding ElementName=EditHealerToggleButton, Path=IsChecked}" Grid.ColumnSpan="2" Position="Right">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding SelectedItem.Header, ElementName=HealerRulesTabControl}"/>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding HealCollectionItems}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Text="Condition"/>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" ItemsSource="{Binding Conditions}"/>
+                    <controls:NumericUpDown Margin="5" Grid.Row="2" Grid.Column="1"/>
+                    <controls:NumericUpDown Margin="5" Grid.Row="2" Grid.Column="2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
+                    <controls:NumericUpDown Margin="5" Grid.Column="1" Grid.Row="3" Minimum="1"/>
+                    <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
+                    <controls:NumericUpDown Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
+                    <controls:NumericUpDown Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
+                    <CheckBox Margin="0,30,0,0" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Enabled"/>
+                    <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
+                    <StackPanel Grid.Row="7" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button Style="{StaticResource RoundButtons}" ToolTip="Add"  Content="a" Command="{Binding AddRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
+                        <Button Style="{StaticResource RoundButtons}" ToolTip="Delete" Content="r" Command="{Binding DeleteRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
+                    </StackPanel>
+                </Grid>
+            </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
     <Grid>
@@ -111,22 +147,32 @@
         <TabControl Grid.Column="0" Name="MainTabControl" SelectedIndex="{Binding CurrentPage}">
             <TabItem Name="HealerTab" TabIndex="0" DataContext="{StaticResource HealerViewModel}" >
                 <Grid>
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Healer" Style="{StaticResource HeaderText}"/>
-                    <DataGrid SelectionMode="Single" x:Name="HealerRulesDatagrid" Grid.Row="2" Margin="5" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
-                            <!--change to template numeric and command-->
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTemplateColumn Header="Spell" CellTemplate="{StaticResource HealRuleNameDataTemplate}" CellEditingTemplate="{StaticResource HealRuleNameEditingDataTemplate}"/>
-                            <DataGridTemplateColumn Header="Condition" CellTemplate="{StaticResource HealRuleRangeDataTemplate}" CellEditingTemplate="{StaticResource HealRuleRangeEditingDataTemplate}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <CheckBox  Margin="10,0,20,0" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" IsChecked="{Binding HealerEnabled}" Content="{Binding HealerEnabled, Converter={StaticResource CheckboxContentConverter}}"/>
+                    <ToggleButton Name="EditHealerToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5" Content="Edit Rules" Grid.Column="0" Grid.Row="1"/>
+
+                    <controls:MetroAnimatedTabControl Grid.Row="2" Name="HealerRulesTabControl" SelectedIndex="{Binding CurrentHealerTab}">
+                        <TabItem Header="Spell" controls:ControlsHelper.HeaderFontSize="15" controls:ControlsHelper.HeaderFontWeight="Bold">
+                            <DataGrid SelectionMode="Single" x:Name="HealerRulesDatagrid" Margin="5" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
+                                    <!--change to template numeric and command-->
+                                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                    <DataGridTemplateColumn Header="Spell" CellTemplate="{StaticResource HealRuleNameDataTemplate}" CellEditingTemplate="{StaticResource HealRuleNameEditingDataTemplate}"/>
+                                    <DataGridTemplateColumn Header="Condition" CellTemplate="{StaticResource HealRuleRangeDataTemplate}" CellEditingTemplate="{StaticResource HealRuleRangeEditingDataTemplate}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Potion" controls:ControlsHelper.HeaderFontSize="15" controls:ControlsHelper.HeaderFontWeight="Bold" >
+                          
+                        </TabItem>
+                    </controls:MetroAnimatedTabControl>
+                    
                 </Grid>
             </TabItem>
             <!--Cavebot Tab-->
@@ -144,8 +190,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="1"  Grid.Row="0" Text="Cavebot" Style="{StaticResource HeaderText}"/>
                     <CheckBox FontSize="15" Margin="10,0,20,0" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Content="{Binding CavebotEnabled, Converter={StaticResource CheckboxContentConverter}}" IsChecked="{Binding CavebotEnabled}" />
-                    <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5,5,5,5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
-
+                    <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
                     <DataGrid SelectionMode="Single" SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True"/>
@@ -210,42 +255,7 @@
             </TabItem>
         </TabControl>
 
-        <controls:Flyout MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" IsOpen="True" Grid.ColumnSpan="2" Position="Right">
-            <Grid Margin="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding HealCollectionName}"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding HealCollectionItems}"/>
-                <TextBlock Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Text="Condition"/>
-                <ComboBox Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" ItemsSource="{Binding Conditions}"/>
-                <controls:NumericUpDown Grid.Row="2" Grid.Column="1"/>
-                <controls:NumericUpDown Grid.Row="2" Grid.Column="2"/>
-                <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
-                <controls:NumericUpDown Grid.Column="1" Grid.Row="3" Minimum="1"/>
-                <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
-                <controls:NumericUpDown Grid.Column="1" Grid.Row="4" />
-                <controls:NumericUpDown Grid.Column="2" Grid.Row="4" />
-                <CheckBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Enabled"/>
-                <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
-                <StackPanel Grid.Row="7" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button Style="{StaticResource MetroCircleButtonStyle}" ToolTip="Add" HorizontalAlignment="Right" Width="60" FontFamily="Webdings" FontSize="15" Margin="5"  Content="a" Command="{Binding AddRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
-                    <Button Style="{StaticResource MetroCircleButtonStyle}" ToolTip="Delete" HorizontalAlignment="Left" Width="60" FontFamily="Webdings" FontSize="15" Margin="5" Content="r" Command="{Binding DeleteRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
-                </StackPanel>
-            </Grid>
-        </controls:Flyout>
+       
 
     </Grid>
 
