@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using TibiaBotUI.Commands;
 using TibiaBotUI.Models;
 using TibiaBotUI.Services;
 
@@ -15,14 +17,12 @@ namespace TibiaBotUI.ViewModels
     {
         private ObservableCollection<Spell> _spells = new ObservableCollection<Spell>();
         private ObservableCollection<HealerRule> _healerRules = new ObservableCollection<HealerRule>();
-        private string _currentRuleName;
-        private Spell _currentRuleSpell;
-        private int _currentRuleMinTrigger;
-        private int _currentRuleMaxTrigger;
-        private int _currentRulePriority;
+        private HealerRule _currentHealerRule;
         private bool _healerEnabled;
         private int _currentHealerTab;
 
+        public ICommand AddRule { get; set; }
+        public ICommand DeleteRule { get; set; }
         public ObservableCollection<Spell> Spells
         {
             get { return _spells; }
@@ -48,78 +48,7 @@ namespace TibiaBotUI.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public string CurrentRuleName
-        {
-            get { return _currentRuleName; }
-            set
-            {
-                if (value == _currentRuleName) return;
-                _currentRuleName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Spell CurrentRuleSpell
-        {
-            get
-            {
-                return _currentRuleSpell;
-            }
-
-            set
-            {
-                if(value == _currentRuleSpell) return;
-                _currentRuleSpell = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int CurrentRuleMinTrigger
-        {
-            get
-            {
-                return _currentRuleMinTrigger;
-            }
-
-            set
-            {
-                if (value == _currentRuleMinTrigger) return;
-                _currentRuleMinTrigger = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int CurrentRuleMaxTrigger
-        {
-            get
-            {
-                return _currentRuleMaxTrigger;
-            }
-
-            set
-            {
-                if (value == _currentRuleMaxTrigger) return;
-                _currentRuleMaxTrigger = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int CurrentRulePriority
-        {
-            get
-            {
-                return _currentRulePriority;
-            }
-
-            set
-            {
-                if (value == _currentRulePriority) return;
-                _currentRulePriority = value;
-                OnPropertyChanged();
-            }
-        }
-
+      
         public bool HealerEnabled
         {
             get { return _healerEnabled; }
@@ -142,13 +71,45 @@ namespace TibiaBotUI.ViewModels
             }
         }
 
+        public HealerRule CurrentHealerRule
+        {
+            get { return _currentHealerRule; }
+            set
+            {
+                if(value == _currentHealerRule) return;
+                _currentHealerRule = value;
+                OnPropertyChanged();
+            }
+        }
 
         public HealerViewModel()
         {
+            AddRule = new RelayCommand(_addrule,_canAddRule);
+            DeleteRule = new RelayCommand(_deleteRule,_canDeleteRule);
             Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
             HealerRules.Add(new HealerRule("test", Spells?.First(),"hppc >=", 50, 50,1));
-            HealerRules.Add(new HealerRule("test", Spells?.Last(), "hppc >=", 50, 50, 2));
             HealerRules.Add(new HealerRule("test", Spells?.First(), "hppc >=", 50, 50, 3));
+        }
+
+        private bool _canDeleteRule(object arg)
+        {
+            return _currentHealerRule != null;
+        }
+
+        private void _deleteRule(object obj)
+        {
+            _healerRules.Remove(_currentHealerRule);
+            _currentHealerRule = null;
+        }
+
+        private bool _canAddRule(object arg)
+        {
+            return true; //check binds later
+        }
+
+        private void _addrule(object obj)
+        {
+            HealerRules.Add(new HealerRule("test", Spells?.Last(), "hppc >=", 50, 50, 2));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

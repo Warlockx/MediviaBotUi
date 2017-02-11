@@ -115,16 +115,20 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding SelectedItem.Header, ElementName=HealerRulesTabControl}"/>
-                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding HealCollectionItems}"/>
-                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Text="Condition"/>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Spells}" DisplayMemberPath="Name"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Condition"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Range"/>
                     <ComboBox Margin="5" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource HealerConditions}, Converter={StaticResource HealerConditionsConverter}}"/>
-                    <controls:NumericUpDown Margin="5" Grid.Row="2" Grid.Column="1"/>
-                    <controls:NumericUpDown Margin="5" Grid.Row="2" Grid.Column="2"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5,0">
+                        <controls:NumericUpDown Value="0" Maximum="{Binding MaxNumericRange}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
+                        <TextBlock Text="to"/>
+                        <controls:NumericUpDown Value="0" Maximum="{Binding MaxNumericRange}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
+                    </StackPanel>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
-                    <controls:NumericUpDown Margin="5" Grid.Column="1" Grid.Row="3" Minimum="1" />
+                    <controls:NumericUpDown Margin="5,5,5,0" Grid.Column="1" Grid.Row="3" Minimum="1" />
                     <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
-                    <controls:NumericUpDown Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
-                    <controls:NumericUpDown Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
+                    <controls:NumericUpDown Name="HealerSpamRateMin" Minimum="100" Value="500" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
+                    <controls:NumericUpDown Minimum="{Binding ElementName=HealerSpamRateMin, Path=Value}" Value="700" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
                     <CheckBox Margin="0,30,0,0" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Enabled"/>
                     <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
                     <StackPanel Grid.Row="7" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
@@ -158,7 +162,7 @@
 
                     <controls:MetroAnimatedTabControl Grid.Row="2" Name="HealerRulesTabControl" SelectedIndex="{Binding CurrentHealerTab}">
                         <TabItem Header="Spell" controls:ControlsHelper.HeaderFontSize="15" controls:ControlsHelper.HeaderFontWeight="Bold">
-                            <DataGrid SelectionMode="Single" x:Name="HealerRulesDatagrid" Margin="5" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
+                            <DataGrid SelectionMode="Single" x:Name="HealerRulesDatagrid" Margin="5" SelectedItem="{Binding CurrentHealerRule}" ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Priority" Binding="{Binding Priority}"/>
                                     <!--change to template numeric and command-->
