@@ -8,4 +8,5 @@
     <converters:RadioButtonToEnumConverter x:Key="RadioButtonToEnumConverter"/>
     <converters:DummyConverter x:Key="DummyConverter"/>
     <converters:HealTriggerRangeConverter x:Key="HealTriggerRangeConverter"/>
+    <converters:HealerConditionsConverter x:Key="HealerConditionsConverter"/>
 </ResourceDictionary>

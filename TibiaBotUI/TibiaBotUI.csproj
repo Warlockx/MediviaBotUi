@@ -91,9 +91,11 @@
     <Compile Include="Converters\BaseThemeConverter.cs" />
     <Compile Include="Converters\CheckboxContentConverter.cs" />
     <Compile Include="Converters\DummyConverter.cs" />
+    <Compile Include="Converters\HealerConditionsConverter.cs" />
     <Compile Include="Converters\HealTriggerRangeConverter.cs" />
     <Compile Include="Converters\RadioButtonToEnumConverter.cs" />
     <Compile Include="Converters\RemoveNewLineConverter.cs" />
+    <Compile Include="Models\HealerConditions.cs" />
     <Compile Include="Models\HealerRule.cs" />
     <Compile Include="Models\Spell.cs" />
     <Compile Include="Models\SpellGroup.cs" />

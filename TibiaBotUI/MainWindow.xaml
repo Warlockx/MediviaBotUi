@@ -117,11 +117,11 @@
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding SelectedItem.Header, ElementName=HealerRulesTabControl}"/>
                     <ComboBox Margin="5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding HealCollectionItems}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Text="Condition"/>
-                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" ItemsSource="{Binding Conditions}"/>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" ItemsSource="{Binding Source={StaticResource HealerConditions}, Converter={StaticResource HealerConditionsConverter}}"/>
                     <controls:NumericUpDown Margin="5" Grid.Row="2" Grid.Column="1"/>
                     <controls:NumericUpDown Margin="5" Grid.Row="2" Grid.Column="2"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
-                    <controls:NumericUpDown Margin="5" Grid.Column="1" Grid.Row="3" Minimum="1"/>
+                    <controls:NumericUpDown Margin="5" Grid.Column="1" Grid.Row="3" Minimum="1" />
                     <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
                     <controls:NumericUpDown Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
                     <controls:NumericUpDown Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
@@ -168,7 +168,7 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </TabItem>
-                        <TabItem Header="Potion" controls:ControlsHelper.HeaderFontSize="15" controls:ControlsHelper.HeaderFontWeight="Bold" >
+                        <TabItem Header="Item" controls:ControlsHelper.HeaderFontSize="15" controls:ControlsHelper.HeaderFontWeight="Bold" >
                           
                         </TabItem>
                     </controls:MetroAnimatedTabControl>

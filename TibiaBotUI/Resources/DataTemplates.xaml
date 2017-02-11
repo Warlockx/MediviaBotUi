@@ -49,7 +49,7 @@
         <TextBlock Text="{Binding Spell.Name}"/>
     </DataTemplate>
     <DataTemplate x:Key="HealRuleNameEditingDataTemplate">
-        <ComboBox ItemsSource="{Binding DataContext.Spells, ElementName=HealerRulesDatagrid}" SelectedItem="{Binding Spell}" DisplayMemberPath="Name"/>
+        <ComboBox ItemsSource="{Binding DataContext.Spells, ElementName=HealerRulesDatagrid}" SelectedItem="{Binding Spell, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
     </DataTemplate>
 
     <DataTemplate x:Key="HealRuleRangeDataTemplate">

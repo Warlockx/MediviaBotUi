@@ -21,4 +21,10 @@
             <x:Type TypeName="models:ThemeBaseColors"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+    <ObjectDataProvider x:Key="HealerConditions" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="models:HealerConditions"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
 </ResourceDictionary>
