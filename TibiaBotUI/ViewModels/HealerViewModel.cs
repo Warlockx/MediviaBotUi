@@ -87,19 +87,19 @@ namespace TibiaBotUI.ViewModels
             AddRule = new RelayCommand(_addrule,_canAddRule);
             DeleteRule = new RelayCommand(_deleteRule,_canDeleteRule);
             Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
-            HealerRules.Add(new HealerRule("test", Spells?.First(),"hppc >=", 50, 50,1));
-            HealerRules.Add(new HealerRule("test", Spells?.First(), "hppc >=", 50, 50, 3));
+            CurrentHealerRule = new HealerRule("", Spells.First(), 0, 0, 0, HealerConditions.Hitpoints, 500, 700);
         }
 
         private bool _canDeleteRule(object arg)
         {
-            return _currentHealerRule != null;
+            HealerRule rule = (HealerRule)arg;
+            return rule != null;
         }
 
         private void _deleteRule(object obj)
         {
-            _healerRules.Remove(_currentHealerRule);
-            _currentHealerRule = null;
+            HealerRule rule = (HealerRule) obj;
+            _healerRules.Remove(rule);           
         }
 
         private bool _canAddRule(object arg)
@@ -109,7 +109,8 @@ namespace TibiaBotUI.ViewModels
 
         private void _addrule(object obj)
         {
-            HealerRules.Add(new HealerRule("test", Spells?.Last(), "hppc >=", 50, 50, 2));
+            HealerRules.Add(new HealerRule("", CurrentHealerRule.Spell, CurrentHealerRule.MinTrigger,
+                CurrentHealerRule.MaxTrigger, CurrentHealerRule.Priority, CurrentHealerRule.Condition, CurrentHealerRule.MinSpamRate,CurrentHealerRule.MaxSpamRate));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

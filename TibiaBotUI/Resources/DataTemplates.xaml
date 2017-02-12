@@ -59,7 +59,6 @@
                     <Binding Path="TriggerType"/>
                     <Binding Path="MinTrigger"/>
                     <Binding Path="MaxTrigger"/>
-                 
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>

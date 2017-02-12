@@ -8,10 +8,14 @@ namespace TibiaBotUI.Models
     {
         private string _name;
         private Spell _spell;
-        private string _triggerType;
+        private string _triggerType = "hp";
         private int _minTrigger;
         private int _maxTrigger;
         private int _priority;
+        private HealerConditions _condition;
+        private int _triggerLimit = int.MaxValue;
+        private int _minSpamRate;
+        private int _maxSpamRate;
 
         public string Name
         {
@@ -79,14 +83,71 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public HealerRule(string name, Spell spell, string triggerType, int minTrigger, int maxTrigger, int priority)
+        public HealerConditions Condition
         {
-            _name = name;
-            _spell = spell;
-            _triggerType = triggerType;
-            _minTrigger = minTrigger;
-            _maxTrigger = maxTrigger;
-            _priority = priority;
+            get { return _condition; }
+            set
+            {
+                if(value == _condition) return;
+                if (value.ToString().Contains("Percent"))
+                {
+                    TriggerType = "hppc";
+                    TriggerLimit = 100;
+                }
+                else
+                {
+                    TriggerType = "hp";
+                    TriggerLimit = int.MaxValue;
+                }
+                _condition = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int TriggerLimit
+        {
+            get { return _triggerLimit; }
+            set
+            {
+                if(value == _triggerLimit) return;
+                
+                _triggerLimit = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MinSpamRate
+        {
+            get { return _minSpamRate; }
+            set
+            {
+                if(value == _minSpamRate) return;
+                _minSpamRate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MaxSpamRate
+        {
+            get { return _maxSpamRate; }
+            set
+            {
+                if(value == _maxSpamRate) return;
+                _maxSpamRate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public HealerRule(string name, Spell spell, int minTrigger, int maxTrigger, int priority, HealerConditions condition, int minSpamRate, int maxSpamRate)
+        {
+            Name = name;
+            Spell = spell;
+            MinTrigger = minTrigger;
+            MaxTrigger = maxTrigger;
+            Priority = priority;
+            Condition = condition;
+            MinSpamRate = minSpamRate;
+            MaxSpamRate = maxSpamRate;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
