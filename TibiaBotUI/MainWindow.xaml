@@ -124,7 +124,7 @@
                         <controls:NumericUpDown Value="{Binding CurrentHealerRule.MaxTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
                     </StackPanel>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
-                    <controls:NumericUpDown Value="{Binding CurrentHealerRule.Priority}" Margin="5,5,5,0" Grid.Column="1" Grid.Row="3" Minimum="1" />
+                    <Slider  Value="{Binding CurrentHealerRule.Priority,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Minimum="0" Maximum="{Binding HealerRules.Count, Mode=OneWay}" TickPlacement="BottomRight" />
                     <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
                     <controls:NumericUpDown Name="HealerSpamRateMin" Minimum="100" Value="{Binding CurrentHealerRule.MinSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
                     <controls:NumericUpDown Minimum="{Binding ElementName=HealerSpamRateMin, Path=Value}" Value="{Binding CurrentHealerRule.MaxSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
