@@ -16,6 +16,7 @@ namespace TibiaBotUI.ViewModels
     public class HealerViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Spell> _spells = new ObservableCollection<Spell>();
+        private ObservableCollection<HealItem> _healItems = new ObservableCollection<HealItem>();
         private ObservableCollection<HealerRule> _healerRules = new ObservableCollection<HealerRule>();
         private HealerRule _currentHealerRule;
         private bool _healerEnabled;
@@ -82,12 +83,24 @@ namespace TibiaBotUI.ViewModels
             }
         }
 
+        public ObservableCollection<HealItem> HealItems
+        {
+            get { return _healItems; }
+            set
+            {
+                if(value == _healItems) return;
+                _healItems = value;
+                OnPropertyChanged();
+            }
+        }
+
         public HealerViewModel()
         {
             AddRule = new RelayCommand(_addrule,_canAddRule);
             DeleteRule = new RelayCommand(_deleteRule,_canDeleteRule);
             Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
-            CurrentHealerRule = new HealerRule("", Spells.First(), 0, 0, 0, false, HealerConditions.Hitpoints, HealerConditions.Mana,0,0, 500, 700);
+            CurrentHealerRule = new HealerRule("", Spells.First(), 0, 0, 0, HealerConditions.Hitpoints, 500, 700);
+            HealItems.Add(new HealItem("test item",0));
         }
 
         private bool _canDeleteRule(object arg)
@@ -110,7 +123,7 @@ namespace TibiaBotUI.ViewModels
         private void _addrule(object obj)
         {
             HealerRules.Add(new HealerRule("", CurrentHealerRule.Spell, CurrentHealerRule.MinTrigger,
-            CurrentHealerRule.MaxTrigger, CurrentHealerRule.Priority,CurrentHealerRule.HasAddtionalCondition, CurrentHealerRule.Condition,CurrentHealerRule.AdditionalCondition, CurrentHealerRule.AdditionalMinTrigger, CurrentHealerRule.AdditionalMaxTrigger, CurrentHealerRule.MinSpamRate,CurrentHealerRule.MaxSpamRate));
+            CurrentHealerRule.MaxTrigger, CurrentHealerRule.Priority, CurrentHealerRule.Condition, CurrentHealerRule.MinSpamRate,CurrentHealerRule.MaxSpamRate));
             CurrentHealerRule.Priority = HealerRules.Count;
         }
 

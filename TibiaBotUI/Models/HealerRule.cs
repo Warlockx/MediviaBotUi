@@ -14,14 +14,9 @@ namespace TibiaBotUI.Models
         private int _priority;
         private int _triggerLimit = int.MaxValue;
         private HealerConditions _condition;
-        private HealerConditions? _additionalCondition;
-        private string _additionalTriggerType = "hp";
-        private int? _additionalMinTrigger;
-        private int? _additionalMaxTrigger;
-        private int _additionalTriggerLimit = int.MaxValue;
         private int _minSpamRate;
         private int _maxSpamRate;
-        private bool _hasAddtionalCondition;
+      
 
         public string Name
         {
@@ -53,16 +48,6 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        public int? AdditionalMinTrigger
-        {
-            get { return _additionalMinTrigger; }
-            set
-            {
-                if (value == _additionalMinTrigger) return;
-                _additionalMinTrigger = value;
-                OnPropertyChanged();
-            }
-        }
         public int MaxTrigger
         {
             get { return _maxTrigger; }
@@ -70,16 +55,6 @@ namespace TibiaBotUI.Models
             {
                 if (value == _maxTrigger) return;
                 _maxTrigger = value;
-                OnPropertyChanged();
-            }
-        }
-        public int? AdditionalMaxTrigger
-        {
-            get { return _additionalMaxTrigger; }
-            set
-            {
-                if (value == _additionalMaxTrigger) return;
-                _additionalMaxTrigger = value;
                 OnPropertyChanged();
             }
         }
@@ -106,19 +81,6 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        public string AdditionalTriggerType
-        {
-            get
-            {
-                return _getTriggerType(_additionalCondition);
-            }
-            set
-            {
-                if (value == _additionalTriggerType) return;
-                _additionalTriggerType = value;
-                OnPropertyChanged();
-            }
-        }
         public HealerConditions Condition
         {
             get { return _condition; }
@@ -130,17 +92,6 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        public HealerConditions? AdditionalCondition
-        {
-            get { return _additionalCondition; }
-            set
-            {
-                if (value == _additionalCondition) return;
-                TriggerLimit = value.ToString().Contains("Percent") ? 100 : int.MaxValue;
-                _additionalCondition = value;
-                OnPropertyChanged();
-            }
-        }
         public int TriggerLimit
         {
             get { return _triggerLimit; }
@@ -149,17 +100,6 @@ namespace TibiaBotUI.Models
                 if(value == _triggerLimit) return;
                 
                 _triggerLimit = value;
-                OnPropertyChanged();
-            }
-        }
-        public int AdditionalTriggerLimit
-        {
-            get { return _additionalTriggerLimit; }
-            set
-            {
-                if (value == _additionalTriggerLimit) return;
-
-                _additionalTriggerLimit = value;
                 OnPropertyChanged();
             }
         }
@@ -180,16 +120,6 @@ namespace TibiaBotUI.Models
             {
                 if(value == _maxSpamRate) return;
                 _maxSpamRate = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool HasAddtionalCondition
-        {
-            get { return _hasAddtionalCondition; }
-            set
-            {
-                if(value == _hasAddtionalCondition) return;
-                _hasAddtionalCondition = value;
                 OnPropertyChanged();
             }
         }
@@ -214,7 +144,7 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public HealerRule(string name, Spell spell, int minTrigger, int maxTrigger, int priority,bool hasAdditionalCondition, HealerConditions condition, HealerConditions? additionalCondition, int? additionalMinTrigger, int? additionalMaxTrigger, int minSpamRate, int maxSpamRate)
+        public HealerRule(string name, Spell spell, int minTrigger, int maxTrigger, int priority, HealerConditions condition,int minSpamRate, int maxSpamRate)
         {
             _name = name;
             _spell = spell;
@@ -222,19 +152,6 @@ namespace TibiaBotUI.Models
             _maxTrigger = maxTrigger;
             _priority = priority;
             _condition = condition;
-            if (!hasAdditionalCondition)
-            {
-                _additionalCondition = null;
-                _additionalMinTrigger = null;
-                _additionalMaxTrigger = null;
-            }
-            else
-            {
-                _additionalCondition = additionalCondition;
-                _additionalMinTrigger = additionalMinTrigger;
-                _additionalMaxTrigger = additionalMaxTrigger;
-            }
-          
             _minSpamRate = minSpamRate;
             _maxSpamRate = maxSpamRate;
         }

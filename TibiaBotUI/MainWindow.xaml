@@ -96,11 +96,15 @@
                     </WrapPanel>
                 </Grid>
             </controls:Flyout>
-            <controls:Flyout MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" IsOpen="{Binding ElementName=EditHealerToggleButton, Path=IsChecked}" Grid.ColumnSpan="2" Position="Right">
+            <controls:Flyout Name="EditSpellsFlyout" MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" Position="Right">
+                <controls:Flyout.IsOpen>
+                    <MultiBinding Converter="{StaticResource FlyoutMultiBindingIsOpenConverter}">
+                        <Binding ElementName="EditSpellHealerToggleButton" Path="IsChecked" />
+                        <Binding ElementName="HealerRulesTabControl" Path="SelectedIndex" />
+                    </MultiBinding>
+                </controls:Flyout.IsOpen>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -116,8 +120,9 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding SelectedItem.Header, ElementName=HealerRulesTabControl}"/>
-                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Spells}" SelectedItem="{Binding CurrentHealerRule.Spell}" DisplayMemberPath="Name"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Spell"/>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
+                              SelectedItem="{Binding CurrentHealerRule.Spell}" DisplayMemberPath="Name" ItemsSource="{Binding Spells}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Condition"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Range"/>
                     <ComboBox Margin="5" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" SelectedItem="{Binding CurrentHealerRule.Condition, Converter={StaticResource HealerConditionsConverter}}" ItemsSource="{Binding Source={StaticResource HealerConditions}, Converter={StaticResource HealerConditionsConverter}}"/>
@@ -126,28 +131,70 @@
                         <TextBlock Text="to"/>
                         <controls:NumericUpDown Value="{Binding CurrentHealerRule.MaxTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
                     </StackPanel>
-                    <controls:ToggleSwitch IsChecked="{Binding CurrentHealerRule.HasAddtionalCondition, UpdateSourceTrigger=PropertyChanged }" Name="HealerAdditionalCondition" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Additional Condition"/>
-                    <TextBlock Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Grid.Column="0" Grid.Row="4" Text="Condition"/>
-                    <TextBlock Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Grid.Column="0" Grid.Row="5" Text="Range"/>
-                    <ComboBox  Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Margin="5" Grid.Column="1" Grid.Row="4"  Grid.ColumnSpan="2" SelectedItem="{Binding CurrentHealerRule.AdditionalCondition, Converter={StaticResource HealerConditionsConverter}}" ItemsSource="{Binding Source={StaticResource HealerConditions}, Converter={StaticResource HealerConditionsConverter}}"/>
-                    <StackPanel Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="5,0">
-                        <controls:NumericUpDown Value="{Binding CurrentHealerRule.AdditionalMinTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
-                        <TextBlock Text="to"/>
-                        <controls:NumericUpDown Value="{Binding CurrentHealerRule.AdditionalMaxTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
-                    </StackPanel>
-                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Priority"/>
-                    <Slider  Value="{Binding CurrentHealerRule.Priority,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Minimum="0" Maximum="{Binding HealerRules.Count, Mode=OneWay}" TickPlacement="BottomRight" />
-                    <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="7"/>
-                    <controls:NumericUpDown Name="HealerSpamRateMin" Minimum="100" Value="{Binding CurrentHealerRule.MinSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="7" />
-                    <controls:NumericUpDown Minimum="{Binding ElementName=HealerSpamRateMin, Path=Value}" Value="{Binding CurrentHealerRule.MaxSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="7" />
-                    <CheckBox Margin="0,30,0,0" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Content="Enabled"/>
-                    <CheckBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
-                    <StackPanel Grid.Row="10" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
+                    <Slider  Value="{Binding CurrentHealerRule.Priority,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Minimum="0" Maximum="{Binding HealerRules.Count, Mode=OneWay}" TickPlacement="BottomRight" />
+                    <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
+                    <controls:NumericUpDown Name="HealerSpamRateMin" Minimum="100" Value="{Binding CurrentHealerRule.MinSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
+                    <controls:NumericUpDown Minimum="{Binding ElementName=HealerSpamRateMin, Path=Value}" Value="{Binding CurrentHealerRule.MaxSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
+                    <CheckBox Margin="0,30,0,0" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Enabled"/>
+                    <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
+                    <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Content="Save mana for this spell" ToolTip="If checked the healer will not use spells if the result mana is lower than the needed to cast this spell."/>
+                    <StackPanel Grid.Row="8" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Button Style="{StaticResource RoundButtons}" ToolTip="Add"  Content="a" Command="{Binding AddRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
                         <Button Style="{StaticResource RoundButtons}" ToolTip="Delete" Content="r" Command="{Binding DeleteRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
                     </StackPanel>
                 </Grid>
             </controls:Flyout>
+            <controls:Flyout Name="EditHealItemsFlyout" MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" Position="Right">
+                <controls:Flyout.IsOpen>
+                    <MultiBinding Converter="{StaticResource FlyoutMultiBindingIsOpenConverter}" ConverterParameter="0">
+                        <Binding ElementName="EditItemHealerToggleButton" Path="IsChecked" />
+                        <Binding ElementName="HealerRulesTabControl" Path="SelectedIndex" />
+                    </MultiBinding>
+                </controls:Flyout.IsOpen>
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Item"/>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
+                              SelectedItem="{Binding CurrentHealerRule.Spell}" DisplayMemberPath="Name" ItemsSource="{Binding HealItems}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Condition"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Range"/>
+                    <ComboBox Margin="5" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" SelectedItem="{Binding CurrentHealerRule.Condition, Converter={StaticResource HealerConditionsConverter}}" ItemsSource="{Binding Source={StaticResource HealerConditions}, Converter={StaticResource HealerConditionsConverter}}"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5,0">
+                        <controls:NumericUpDown Value="{Binding CurrentHealerRule.MinTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
+                        <TextBlock Text="to"/>
+                        <controls:NumericUpDown Value="{Binding CurrentHealerRule.MaxTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
+                    </StackPanel>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
+                    <Slider  Value="{Binding CurrentHealerRule.Priority,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Minimum="0" Maximum="{Binding HealerRules.Count, Mode=OneWay}" TickPlacement="BottomRight" />
+                    <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
+                    <controls:NumericUpDown Name="HealerItemSpamRateMin" Minimum="100" Value="{Binding CurrentHealerRule.MinSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
+                    <controls:NumericUpDown Minimum="{Binding ElementName=HealerItemSpamRateMin, Path=Value}" Value="{Binding CurrentHealerRule.MaxSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
+                    <CheckBox Margin="0,30,0,0" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Enabled"/>
+                    <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
+                    <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Content="Save mana for this spell" ToolTip="If checked the healer will not use spells if the result mana is lower than the needed to cast this spell."/>
+                    <StackPanel Grid.Row="8" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button Style="{StaticResource RoundButtons}" ToolTip="Add"  Content="a" Command="{Binding AddRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
+                        <Button Style="{StaticResource RoundButtons}" ToolTip="Delete" Content="r" Command="{Binding DeleteRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
+                    </StackPanel>
+                </Grid>
+            </controls:Flyout>
+
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
     <Grid>
@@ -169,8 +216,9 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="Healer" Style="{StaticResource HeaderText}"/>
                     <CheckBox  Margin="10,0,20,0" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" IsChecked="{Binding HealerEnabled}" Content="{Binding HealerEnabled, Converter={StaticResource CheckboxContentConverter}}"/>
-                    <ToggleButton Name="EditHealerToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5" Content="Edit Rules" Grid.Column="0" Grid.Row="1"/>
-
+                    <ToggleButton Name="EditItemHealerToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5" Content="Edit Rules" Grid.Column="0" Grid.Row="1"/>
+                    <ToggleButton Visibility="{Binding ElementName=HealerRulesTabControl, Path=SelectedIndex, Converter={StaticResource VisibilityConverter}}" Name="EditSpellHealerToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5" Content="Edit Rules" Grid.Column="0" Grid.Row="1"/>
+                   
                     <controls:MetroAnimatedTabControl Grid.Row="2" Name="HealerRulesTabControl" SelectedIndex="{Binding CurrentHealerTab}">
                         <TabItem Header="Spell" controls:ControlsHelper.HeaderFontSize="15" controls:ControlsHelper.HeaderFontWeight="Bold">
                             <DataGrid SelectionMode="Single" x:Name="HealerRulesDatagrid" Margin="5"  ItemsSource="{Binding HealerRules}" AutoGenerateColumns="False">
@@ -180,8 +228,7 @@
                                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                                     <DataGridTemplateColumn Header="Spell" CellTemplate="{StaticResource HealRuleNameDataTemplate}" CellEditingTemplate="{StaticResource HealRuleNameEditingDataTemplate}"/>
                                     <DataGridTemplateColumn Header="Condition" CellTemplate="{StaticResource HealRuleRangeDataTemplate}" CellEditingTemplate="{StaticResource HealRuleRangeEditingDataTemplate}"/>
-                                    <DataGridTemplateColumn Header="Additional  Condition" CellTemplate="{StaticResource AdditionalHealRuleRangeDataTemplate}" CellEditingTemplate="{StaticResource AdditionalHealRuleRangeEditingDataTemplate}"/>
-                                </DataGrid.Columns>
+                                  </DataGrid.Columns>
                             </DataGrid>
                         </TabItem>
                         <TabItem Header="Item" controls:ControlsHelper.HeaderFontSize="15" controls:ControlsHelper.HeaderFontWeight="Bold" >

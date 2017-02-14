@@ -13,12 +13,17 @@ namespace TibiaBotUI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            if(value is bool)
+                return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+
+            if (value is int)
+                return (int)value == 0 ? Visibility.Visible : Visibility.Collapsed;
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (Visibility)value == Visibility.Visible;
+            return value != null && (Visibility)value == Visibility.Visible;
         }
     }
 }

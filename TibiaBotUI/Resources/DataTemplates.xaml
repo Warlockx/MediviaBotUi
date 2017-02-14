@@ -74,23 +74,4 @@
             <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Value="{Binding MaxTrigger}"/>
         </StackPanel>
     </DataTemplate>
-    <DataTemplate x:Key="AdditionalHealRuleRangeDataTemplate">
-        <TextBlock>
-            <TextBlock.Text>
-                <MultiBinding StringFormat="{}{0} {1} ~ {2}">
-                    <Binding Path="AdditionalTriggerType" FallbackValue=""/>
-                    <Binding Path="AdditionalMinTrigger" FallbackValue=""/>
-                    <Binding Path="AdditionalMaxTrigger" FallbackValue=""/>
-                </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
-    </DataTemplate>
-    <DataTemplate x:Key="AdditionalHealRuleRangeEditingDataTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="{DynamicResource ControlBackgroundBrush}">
-            <TextBlock Text="{Binding AdditionalTriggerType}"/>
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Value="{Binding AdditionalMinTrigger}"/>
-            <TextBlock Text="~"/>
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Value="{Binding AdditionalMaxTrigger}"/>
-        </StackPanel>
-    </DataTemplate>
 </ResourceDictionary>
