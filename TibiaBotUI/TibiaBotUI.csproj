@@ -95,6 +95,7 @@
     <Compile Include="Converters\HealTriggerRangeConverter.cs" />
     <Compile Include="Converters\RadioButtonToEnumConverter.cs" />
     <Compile Include="Converters\RemoveNewLineConverter.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Models\HealerConditions.cs" />
     <Compile Include="Models\HealerRule.cs" />
     <Compile Include="Models\Spell.cs" />

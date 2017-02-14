@@ -36,7 +36,7 @@
                 </StackPanel>
             </controls:Flyout>
             <!--Cavebot Flyout-->
-            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Theme="Adapt" IsOpen="{Binding EditingAction}" Header="Edit Action" MinWidth="420">
+            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" IsOpen="{Binding EditingAction}" Header="Edit Action" MinWidth="420">
                 <Grid>
                     <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{DynamicResource FlyoutForegroundBrush}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
                         <i:Interaction.Behaviors>
@@ -45,7 +45,7 @@
                     </avalonEdit:TextEditor>
                 </Grid>
             </controls:Flyout>
-            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Theme="Adapt" IsOpen="{Binding ElementName=EditWaypointsToggleButton, Path=IsChecked}" Header="Edit Cavebot" MinWidth="200">
+            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" IsOpen="{Binding ElementName=EditWaypointsToggleButton, Path=IsChecked}" Header="Edit Cavebot" MinWidth="200">
                 <Grid Margin="10,5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -106,6 +106,9 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -123,14 +126,23 @@
                         <TextBlock Text="to"/>
                         <controls:NumericUpDown Value="{Binding CurrentHealerRule.MaxTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Priority"/>
-                    <Slider  Value="{Binding CurrentHealerRule.Priority,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Minimum="0" Maximum="{Binding HealerRules.Count, Mode=OneWay}" TickPlacement="BottomRight" />
-                    <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="4"/>
-                    <controls:NumericUpDown Name="HealerSpamRateMin" Minimum="100" Value="{Binding CurrentHealerRule.MinSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="4" />
-                    <controls:NumericUpDown Minimum="{Binding ElementName=HealerSpamRateMin, Path=Value}" Value="{Binding CurrentHealerRule.MaxSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="4" />
-                    <CheckBox Margin="0,30,0,0" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Enabled"/>
-                    <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
-                    <StackPanel Grid.Row="7" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <controls:ToggleSwitch IsChecked="{Binding CurrentHealerRule.HasAddtionalCondition, UpdateSourceTrigger=PropertyChanged }" Name="HealerAdditionalCondition" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Additional Condition"/>
+                    <TextBlock Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Grid.Column="0" Grid.Row="4" Text="Condition"/>
+                    <TextBlock Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Grid.Column="0" Grid.Row="5" Text="Range"/>
+                    <ComboBox  Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Margin="5" Grid.Column="1" Grid.Row="4"  Grid.ColumnSpan="2" SelectedItem="{Binding CurrentHealerRule.AdditionalCondition, Converter={StaticResource HealerConditionsConverter}}" ItemsSource="{Binding Source={StaticResource HealerConditions}, Converter={StaticResource HealerConditionsConverter}}"/>
+                    <StackPanel Visibility="{Binding ElementName=HealerAdditionalCondition, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="5,0">
+                        <controls:NumericUpDown Value="{Binding CurrentHealerRule.AdditionalMinTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
+                        <TextBlock Text="to"/>
+                        <controls:NumericUpDown Value="{Binding CurrentHealerRule.AdditionalMaxTrigger}" Maximum="{Binding CurrentHealerRule.TriggerLimit}" Style="{StaticResource HealthConditionRangeNumericUpDown}"/>
+                    </StackPanel>
+                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Priority"/>
+                    <Slider  Value="{Binding CurrentHealerRule.Priority,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,5,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Minimum="0" Maximum="{Binding HealerRules.Count, Mode=OneWay}" TickPlacement="BottomRight" />
+                    <TextBlock Text="Spam Rate" Grid.Column="0" Grid.Row="7"/>
+                    <controls:NumericUpDown Name="HealerSpamRateMin" Minimum="100" Value="{Binding CurrentHealerRule.MinSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="1" Grid.Row="7" />
+                    <controls:NumericUpDown Minimum="{Binding ElementName=HealerSpamRateMin, Path=Value}" Value="{Binding CurrentHealerRule.MaxSpamRate}" Style="{StaticResource SpamRateNumericUpDown}" Grid.Column="2" Grid.Row="7" />
+                    <CheckBox Margin="0,30,0,0" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Content="Enabled"/>
+                    <CheckBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Content="Do not override actions" ToolTip="If checked this tule will not override other actions."/>
+                    <StackPanel Grid.Row="10" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Button Style="{StaticResource RoundButtons}" ToolTip="Add"  Content="a" Command="{Binding AddRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
                         <Button Style="{StaticResource RoundButtons}" ToolTip="Delete" Content="r" Command="{Binding DeleteRule}" CommandParameter="{Binding ElementName=HealerRulesDatagrid, Path=SelectedItem}"/>
                     </StackPanel>
@@ -168,6 +180,7 @@
                                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                                     <DataGridTemplateColumn Header="Spell" CellTemplate="{StaticResource HealRuleNameDataTemplate}" CellEditingTemplate="{StaticResource HealRuleNameEditingDataTemplate}"/>
                                     <DataGridTemplateColumn Header="Condition" CellTemplate="{StaticResource HealRuleRangeDataTemplate}" CellEditingTemplate="{StaticResource HealRuleRangeEditingDataTemplate}"/>
+                                    <DataGridTemplateColumn Header="Additional  Condition" CellTemplate="{StaticResource AdditionalHealRuleRangeDataTemplate}" CellEditingTemplate="{StaticResource AdditionalHealRuleRangeEditingDataTemplate}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </TabItem>
