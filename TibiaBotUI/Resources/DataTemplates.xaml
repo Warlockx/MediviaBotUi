@@ -45,11 +45,17 @@
     <DataTemplate x:Key="WaypointTypeEditingDataTemplate">
         <ComboBox ItemsSource="{Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}"/>
     </DataTemplate>
-    <DataTemplate x:Key="HealRuleNameDataTemplate">
+    <DataTemplate x:Key="HealRuleSpellNameDataTemplate">
         <TextBlock Text="{Binding Spell.Name}"/>
     </DataTemplate>
-    <DataTemplate x:Key="HealRuleNameEditingDataTemplate">
-        <ComboBox ItemsSource="{Binding DataContext.Spells, ElementName=HealerRulesDatagrid}" SelectedItem="{Binding Spell, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
+    <DataTemplate x:Key="HealRuleSpellNameEditingDataTemplate">
+        <ComboBox ItemsSource="{Binding DataContext.Spells, ElementName=HealerSpellRulesDatagrid}" SelectedItem="{Binding Spell, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
+    </DataTemplate>
+    <DataTemplate x:Key="HealRuleItemNameDataTemplate">
+        <TextBlock Text="{Binding HealItem.Name}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="HealRuleItemNameEditingDataTemplate">
+        <ComboBox ItemsSource="{Binding DataContext.HealItems, ElementName=HealerHealItemRulesDatagrid}" SelectedItem="{Binding HealItem, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
     </DataTemplate>
 
     <DataTemplate x:Key="HealRuleRangeDataTemplate">

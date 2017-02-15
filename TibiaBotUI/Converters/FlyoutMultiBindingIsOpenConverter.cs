@@ -12,14 +12,20 @@ namespace TibiaBotUI.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)values[0] && ((int)values[1] == 0 || parameter != null);
+            bool flyoutEnabled = (bool)values[0];
+            int tabIndex = (int)values[1];
+            string flyoutName = (string)parameter;
+            if (flyoutEnabled && flyoutName == "Spell" && tabIndex == 0)
+                return true;
+            return flyoutEnabled && flyoutName == "Item" && tabIndex == 1;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            int result = (bool)value || parameter != null ? 1 : 0;
-
-            return new [] { value, result };
+            string flyoutName = (string)parameter;
+            if (flyoutName == "Spell")
+                return new[] {value, 0};
+            return flyoutName == "Item" ? new[] {value, 1} : new[] {value, 0};
         }
     }
 }

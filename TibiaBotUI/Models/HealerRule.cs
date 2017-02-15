@@ -8,6 +8,7 @@ namespace TibiaBotUI.Models
     {
         private string _name;
         private Spell _spell;
+        private HealItem _healItem;
         private string _triggerType = "hp";
         private int _minTrigger;
         private int _maxTrigger;
@@ -124,6 +125,17 @@ namespace TibiaBotUI.Models
             }
         }
 
+        public HealItem HealItem
+        {
+            get { return _healItem; }
+            set
+            {
+                if(value == _healItem) return;
+                _healItem = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private string _getTriggerType(HealerConditions? conditions)
         {
@@ -144,10 +156,11 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public HealerRule(string name, Spell spell, int minTrigger, int maxTrigger, int priority, HealerConditions condition,int minSpamRate, int maxSpamRate)
+        public HealerRule(string name, Spell spell, HealItem healItem, int minTrigger, int maxTrigger, int priority, HealerConditions condition,int minSpamRate, int maxSpamRate)
         {
             _name = name;
             _spell = spell;
+            _healItem = healItem;
             _minTrigger = minTrigger;
             _maxTrigger = maxTrigger;
             _priority = priority;
