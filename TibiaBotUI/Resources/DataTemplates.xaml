@@ -61,10 +61,11 @@
     <DataTemplate x:Key="HealRuleRangeDataTemplate">
         <TextBlock>
             <TextBlock.Text>
-                <MultiBinding StringFormat="{}{0} {1} ~ {2}">
+                <MultiBinding StringFormat="{}{0} {1} {2} {3}">
                     <Binding Path="TriggerType"/>
-                    <Binding Path="MinTrigger"/>
-                    <Binding Path="MaxTrigger"/>
+                    <Binding Path="MinTrigger" FallbackValue=""/>
+                    <Binding Path="TriggerSplitter"/>
+                    <Binding Path="MaxTrigger" FallbackValue=""/>
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>

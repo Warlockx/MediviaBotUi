@@ -10,8 +10,9 @@ namespace TibiaBotUI.Models
         private Spell _spell;
         private HealItem _healItem;
         private string _triggerType = "hp";
-        private int _minTrigger;
-        private int _maxTrigger;
+        private int? _minTrigger;
+        private int? _maxTrigger;
+        private string _triggerSplitter = "~";
         private int _priority;
         private int _triggerLimit = int.MaxValue;
         private HealerConditions _condition;
@@ -39,22 +40,24 @@ namespace TibiaBotUI.Models
                 OnPropertyChanged();
             }
         }
-        public int MinTrigger
+        public int? MinTrigger
         {
             get { return _minTrigger; }
             set
             {
                 if (value == _minTrigger) return;
+                TriggerSplitter = value == null ?  "" :  "~";
                 _minTrigger = value;
                 OnPropertyChanged();
             }
         }
-        public int MaxTrigger
+        public int? MaxTrigger
         {
             get { return _maxTrigger; }
             set
             {
                 if (value == _maxTrigger) return;
+                TriggerSplitter = value == null ? "" : "~";
                 _maxTrigger = value;
                 OnPropertyChanged();
             }
@@ -136,6 +139,17 @@ namespace TibiaBotUI.Models
             }
         }
 
+        public string TriggerSplitter
+        {
+            get { return _triggerSplitter; }
+            set
+            {
+                if(value == _triggerSplitter) return;
+                _triggerSplitter = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private string _getTriggerType(HealerConditions? conditions)
         {
@@ -156,7 +170,7 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public HealerRule(string name, Spell spell, HealItem healItem, int minTrigger, int maxTrigger, int priority, HealerConditions condition,int minSpamRate, int maxSpamRate)
+        public HealerRule(string name, Spell spell, HealItem healItem, int? minTrigger, int? maxTrigger, int priority, HealerConditions condition,int minSpamRate, int maxSpamRate)
         {
             _name = name;
             _spell = spell;

@@ -116,7 +116,7 @@ namespace TibiaBotUI.ViewModels
             _loadCollections();
             _prepareViewSources();
             _loadCommands();
-            CurrentHealerRule = new HealerRule("", Spells.First(),HealItems.First(), 0, 0, 0, HealerConditions.Hitpoints, 500, 700);
+            CurrentHealerRule = new HealerRule("", Spells.First(),HealItems.First(), 0, 110, 0, HealerConditions.Hitpoints, 500, 700);
         }
 
         #region commands
@@ -130,7 +130,7 @@ namespace TibiaBotUI.ViewModels
 
         private void _loadCommands()
         {
-            AddRule = new RelayCommand<object>(_addRule, _canAddRule);
+            AddRule = new RelayCommand<string>(_addRule, _canAddRule);
             DeleteRule = new RelayCommand<HealerRule>(_deleteRule, _canDeleteRule);
             ChangePriority = new RelayCommand<HealerRule>(_changePriority, _canChangePriority);
         }
@@ -185,40 +185,52 @@ namespace TibiaBotUI.ViewModels
         private void _deleteRule(HealerRule obj)
         {
             if (_spellHealerRules.Any(r => r.Equals(obj)))
-
+            {
+                SpellHealerRules.Where(r => r.Priority > obj.Priority).ToList().ForEach(r=> r.Priority--);
                 SpellHealerRules.Remove(obj);
+            }
             else
+            {
+                ItemHealerRules.Where(r => r.Priority > obj.Priority).ToList().ForEach(r => r.Priority--);
                 ItemHealerRules.Remove(obj);
+            }
         }
 
-        private bool _canAddRule(object arg)
+        private bool _canAddRule(string arg)
         {
             return true; //check binds later
         }
 
-        private void _addRule(object obj)
+        private void _addRule(string obj)
         {
-            if ((string)obj == "Spell")
+            string condition = CurrentHealerRule.Condition.ToString();
+            if (!condition.Contains("Hitpoint") &&
+                !condition.Contains("Mana"))
+            {
+                CurrentHealerRule.MinTrigger = null;
+                CurrentHealerRule.MaxTrigger = null;
+            }
+
+            if (obj == "Spell")
             {
                 if (CurrentHealerRule.Priority > SpellHealerRules.Count)
                     CurrentHealerRule.Priority = SpellHealerRules.Count;
 
-                SpellHealerRules.Add(new HealerRule("", CurrentHealerRule.Spell,null,
-                    CurrentHealerRule.MinTrigger,
-                    CurrentHealerRule.MaxTrigger, CurrentHealerRule.Priority, CurrentHealerRule.Condition,
-                    CurrentHealerRule.MinSpamRate, CurrentHealerRule.MaxSpamRate));
-                CurrentHealerRule = new HealerRule("", Spells.First(), HealItems.First(), 0, 0, SpellHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
+                CurrentHealerRule.HealItem = null;
+
+                SpellHealerRules.Add(CurrentHealerRule);
+                CurrentHealerRule = new HealerRule("", CurrentHealerRule.Spell, CurrentHealerRule.HealItem, 0, 110,
+                    SpellHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
             }
             else
             {
                 if (CurrentHealerRule.Priority > ItemHealerRules.Count)
                     CurrentHealerRule.Priority = ItemHealerRules.Count;
 
-                ItemHealerRules.Add(new HealerRule("", null, CurrentHealerRule.HealItem,
-                   CurrentHealerRule.MinTrigger,
-                   CurrentHealerRule.MaxTrigger, CurrentHealerRule.Priority, CurrentHealerRule.Condition,
-                   CurrentHealerRule.MinSpamRate, CurrentHealerRule.MaxSpamRate));
-                CurrentHealerRule = new HealerRule("", Spells.First(), HealItems.First(), 0, 0, ItemHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
+                CurrentHealerRule.Spell = null;
+                ItemHealerRules.Add(CurrentHealerRule);
+                CurrentHealerRule = new HealerRule("", CurrentHealerRule.Spell, CurrentHealerRule.HealItem, 0, 110,
+                    ItemHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
             }
 
         }

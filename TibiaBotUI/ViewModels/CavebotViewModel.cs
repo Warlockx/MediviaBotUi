@@ -202,11 +202,7 @@ namespace TibiaBotUI.ViewModels
             if (obj != null)
             {
                 waypointIndex = obj.Id+1;
-                foreach (Waypoint waypoint in WaypointList)
-                {
-                    if (waypoint.Id >= waypointIndex)
-                        waypoint.Id = waypoint.Id + 1;
-                }
+                WaypointList.Where(w=> w.Id >= waypointIndex).ToList().ForEach(w=> w.Id++);
                 WaypointList.Insert(waypointIndex,new Waypoint(waypointIndex, WaypointType, XWaypointRange, YWaypointRange, "",
                      new WaypointLocation(WaypointLocation, WaypointDirection), ActionCode));
             }
