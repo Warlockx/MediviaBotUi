@@ -91,9 +91,8 @@
     <Compile Include="Converters\BaseThemeConverter.cs" />
     <Compile Include="Converters\CheckboxContentConverter.cs" />
     <Compile Include="Converters\DummyConverter.cs" />
-    <Compile Include="Converters\FlyoutMultiBindingIsOpenConverter.cs" />
-    <Compile Include="Converters\HealerCollectionSelectorConverter.cs" />
     <Compile Include="Converters\HealerConditionsConverter.cs" />
+    <Compile Include="Converters\HealerVisibilityConverter.cs" />
     <Compile Include="Converters\HealTriggerRangeConverter.cs" />
     <Compile Include="Converters\RadioButtonToEnumConverter.cs" />
     <Compile Include="Converters\RemoveNewLineConverter.cs" />

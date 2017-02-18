@@ -64,15 +64,15 @@ namespace TibiaBotUI.ViewModels
         #region Commands
         public ICommand SwitchPage { get; set; }
 
-        private bool _canSwitchPage(object arg)
+        private bool _canSwitchPage(string arg)
         {
-            int index = int.Parse((string)arg);
+            int index = int.Parse(arg);
             return _currentPage != index;
         }
 
-        private void _switchPage(object obj)
+        private void _switchPage(string obj)
         {
-            int index = int.Parse((string)obj);
+            int index = int.Parse(obj);
             CurrentPage = index;
             ActiveMainMenu = false;
         }
@@ -80,7 +80,7 @@ namespace TibiaBotUI.ViewModels
         #endregion
         public MainWindowViewModel()
         {
-            SwitchPage = new RelayCommand(_switchPage,_canSwitchPage);
+            SwitchPage = new RelayCommand<string>(_switchPage,_canSwitchPage);
         }
 
         

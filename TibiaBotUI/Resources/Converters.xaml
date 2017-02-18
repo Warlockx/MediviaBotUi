@@ -10,6 +10,6 @@
     <converters:HealTriggerRangeConverter x:Key="HealTriggerRangeConverter"/>
     <converters:HealerConditionsConverter x:Key="HealerConditionsConverter"/>
     <converters:VisibilityConverter x:Key="VisibilityConverter"/>
-    <converters:HealerCollectionSelectorConverter x:Key="HealerCollectionSelectorConverter"/>
-    <converters:FlyoutMultiBindingIsOpenConverter x:Key="FlyoutMultiBindingIsOpenConverter"/>
+    <converters:HealerVisibilityConverter x:Key="HealerVisibilityConverter"/>
+  
 </ResourceDictionary>

@@ -191,18 +191,17 @@ namespace TibiaBotUI.ViewModels
         }
 
         #region commands
-        private bool _canAddWaypoint(object arg)
+        private bool _canAddWaypoint(Waypoint arg)
         {
             return _waypointLocation != null;
         }
 
-        private void _addWaypoint(object obj)
+        private void _addWaypoint(Waypoint obj)
         {
             int waypointIndex = WaypointList.Count;
             if (obj != null)
             {
-                Waypoint currentWaypoint = (Waypoint)obj;
-                waypointIndex = currentWaypoint.Id+1;
+                waypointIndex = obj.Id+1;
                 foreach (Waypoint waypoint in WaypointList)
                 {
                     if (waypoint.Id >= waypointIndex)
@@ -218,44 +217,44 @@ namespace TibiaBotUI.ViewModels
             }
         }
 
-        private bool _canEditWaypointAction(object arg)
+        private static bool _canEditWaypointAction(Waypoint arg)
         {
-            Waypoint waypoint = (Waypoint)arg;
-            return waypoint?.Type == WaypointType.Action;
+            return arg?.Type == WaypointType.Action;
         }
 
-        private void _editWaypointAction(object obj)
+        private void _editWaypointAction(Waypoint obj)
         {
             EditingAction = true;
+        }
+
+        private static bool _canDeleteWaypoint(Waypoint arg)
+        {
+            return arg != null;
+        }
+
+        private void _deleteWaypoint(Waypoint obj)
+        {
+            if (obj == null) return;
+            foreach (Waypoint waypoint in WaypointList)
+            {
+                if (waypoint.Id >= obj.Id)
+                    waypoint.Id = waypoint.Id - 1;
+            }
+            WaypointList.Remove(obj);
         }
         #endregion
 
 
         public CavebotViewModel()
         {
-            AddWaypoint = new RelayCommand(_addWaypoint, _canAddWaypoint);
-            EditWaypointAction = new RelayCommand(_editWaypointAction, _canEditWaypointAction);
-            DeleteWaypoint = new RelayCommand(_deleteWaypoint,_canDeleteWaypoint);
+            AddWaypoint = new RelayCommand<Waypoint>(_addWaypoint, _canAddWaypoint);
+            EditWaypointAction = new RelayCommand<Waypoint>(_editWaypointAction, _canEditWaypointAction);
+            DeleteWaypoint = new RelayCommand<Waypoint>(_deleteWaypoint,_canDeleteWaypoint);
             _cavebotService = new CavebotService(this);
           
         }
 
-        private bool _canDeleteWaypoint(object arg)
-        {
-            return arg != null;
-        }
-
-        private void _deleteWaypoint(object obj)
-        {
-            Waypoint selectedWaypoint = (Waypoint) obj;
-            if (selectedWaypoint == null) return;
-            foreach (Waypoint waypoint in WaypointList)
-            {
-                if (waypoint.Id >= selectedWaypoint.Id)
-                    waypoint.Id = waypoint.Id - 1;
-            }
-            WaypointList.Remove(selectedWaypoint);
-        }
+      
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -26,6 +26,7 @@ namespace TibiaBotUI.ViewModels
 
         public ICommand AddRule { get; set; }
         public ICommand DeleteRule { get; set; }
+        public ICommand ChangePriority { get; set; }
         public ObservableCollection<Spell> Spells
         {
             get { return _spells; }
@@ -60,6 +61,7 @@ namespace TibiaBotUI.ViewModels
                 OnPropertyChanged();
             }
         }
+        public CollectionViewSource SpellHealerRulesViewSource { get; set; } = new CollectionViewSource();
         public ObservableCollection<HealerRule> ItemHealerRules
         {
             get
@@ -74,6 +76,7 @@ namespace TibiaBotUI.ViewModels
                 OnPropertyChanged();
             }
         }
+        public CollectionViewSource ItemHealerRulesViewSource { get; set; } = new CollectionViewSource();
 
         public bool HealerEnabled
         {
@@ -108,33 +111,84 @@ namespace TibiaBotUI.ViewModels
             }
         }
 
-       
-
-       
-
         public HealerViewModel()
         {
-            AddRule = new RelayCommand(_addRule, _canAddRule);
-            DeleteRule = new RelayCommand(_deleteRule,_canDeleteRule);
+            _loadCollections();
+            _prepareViewSources();
+            _loadCommands();
+            CurrentHealerRule = new HealerRule("", Spells.First(),HealItems.First(), 0, 0, 0, HealerConditions.Hitpoints, 500, 700);
+        }
+
+        #region commands
+        private void _prepareViewSources()
+        {
+            SpellHealerRulesViewSource.Source = SpellHealerRules;
+            SpellHealerRulesViewSource.SortDescriptions.Add(new SortDescription("Priority", ListSortDirection.Ascending));
+            ItemHealerRulesViewSource.Source = ItemHealerRules;
+            ItemHealerRulesViewSource.SortDescriptions.Add(new SortDescription("Priority", ListSortDirection.Ascending));
+        }
+
+        private void _loadCommands()
+        {
+            AddRule = new RelayCommand<object>(_addRule, _canAddRule);
+            DeleteRule = new RelayCommand<HealerRule>(_deleteRule, _canDeleteRule);
+            ChangePriority = new RelayCommand<HealerRule>(_changePriority, _canChangePriority);
+        }
+
+        private void _loadCollections()
+        {
             Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
             HealItems.Add(new HealItem("test item", 0));
-            CurrentHealerRule = new HealerRule("", null,null, 0, 0, 0, HealerConditions.Hitpoints, 500, 700);
-          
         }
 
-        private bool _canDeleteRule(object arg)
+        private bool _canChangePriority(HealerRule arg)
         {
-            HealerRule rule = (HealerRule)arg;
-            return rule != null;
+            return true;
         }
 
-        private void _deleteRule(object obj)
+        private void _changePriority(HealerRule obj)
         {
-            HealerRule rule = (HealerRule) obj;
-            if (_spellHealerRules.Any(r => r.Equals(rule)))
-                SpellHealerRules.Remove(rule);
+            HealerRule duplicatedPriorityItem;
+            int max;
+            bool increaseValue;
+            if (SpellHealerRules.Any(r => r.Equals(obj)))
+            {
+                max = SpellHealerRules.Count - 1;
+                if (obj.Priority > max)
+                    obj.Priority = max;
+
+                duplicatedPriorityItem =
+                    SpellHealerRules.FirstOrDefault(r => !r.Equals(obj) && r.Priority == obj.Priority);
+                increaseValue = SpellHealerRules.Any(r => r.Priority == obj.Priority + 1) || duplicatedPriorityItem?.Priority >= max;
+            }
             else
-                ItemHealerRules.Remove(rule);
+            {
+                max = ItemHealerRules.Count - 1;
+                if (obj.Priority > max)
+                    obj.Priority = max;
+
+                duplicatedPriorityItem =
+                    ItemHealerRules.FirstOrDefault(r => !r.Equals(obj) && r.Priority == obj.Priority);
+                increaseValue = ItemHealerRules.Any(r => r.Priority == obj.Priority + 1) || duplicatedPriorityItem?.Priority >= max;
+            }
+
+            if (duplicatedPriorityItem == null) return;
+
+            duplicatedPriorityItem.Priority = increaseValue ? obj.Priority - 1 : obj.Priority + 1;
+        }
+
+        private bool _canDeleteRule(HealerRule arg)
+        {
+            return arg != null;
+        }
+
+        private void _deleteRule(HealerRule obj)
+        {
+            if (_spellHealerRules.Any(r => r.Equals(obj)))
+
+                SpellHealerRules.Remove(obj);
+            else
+                ItemHealerRules.Remove(obj);
         }
 
         private bool _canAddRule(object arg)
@@ -144,23 +198,32 @@ namespace TibiaBotUI.ViewModels
 
         private void _addRule(object obj)
         {
-            if ((string) obj == "Spell")
+            if ((string)obj == "Spell")
             {
+                if (CurrentHealerRule.Priority > SpellHealerRules.Count)
+                    CurrentHealerRule.Priority = SpellHealerRules.Count;
+
                 SpellHealerRules.Add(new HealerRule("", CurrentHealerRule.Spell,null,
                     CurrentHealerRule.MinTrigger,
                     CurrentHealerRule.MaxTrigger, CurrentHealerRule.Priority, CurrentHealerRule.Condition,
                     CurrentHealerRule.MinSpamRate, CurrentHealerRule.MaxSpamRate));
+                CurrentHealerRule = new HealerRule("", Spells.First(), HealItems.First(), 0, 0, SpellHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
             }
             else
             {
+                if (CurrentHealerRule.Priority > ItemHealerRules.Count)
+                    CurrentHealerRule.Priority = ItemHealerRules.Count;
+
                 ItemHealerRules.Add(new HealerRule("", null, CurrentHealerRule.HealItem,
                    CurrentHealerRule.MinTrigger,
                    CurrentHealerRule.MaxTrigger, CurrentHealerRule.Priority, CurrentHealerRule.Condition,
                    CurrentHealerRule.MinSpamRate, CurrentHealerRule.MaxSpamRate));
+                CurrentHealerRule = new HealerRule("", Spells.First(), HealItems.First(), 0, 0, ItemHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
             }
-            CurrentHealerRule =  new HealerRule("", null, null, 0, 0, 0, HealerConditions.Hitpoints, 500, 700);
+
         }
 
+        #endregion
         public event PropertyChangedEventHandler PropertyChanged;
 
        

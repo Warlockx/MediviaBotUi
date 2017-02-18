@@ -17,7 +17,7 @@ namespace TibiaBotUI.Models
         private HealerConditions _condition;
         private int _minSpamRate;
         private int _maxSpamRate;
-      
+        
 
         public string Name
         {
