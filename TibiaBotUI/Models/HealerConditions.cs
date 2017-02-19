@@ -13,6 +13,7 @@ namespace TibiaBotUI.Models
         Mana,
         ManaPercent,
         Poisoned,
+        Bleeding,
         Burning,
         Electrified,
         Cursed,

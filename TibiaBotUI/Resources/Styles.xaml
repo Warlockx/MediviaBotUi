@@ -86,7 +86,7 @@
     <Style x:Key="RoundButtons" TargetType="Button" BasedOn="{StaticResource MetroCircleButtonStyle}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Width" Value="60"/>
-        <Setter Property="FontFamily" Value="Webdings"/>
+        <Setter Property="FontFamily" Value="Wingdings"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Margin" Value="5"/>
     </Style>
@@ -99,5 +99,13 @@
     <Style x:Key="HealthConditionRangeNumericUpDown" TargetType="controls:NumericUpDown">
         <Setter Property="HideUpDownButtons" Value="True"/>
         <Setter Property="Minimum" Value="0"/>
+    </Style>
+    <Style x:Key="PrioritySlider" TargetType="Slider" BasedOn="{StaticResource {x:Type Slider}}">
+        <Setter Property="Margin" Value="5,5,5,0"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Grid.Row" Value="4"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="TickPlacement" Value="BottomRight"/>
     </Style>
 </ResourceDictionary>

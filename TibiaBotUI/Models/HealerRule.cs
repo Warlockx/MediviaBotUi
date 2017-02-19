@@ -6,6 +6,7 @@ namespace TibiaBotUI.Models
 {
     public class HealerRule : INotifyPropertyChanged
     {
+        private int _id;
         private string _name;
         private Spell _spell;
         private HealItem _healItem;
@@ -19,6 +20,9 @@ namespace TibiaBotUI.Models
         private HealerConditions _condition;
         private int _minSpamRate;
         private int _maxSpamRate;
+        private bool _overrideActions;
+        private bool _saveMana;
+        private bool _enabled;
         
 
         public string Name
@@ -43,22 +47,26 @@ namespace TibiaBotUI.Models
         }
         public int? MinTrigger
         {
-            get { return _minTrigger; }
+            get
+            {
+                return _minTrigger;
+            }
             set
             {
                 if (value == _minTrigger) return;
-                TriggerSplitter = value == null ?  "" :  "~";
-                _minTrigger = value;
+              _minTrigger = value;
                 OnPropertyChanged();
             }
         }
         public int? MaxTrigger
         {
-            get { return _maxTrigger; }
+            get
+            {
+                return _maxTrigger;
+            }
             set
             {
                 if (value == _maxTrigger) return;
-                TriggerSplitter = value == null ? "" : "~";
                 _maxTrigger = value;
                 OnPropertyChanged();
             }
@@ -92,9 +100,6 @@ namespace TibiaBotUI.Models
             set
             {
                 if(value == _condition ) return;
-                string valueString = value.ToString();
-                TriggerLimit = valueString.Contains("Percent") ? 100 : int.MaxValue;
-                TriggerDecoration = valueString.Contains("Percent") ? "%" : "";
                 _condition = value;
                 OnPropertyChanged();
             }
@@ -105,7 +110,6 @@ namespace TibiaBotUI.Models
             set
             {
                 if(value == _triggerLimit) return;
-                
                 _triggerLimit = value;
                 OnPropertyChanged();
             }
@@ -164,6 +168,41 @@ namespace TibiaBotUI.Models
             }
         }
 
+        public bool OverrideActions
+        {
+            get { return _overrideActions; }
+            set
+            {
+                if (value == _overrideActions) return;
+                _overrideActions = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool SaveMana
+        {
+            get { return _saveMana; }
+            set
+            {
+                if (value == _saveMana) return;
+                _saveMana = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (value == _enabled) return;
+                _enabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Id => _id;
+
 
         private string _getTriggerType(HealerConditions? conditions)
         {
@@ -172,7 +211,7 @@ namespace TibiaBotUI.Models
             switch (conditions)
             {
                     case HealerConditions.Hitpoints:
-                     return "hp";
+                    return "hp";
                     case HealerConditions.HitpointsPercent:
                     return "hppc";
                     case HealerConditions.Mana:
@@ -184,8 +223,9 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public HealerRule(string name, Spell spell, HealItem healItem, int? minTrigger, int? maxTrigger, int priority, HealerConditions condition,int minSpamRate, int maxSpamRate)
+        public HealerRule(int id,string name, Spell spell, HealItem healItem, int? minTrigger, int? maxTrigger, int priority, HealerConditions condition,int minSpamRate, int maxSpamRate, bool overrideActions, bool saveMana, bool enabled)
         {
+            _id = id;
             _name = name;
             _spell = spell;
             _healItem = healItem;
@@ -195,6 +235,9 @@ namespace TibiaBotUI.Models
             _condition = condition;
             _minSpamRate = minSpamRate;
             _maxSpamRate = maxSpamRate;
+            _overrideActions = overrideActions;
+            _saveMana = saveMana;
+            _enabled = enabled;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

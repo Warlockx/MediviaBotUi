@@ -48,55 +48,26 @@
     <DataTemplate x:Key="HealRuleSpellNameDataTemplate">
         <TextBlock Text="{Binding Spell.Name}"/>
     </DataTemplate>
-    <DataTemplate x:Key="HealRuleSpellNameEditingDataTemplate">
-        <ComboBox ItemsSource="{Binding DataContext.Spells, ElementName=HealerSpellRulesDatagrid}" SelectedItem="{Binding Spell, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
-    </DataTemplate>
+    
     <DataTemplate x:Key="HealRuleItemNameDataTemplate">
         <TextBlock Text="{Binding HealItem.Name}"/>
     </DataTemplate>
-    <DataTemplate x:Key="HealRuleItemNameEditingDataTemplate">
-        <ComboBox ItemsSource="{Binding DataContext.HealItems, ElementName=HealerHealItemRulesDatagrid}" SelectedItem="{Binding HealItem, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"/>
-    </DataTemplate>
 
     <DataTemplate x:Key="HealRuleRangeDataTemplate">
-        <TextBlock>
-            <TextBlock.Text>
-                <MultiBinding StringFormat="{}{0} {1} {2} {3}">
-                    <Binding Path="TriggerType"/>
-                    <Binding Path="MinTrigger" FallbackValue=""/>
-                    <Binding Path="TriggerSplitter"/>
-                    <Binding Path="MaxTrigger" FallbackValue=""/>
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} {1}{4} {2} {3}{4}">
+                        <Binding Path="TriggerType"/>
+                        <Binding Path="MinTrigger"/>
+                        <Binding Path="TriggerSplitter"/>
+                        <Binding Path="MaxTrigger"/>
+                        <Binding Path="TriggerDecoration"/>
                 </MultiBinding>
-            </TextBlock.Text>
-        </TextBlock>
-    </DataTemplate>
-    <DataTemplate x:Key="HealRuleRangeEditingDataTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="{DynamicResource ControlBackgroundBrush}">
-            <TextBlock Text="{Binding TriggerType}"/>
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="0" Value="{Binding MinTrigger}"/>
-            <TextBlock Text="~"/>
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="0" Value="{Binding MaxTrigger}"/>
-        </StackPanel>
+                </TextBlock.Text>
+            </TextBlock>
     </DataTemplate>
     <DataTemplate x:Key="HealPriorityDataTemplate">
         <TextBlock Text="{Binding Priority}"/>
     </DataTemplate>
-    <DataTemplate x:Key="HealSpellPriorityEditingDataTemplate">
-        <controls:NumericUpDown  Value="{Binding Priority,UpdateSourceTrigger=PropertyChanged}" Minimum="0">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="ValueChanged">
-                    <i:InvokeCommandAction Command="{Binding DataContext.ChangePriority, ElementName=HealerSpellRulesDatagrid}" CommandParameter="{Binding ElementName=HealerSpellRulesDatagrid, Path=SelectedItem}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </controls:NumericUpDown>
-    </DataTemplate>
-    <DataTemplate x:Key="HealItemPriorityEditingDataTemplate">
-        <controls:NumericUpDown  Value="{Binding Priority,UpdateSourceTrigger=PropertyChanged}"  Minimum="0">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="ValueChanged">
-                    <i:InvokeCommandAction Command="{Binding DataContext.ChangePriority, ElementName=HealerHealItemRulesDatagrid}" CommandParameter="{Binding ElementName=HealerHealItemRulesDatagrid, Path=SelectedItem}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </controls:NumericUpDown>
-    </DataTemplate>
+   
 </ResourceDictionary>

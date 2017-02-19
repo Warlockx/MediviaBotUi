@@ -92,6 +92,7 @@
     <Compile Include="Converters\CheckboxContentConverter.cs" />
     <Compile Include="Converters\DummyConverter.cs" />
     <Compile Include="Converters\HealerConditionsConverter.cs" />
+    <Compile Include="Converters\HealerPriorityConverter.cs" />
     <Compile Include="Converters\HealerVisibilityConverter.cs" />
     <Compile Include="Converters\HealTriggerRangeConverter.cs" />
     <Compile Include="Converters\RadioButtonToEnumConverter.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Models\WaypointDirection.cs" />
     <Compile Include="Models\WaypointLocation.cs" />
     <Compile Include="Properties\Annotations7.cs" />
+    <Compile Include="Services\HealerService.cs" />
     <Compile Include="Services\CavebotService.cs" />
     <Compile Include="Services\HealItemListProviderService.cs" />
     <Compile Include="Services\SpellListProviderService.cs" />
