@@ -73,9 +73,9 @@
     <DataTemplate x:Key="HealRuleRangeEditingDataTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="{DynamicResource ControlBackgroundBrush}">
             <TextBlock Text="{Binding TriggerType}"/>
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Value="{Binding MinTrigger}"/>
+            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="0" Value="{Binding MinTrigger}"/>
             <TextBlock Text="~"/>
-            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="1" Value="{Binding MaxTrigger}"/>
+            <controls:NumericUpDown Style="{StaticResource BordelessNumericUpDown}" Minimum="0" Value="{Binding MaxTrigger}"/>
         </StackPanel>
     </DataTemplate>
     <DataTemplate x:Key="HealPriorityDataTemplate">

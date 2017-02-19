@@ -207,7 +207,7 @@
                     <TextBlock Grid.Column="1"  Grid.Row="0" Text="Cavebot" Style="{StaticResource HeaderText}"/>
                     <CheckBox FontSize="15" Margin="10,0,20,0" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Content="{Binding CavebotEnabled, Converter={StaticResource CheckboxContentConverter}}" IsChecked="{Binding CavebotEnabled}" />
                     <ToggleButton Name="EditWaypointsToggleButton" FontSize="15" HorizontalAlignment="Right" Margin="5" Content="Edit Waypoints" Grid.Column="2" Grid.Row="1"/>
-                    <DataGrid SelectionMode="Single" SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
+                    <DataGrid CanUserDeleteRows="False" SelectionMode="Single" SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True"/>
                             <DataGridTemplateColumn Header="Type" CellTemplate="{StaticResource WaypointTypeDataTemplate}" CellEditingTemplate="{StaticResource WaypointTypeEditingDataTemplate}"/>

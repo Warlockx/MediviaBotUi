@@ -138,7 +138,7 @@ namespace TibiaBotUI.ViewModels
         private void _loadCollections()
         {
             Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells(SpellGroup.Healing));
-            HealItems.Add(new HealItem("test item", 0));
+            HealItems = new ObservableCollection<HealItem>(HealItemListProviderService.LoadHealItems());
         }
 
         private bool _canChangePriority(HealerRule arg)
@@ -198,7 +198,7 @@ namespace TibiaBotUI.ViewModels
 
         private bool _canAddRule(string arg)
         {
-            return true; //check binds later
+            return SpellHealerRules != null || ItemHealerRules != null;
         }
 
         private void _addRule(string obj)
@@ -217,9 +217,9 @@ namespace TibiaBotUI.ViewModels
                     CurrentHealerRule.Priority = SpellHealerRules.Count;
 
                 CurrentHealerRule.HealItem = null;
-
+                SpellHealerRules.Where(r => r.Priority >= CurrentHealerRule.Priority).ToList().ForEach(r => r.Priority++);
                 SpellHealerRules.Add(CurrentHealerRule);
-                CurrentHealerRule = new HealerRule("", CurrentHealerRule.Spell, CurrentHealerRule.HealItem, 0, 110,
+                CurrentHealerRule = new HealerRule("", Spells.First(), HealItems.First(), 0, 110,
                     SpellHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
             }
             else
@@ -228,8 +228,9 @@ namespace TibiaBotUI.ViewModels
                     CurrentHealerRule.Priority = ItemHealerRules.Count;
 
                 CurrentHealerRule.Spell = null;
+                ItemHealerRules.Where(r => r.Priority >= CurrentHealerRule.Priority).ToList().ForEach(r => r.Priority++);
                 ItemHealerRules.Add(CurrentHealerRule);
-                CurrentHealerRule = new HealerRule("", CurrentHealerRule.Spell, CurrentHealerRule.HealItem, 0, 110,
+                CurrentHealerRule = new HealerRule("", Spells.First(), HealItems.First(), 0, 110,
                     ItemHealerRules.Count, HealerConditions.Hitpoints, 500, 700);
             }
 

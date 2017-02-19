@@ -12,10 +12,10 @@ namespace TibiaBotUI.Models
     public class HealItem : INotifyPropertyChanged
     {
         private string _name;
+        private int _levelRequirement;
+        private int _magicLevelRequirement;
         private int _cooldown;
-
-
-       
+        private string[] _vocationToUse;
 
         public string Name
         {
@@ -39,10 +39,44 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public HealItem(string name, int cooldown)
+        public string[] VocationToUse
+        {
+            get { return _vocationToUse; }
+            set
+            {
+                if(value == _vocationToUse) return;
+                _vocationToUse = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int LevelRequirement
+        {
+            get { return _levelRequirement; }
+            set
+            {
+                if(value == _levelRequirement) return;
+                _levelRequirement = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int MagicLevelRequirement
+        {
+            get { return _magicLevelRequirement; }
+            set
+            {
+                if(value == _magicLevelRequirement) return;
+                _magicLevelRequirement = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public HealItem(string name, int cooldown, string[] vocationToUse)
         {
             _name = name;
             _cooldown = cooldown;
+            _vocationToUse = vocationToUse;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

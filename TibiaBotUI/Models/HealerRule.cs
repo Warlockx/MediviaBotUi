@@ -13,6 +13,7 @@ namespace TibiaBotUI.Models
         private int? _minTrigger;
         private int? _maxTrigger;
         private string _triggerSplitter = "~";
+        private string _triggerDecoration = "%";
         private int _priority;
         private int _triggerLimit = int.MaxValue;
         private HealerConditions _condition;
@@ -91,7 +92,9 @@ namespace TibiaBotUI.Models
             set
             {
                 if(value == _condition ) return;
-                TriggerLimit = value.ToString().Contains("Percent") ? 100 : int.MaxValue;
+                string valueString = value.ToString();
+                TriggerLimit = valueString.Contains("Percent") ? 100 : int.MaxValue;
+                TriggerDecoration = valueString.Contains("Percent") ? "%" : "";
                 _condition = value;
                 OnPropertyChanged();
             }
@@ -146,6 +149,17 @@ namespace TibiaBotUI.Models
             {
                 if(value == _triggerSplitter) return;
                 _triggerSplitter = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string TriggerDecoration
+        {
+            get { return _triggerDecoration; }
+            set
+            {
+                if(value == _triggerDecoration) return;
+                _triggerDecoration = value;
                 OnPropertyChanged();
             }
         }

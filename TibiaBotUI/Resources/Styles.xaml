@@ -98,6 +98,6 @@
     </Style>
     <Style x:Key="HealthConditionRangeNumericUpDown" TargetType="controls:NumericUpDown">
         <Setter Property="HideUpDownButtons" Value="True"/>
-        <Setter Property="Minimum" Value="1"/>
+        <Setter Property="Minimum" Value="0"/>
     </Style>
 </ResourceDictionary>

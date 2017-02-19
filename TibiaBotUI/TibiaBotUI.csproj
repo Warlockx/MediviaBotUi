@@ -112,6 +112,7 @@
     <Compile Include="Models\WaypointLocation.cs" />
     <Compile Include="Properties\Annotations7.cs" />
     <Compile Include="Services\CavebotService.cs" />
+    <Compile Include="Services\HealItemListProviderService.cs" />
     <Compile Include="Services\SpellListProviderService.cs" />
     <Compile Include="Services\ThemingService.cs" />
     <Compile Include="ViewModels\AppConfigurationViewModel.cs" />
@@ -173,6 +174,9 @@
     </None>
     <AppDesigner Include="Properties\" />
     <EmbeddedResource Include="Resources\spells.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealItems.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
