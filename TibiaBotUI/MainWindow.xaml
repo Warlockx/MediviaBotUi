@@ -34,15 +34,6 @@
                 </StackPanel>
             </controls:Flyout>
             <!--Cavebot Flyout-->
-            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" IsOpen="{Binding EditingAction}" Header="Edit Action" MinWidth="420">
-                <Grid>
-                    <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{DynamicResource FlyoutForegroundBrush}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
-                        <i:Interaction.Behaviors>
-                            <attachedBehaviors:AvalonEditBehaviour GiveMeTheText="{Binding ElementName=WaypointDataGrid, Path=SelectedItem.Action, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </i:Interaction.Behaviors>
-                    </avalonEdit:TextEditor>
-                </Grid>
-            </controls:Flyout>
             <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Header="Edit Cavebot" MinWidth="200">
                 <controls:Flyout.IsOpen>
                     <MultiBinding Converter="{StaticResource FlyoutMultiBindingConveter}" ConverterParameter="1">
@@ -100,6 +91,22 @@
                     </WrapPanel>
                 </Grid>
             </controls:Flyout>
+            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Header="Edit Action" MinWidth="420">
+                <controls:Flyout.IsOpen>
+                    <MultiBinding Converter="{StaticResource FlyoutMultiBindingConveter}" ConverterParameter="1">
+                        <Binding ElementName="MainTabControl" Path="SelectedIndex" Mode="OneWay"/>
+                        <Binding Path="EditingAction" />
+                    </MultiBinding>
+                </controls:Flyout.IsOpen>
+                <Grid>
+                    <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{DynamicResource FlyoutForegroundBrush}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
+                        <i:Interaction.Behaviors>
+                            <attachedBehaviors:AvalonEditBehaviour GiveMeTheText="{Binding ElementName=WaypointDataGrid, Path=SelectedItem.Action, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </i:Interaction.Behaviors>
+                    </avalonEdit:TextEditor>
+                </Grid>
+            </controls:Flyout>
+            <!--Healer Flyout-->
             <controls:Flyout MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" Position="Right">
                 <controls:Flyout.IsOpen>
                     <MultiBinding Converter="{StaticResource FlyoutMultiBindingConveter}" ConverterParameter="0">
