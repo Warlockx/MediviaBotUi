@@ -11,5 +11,6 @@
     <converters:VisibilityConverter x:Key="VisibilityConverter"/>
     <converters:HealerVisibilityConverter x:Key="HealerVisibilityConverter"/>
     <converters:HealerPriorityConverter x:Key="HealerPriorityConverter"/>
+    <converters:FlyoutMultiBindingConveter x:Key="FlyoutMultiBindingConveter"/>
 
 </ResourceDictionary>

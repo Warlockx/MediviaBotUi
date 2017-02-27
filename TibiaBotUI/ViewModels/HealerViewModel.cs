@@ -22,7 +22,7 @@ namespace MediviaBotUI.ViewModels
         private HealerService _healerService;
         private string _addButtonText = "ü";
         private string _addButtonTooltip = "Add";
-        private bool _editingRule;
+     
 
         public ICommand AddRule { get; set; }
         public ICommand DeleteRule { get; set; }
@@ -133,17 +133,7 @@ namespace MediviaBotUI.ViewModels
             }
         }
 
-        public bool EditingRule
-        {
-            get { return _editingRule; }
-            set
-            {
-                if(value == _editingRule) return;
-                _editingRule = value;
-                OnPropertyChanged();
-            }
-        }
-
+       
 
         public HealerViewModel()
         {
@@ -179,7 +169,6 @@ namespace MediviaBotUI.ViewModels
 
         private void _editRule(HealerRule obj)
         {
-            EditingRule = true;
             AddButtonText = "<";
             AddButtonTooltip = "Save";
             CurrentHealerRule = obj;

@@ -91,6 +91,7 @@
     <Compile Include="Converters\BaseThemeConverter.cs" />
     <Compile Include="Converters\CheckboxContentConverter.cs" />
     <Compile Include="Converters\DummyConverter.cs" />
+    <Compile Include="Converters\FlyoutMultiBindingConveter.cs" />
     <Compile Include="Converters\HealerConditionsConverter.cs" />
     <Compile Include="Converters\HealerPriorityConverter.cs" />
     <Compile Include="Converters\HealerVisibilityConverter.cs" />

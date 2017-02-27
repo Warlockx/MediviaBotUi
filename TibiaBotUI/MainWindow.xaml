@@ -43,7 +43,13 @@
                     </avalonEdit:TextEditor>
                 </Grid>
             </controls:Flyout>
-            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" IsOpen="{Binding ElementName=EditWaypointsToggleButton, Path=IsChecked}" Header="Edit Cavebot" MinWidth="200">
+            <controls:Flyout DataContext="{StaticResource CavebotViewModel}" Position="Right" Header="Edit Cavebot" MinWidth="200">
+                <controls:Flyout.IsOpen>
+                    <MultiBinding Converter="{StaticResource FlyoutMultiBindingConveter}" ConverterParameter="1">
+                        <Binding ElementName="MainTabControl" Path="SelectedIndex" Mode="OneWay"/>
+                        <Binding ElementName="EditWaypointsToggleButton" Path="IsChecked"/>
+                    </MultiBinding>
+                </controls:Flyout.IsOpen>
                 <Grid Margin="10,5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -94,7 +100,13 @@
                     </WrapPanel>
                 </Grid>
             </controls:Flyout>
-            <controls:Flyout IsOpen="{Binding ElementName=EditHealerToggleButton, Path=IsChecked}" MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" Position="Right">
+            <controls:Flyout MinWidth="200" DataContext="{StaticResource HealerViewModel}"  Header="Edit Healer" Position="Right">
+                <controls:Flyout.IsOpen>
+                    <MultiBinding Converter="{StaticResource FlyoutMultiBindingConveter}" ConverterParameter="0">
+                        <Binding ElementName="MainTabControl" Path="SelectedIndex"/>
+                        <Binding ElementName="EditHealerToggleButton" Path="IsChecked"/>
+                    </MultiBinding>
+                </controls:Flyout.IsOpen>
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
