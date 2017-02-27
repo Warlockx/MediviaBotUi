@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using TibiaBotUI.Commands;
-using TibiaBotUI.Models;
-using TibiaBotUI.Services;
+using MediviaBotUI.Commands;
+using MediviaBotUI.Models;
+using MediviaBotUI.Services;
 
-namespace TibiaBotUI.ViewModels
+namespace MediviaBotUI.ViewModels
 {
     public class CavebotViewModel : INotifyPropertyChanged
     {

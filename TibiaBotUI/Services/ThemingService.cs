@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using MahApps.Metro;
-using TibiaBotUI.Models;
+using MediviaBotUI.Models;
 
-namespace TibiaBotUI.Services
+namespace MediviaBotUI.Services
 {
     public static class ThemingService
     {

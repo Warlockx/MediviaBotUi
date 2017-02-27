@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
 using ICSharpCode.AvalonEdit;
 
-namespace TibiaBotUI.AttachedBehaviors
+namespace MediviaBotUI.AttachedBehaviors
 {
     public sealed class AvalonEditBehaviour : Behavior<TextEditor>
     {

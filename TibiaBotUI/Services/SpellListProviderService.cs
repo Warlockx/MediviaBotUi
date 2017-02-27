@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using MediviaBotUI.Models;
 using Newtonsoft.Json;
-using TibiaBotUI.Models;
 
-namespace TibiaBotUI.Services
+namespace MediviaBotUI.Services
 {
     public static class SpellListProviderService
     {
-        public static IEnumerable<Spell> LoadSpells(SpellGroup filter)
+        public static IEnumerable<Spell> LoadSpells(string filter)
         {
-            Stream fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TibiaBotUI.Resources.spells.json");
+            Stream fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MediviaBotUI.Resources.spells.json");
             if (fileStream == null) return new List<Spell>();
             try
             {
@@ -29,9 +24,8 @@ namespace TibiaBotUI.Services
                 IEnumerable<Spell> spells = JsonConvert.DeserializeObject<IEnumerable<Spell>>(json);
                 reader.Dispose();
                 fileStream.Dispose();
-                return string.IsNullOrEmpty(filter.ToString())
-                    ? spells
-                    : spells.Where(s => s.Group == filter.ToString());
+                
+                return spells.Where(s=> s.Type.Equals(filter));
             }
             catch (Exception e)
             {

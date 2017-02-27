@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using MediviaBotUI.Models;
 using Newtonsoft.Json;
-using TibiaBotUI.Models;
 
-namespace TibiaBotUI.Services
+namespace MediviaBotUI.Services
 {
     public static class HealItemListProviderService
     {
         public static IEnumerable<HealItem> LoadHealItems()
         {
-            Stream fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TibiaBotUI.Resources.HealItems.json");
+            Stream fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MediviaBotUI.Resources.healitems.json");
             if (fileStream == null) return new List<HealItem>();
             try
             {

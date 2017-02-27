@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-
-namespace TibiaBotUI.Models
+namespace MediviaBotUI.Models
 {
     public class HealerRule : INotifyPropertyChanged
     {

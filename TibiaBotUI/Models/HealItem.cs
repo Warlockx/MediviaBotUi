@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using TibiaBotUI.Annotations;
+using MediviaBotUI.Properties;
 
-namespace TibiaBotUI.Models
+namespace MediviaBotUI.Models
 {
     public class HealItem : INotifyPropertyChanged
     {
         private string _name;
-        private int _levelRequirement;
         private int _magicLevelRequirement;
         private int _cooldown;
         private string[] _vocationToUse;
@@ -50,17 +44,6 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public int LevelRequirement
-        {
-            get { return _levelRequirement; }
-            set
-            {
-                if(value == _levelRequirement) return;
-                _levelRequirement = value;
-                OnPropertyChanged();
-            }
-        }
-
         public int MagicLevelRequirement
         {
             get { return _magicLevelRequirement; }
@@ -72,9 +55,10 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public HealItem(string name, int cooldown, string[] vocationToUse)
+        public HealItem(string name, int magicLevelRequirement, int cooldown, string[] vocationToUse)
         {
             _name = name;
+            _magicLevelRequirement = magicLevelRequirement;
             _cooldown = cooldown;
             _vocationToUse = vocationToUse;
         }

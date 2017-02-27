@@ -1,7 +1,6 @@
 ﻿[
   {
-   "Name":  "Cure Poison Rune",
-   "LevelRequirement":15,
+   "Name": "Antidote Rune", 
    "MagicLevelRequirement":0,
    "Cooldown": 250,
     "VocationToUse": [
@@ -12,8 +11,7 @@
     ]
   },
   {
-   "Name": "Intense Healing Rune",
-   "LevelRequirement":15,
+   "Name": "Intense Healing Rune", 
    "MagicLevelRequirement":1,
    "Cooldown": 250,
    "VocationToUse":[
@@ -24,8 +22,7 @@
    ]
   },
   {
-   "Name": "Ultimate Healing Rune",
-  "LevelRequirement":24,
+   "Name": "Ultimate Healing Rune", 
    "MagicLevelRequirement":4,
    "Cooldown": 250,
    "VocationToUse":[
@@ -36,7 +33,7 @@
    ]
   },
   {
-   "Name": "Small Health Potion",
+   "Name": "Life Fluid",
    "LevelRequirement":0,
    "MagicLevelRequirement":0,
    "Cooldown": 250,
@@ -48,7 +45,7 @@
    ]
   },
    {
-   "Name": "Health Potion",
+   "Name": "Mana Fluid",
    "LevelRequirement":0,
    "MagicLevelRequirement":0,
    "Cooldown": 250,
@@ -58,151 +55,5 @@
         "Paladin",
         "Sorcerer"
    ]
-  },
-   {
-   "Name": "Strong Health Potion",
-   "LevelRequirement":50,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Knight",
-        "Paladin"
-   ]
-  },
-   {
-   "Name": "Great Health Potion",
-   "LevelRequirement":80,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Knight"
-   ]
-  },
-  {
-   "Name": "Ultimate Health Potion",
-   "LevelRequirement":130,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Knight"
-   ]
-  },
-  {
-   "Name": "Supreme Health Potion",
-   "LevelRequirement":200,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Knight"
-   ]
-  },
-   {
-   "Name": "Mana Potion",
-   "LevelRequirement":0,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-       "Druid",
-        "Knight",
-        "Paladin",
-        "Sorcerer"
-   ]
-  },
-   {
-   "Name": "Strong Mana Potion",
-   "LevelRequirement":50,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Druid",
-        "Paladin",
-        "Sorcerer"
-   ]
-  },
-  {
-   "Name": "Great Mana Potion",
-   "LevelRequirement":80,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Druid",
-        "Sorcerer"
-   ]
-  },
-   {
-   "Name": "Ultimate Mana Potion",
-   "LevelRequirement":130,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Druid",
-        "Sorcerer"
-   ]
-  },
-   {
-   "Name": "Great Spirit Potion",
-   "LevelRequirement":80,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Paladin"
-   ]
-  },
-   {
-   "Name": "Ultimate Spirit Potion",
-   "LevelRequirement":130,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-        "Paladin"
-   ]
-  },
-   {
-   "Name": "Antidote Potion",
-   "LevelRequirement":0,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-       "Druid",
-        "Knight",
-        "Paladin",
-        "Sorcerer"
-   ]
-  },
-  {
-   "Name": "Mastermind Potion",
-   "LevelRequirement":0,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-       "Druid",
-        "Knight",
-        "Paladin",
-        "Sorcerer"
-   ]
-  },
-  {
-   "Name": "Berserk Potion",
-   "LevelRequirement":0,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-       "Druid",
-        "Knight",
-        "Paladin",
-        "Sorcerer"
-   ]
-  }, 
-  {
-   "Name": "Bullseye Potion",
-   "LevelRequirement":0,
-   "MagicLevelRequirement":0,
-   "Cooldown": 250,
-   "VocationToUse":[
-       "Druid",
-        "Knight",
-        "Paladin",
-        "Sorcerer"
-   ]
-  }
+   }  
 ]

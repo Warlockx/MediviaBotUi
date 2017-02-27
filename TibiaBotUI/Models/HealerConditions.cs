@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TibiaBotUI.Models
+﻿namespace MediviaBotUI.Models
 {
     public enum HealerConditions
     {
@@ -13,12 +7,8 @@ namespace TibiaBotUI.Models
         Mana,
         ManaPercent,
         Poisoned,
-        Bleeding,
         Burning,
-        Electrified,
-        Cursed,
         Paralyzed,
-        NotHasted,
-        NotStrengthned
+        NotHasted
     }
 }

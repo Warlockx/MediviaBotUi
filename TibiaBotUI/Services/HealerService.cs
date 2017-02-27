@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using TibiaBotUI.Models;
-using TibiaBotUI.ViewModels;
+using MediviaBotUI.Models;
+using MediviaBotUI.ViewModels;
 
-namespace TibiaBotUI.Services
+namespace MediviaBotUI.Services
 {
     public class HealerService
     {

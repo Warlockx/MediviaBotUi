@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using TibiaBotUI.Models;
-using TibiaBotUI.Services;
+using MediviaBotUI.Models;
+using MediviaBotUI.Services;
 
-namespace TibiaBotUI.ViewModels
+namespace MediviaBotUI.ViewModels
 {
     public class AppConfigurationViewModel : INotifyPropertyChanged
     {

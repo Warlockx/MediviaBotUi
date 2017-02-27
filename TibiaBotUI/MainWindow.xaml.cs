@@ -1,4 +1,4 @@
-﻿namespace TibiaBotUI
+﻿namespace MediviaBotUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

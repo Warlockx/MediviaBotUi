@@ -1,32 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using TibiaBotUI.Annotations;
+using MediviaBotUI.Properties;
 
-namespace TibiaBotUI.Models
+namespace MediviaBotUI.Models
 {
 
     public class Spell : INotifyPropertyChanged
     {
         private string _name;
         private string _formula;
-        public string[] _vocationToCast;
-        public string _group;
-        public string _type;
-        public string _cooldown;
-        public string _groupCooldown;
-        public int _minimunLevel;
-        public int _manaCost;
-        public int _priceToLearn;
-        public string[] _citiesToLearn;
-        public bool _premiumOnly;
-        public int _soulPoints;
-        public int _charges;
-        public string _damageType;
+        private string[] _vocationToCast;
+        private int _castMagicLevel;
+        private int _useMagicLevel;
+        private int _manaCost;
+        private bool _needsPremium;
+        private int _charges;
+        private string _type;
 
         public string Name
         {
@@ -61,57 +50,24 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public string Group
+        public int CastMagicLevel
         {
-            get { return _group; }
+            get { return _manaCost; }
             set
             {
-                if (value == _group) return;
-                _group = value;
+                if (value == _castMagicLevel) return;
+                _castMagicLevel = value;
                 OnPropertyChanged();
             }
         }
 
-        public string Type
+        public int UseMagicLevel
         {
-            get { return _type; }
+            get { return _useMagicLevel; }
             set
             {
-                if (value == _type) return;
-                _type = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Cooldown
-        {
-            get { return _cooldown; }
-            set
-            {
-                if (value == _cooldown) return;
-                _cooldown = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string GroupCooldown
-        {
-            get { return _groupCooldown; }
-            set
-            {
-                if (value == _groupCooldown) return;
-                _groupCooldown = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int MinimunLevel
-        {
-            get { return _minimunLevel; }
-            set
-            {
-                if (value == _minimunLevel) return;
-                _minimunLevel = value;
+                if (value == _useMagicLevel) return;
+                _useMagicLevel = value;
                 OnPropertyChanged();
             }
         }
@@ -127,50 +83,17 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public int PriceToLearn
+        public bool NeedsPremium
         {
-            get { return _priceToLearn; }
+            get { return _needsPremium; }
             set
             {
-                if (value == _priceToLearn) return;
-                _priceToLearn = value;
+                if (value == _needsPremium) return;
+                _needsPremium = value;
                 OnPropertyChanged();
             }
         }
-
-        public string[] CitiesToLearn
-        {
-            get { return _citiesToLearn; }
-            set
-            {
-                if (value == _citiesToLearn) return;
-                _citiesToLearn = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool PremiumOnly
-        {
-            get { return _premiumOnly; }
-            set
-            {
-                if (value == _premiumOnly) return;
-                _premiumOnly = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int SoulPoints
-        {
-            get { return _soulPoints; }
-            set
-            {
-                if (value == _soulPoints) return;
-                _soulPoints = value;
-                OnPropertyChanged();
-            }
-        }
-
+    
         public int Charges
         {
             get { return _charges; }
@@ -182,37 +105,17 @@ namespace TibiaBotUI.Models
             }
         }
 
-        public string DamageType
+        public string Type
         {
-            get { return _damageType; }
+            get { return _type; }
             set
             {
-                if (value == _damageType) return;
-                _damageType = value;
+                if(value == _type) return;
+                _type = value;
                 OnPropertyChanged();
             }
         }
 
-        public Spell(string name, string formula, string[] vocationToCast, string group, string type, string cooldown, string groupCooldown, int minimunLevel, int manaCost, int priceToLearn, string[] citiesToLearn, bool premiumOnly, int soulPoints, int charges, string damageType)
-        {
-            Name = name;
-            Formula = formula;
-            VocationToCast = vocationToCast;
-            Group = group;
-            Type = type;
-            Cooldown = cooldown;
-            GroupCooldown = groupCooldown;
-            MinimunLevel = minimunLevel;
-            ManaCost = manaCost;
-            PriceToLearn = priceToLearn;
-            CitiesToLearn = citiesToLearn;
-            PremiumOnly = premiumOnly;
-            SoulPoints = soulPoints;
-            Charges = charges;
-            DamageType = damageType;
-        }
-
-       
 
         public event PropertyChangedEventHandler PropertyChanged;
 
