@@ -116,6 +116,18 @@ namespace MediviaBotUI.Models
             }
         }
 
+        public Spell(string name, string formula, string[] vocationToCast, int castMagicLevel, int useMagicLevel, int manaCost, bool needsPremium, int charges, string type)
+        {
+            _name = name;
+            _formula = formula;
+            _vocationToCast = vocationToCast;
+            _castMagicLevel = castMagicLevel;
+            _useMagicLevel = useMagicLevel;
+            _manaCost = manaCost;
+            _needsPremium = needsPremium;
+            _charges = charges;
+            _type = type;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

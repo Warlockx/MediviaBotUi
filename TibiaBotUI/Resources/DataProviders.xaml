@@ -26,4 +26,16 @@
             <x:Type TypeName="models:HealerConditions"/>
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
+    <ObjectDataProvider x:Key="TargetingStances" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="models:TargetingStance"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+    <ObjectDataProvider x:Key="AttackMode" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="models:AttackMode"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
 </ResourceDictionary>

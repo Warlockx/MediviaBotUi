@@ -7,10 +7,9 @@
     <converters:RadioButtonToEnumConverter x:Key="RadioButtonToEnumConverter"/>
     <converters:DummyConverter x:Key="DummyConverter"/>
     <converters:HealTriggerRangeConverter x:Key="HealTriggerRangeConverter"/>
-    <converters:HealerConditionsConverter x:Key="HealerConditionsConverter"/>
+
     <converters:VisibilityConverter x:Key="VisibilityConverter"/>
-    <converters:HealerVisibilityConverter x:Key="HealerVisibilityConverter"/>
     <converters:HealerPriorityConverter x:Key="HealerPriorityConverter"/>
     <converters:FlyoutMultiBindingConveter x:Key="FlyoutMultiBindingConveter"/>
-
+    <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
 </ResourceDictionary>

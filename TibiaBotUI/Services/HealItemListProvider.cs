@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace MediviaBotUI.Services
 {
-    public static class HealItemListProviderService
+    public static class HealItemListProvider
     {
         public static IEnumerable<HealItem> LoadHealItems()
         {

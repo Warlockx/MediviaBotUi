@@ -14,7 +14,7 @@ namespace MediviaBotUI.ViewModels
     {
         private IHighlightingDefinition _highlightingDefinition;
         private ThemeBaseColors _baseTheme = ThemeBaseColors.BaseDark;
-        private ThemeAccents _themeAccent = ThemeAccents.Crimson;
+        private ThemeAccents _themeAccent = ThemeAccents.Cyan;
       
         public IHighlightingDefinition HighlightingDefinition
         {

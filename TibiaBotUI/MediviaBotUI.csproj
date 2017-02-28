@@ -92,17 +92,25 @@
     <Compile Include="Converters\CheckboxContentConverter.cs" />
     <Compile Include="Converters\DummyConverter.cs" />
     <Compile Include="Converters\FlyoutMultiBindingConveter.cs" />
-    <Compile Include="Converters\HealerConditionsConverter.cs" />
     <Compile Include="Converters\HealerPriorityConverter.cs" />
-    <Compile Include="Converters\HealerVisibilityConverter.cs" />
     <Compile Include="Converters\HealTriggerRangeConverter.cs" />
     <Compile Include="Converters\RadioButtonToEnumConverter.cs" />
     <Compile Include="Converters\RemoveNewLineConverter.cs" />
+    <Compile Include="Converters\EnumToStringConverter.cs" />
     <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Models\AttackMode.cs" />
+    <Compile Include="Models\DamageType.cs" />
+    <Compile Include="Models\Element.cs" />
     <Compile Include="Models\HealerConditions.cs" />
     <Compile Include="Models\HealerRule.cs" />
     <Compile Include="Models\HealItem.cs" />
+    <Compile Include="Models\Loot.cs" />
+    <Compile Include="Models\Monster.cs" />
+    <Compile Include="Models\MonsterAbility.cs" />
     <Compile Include="Models\Spell.cs" />
+    <Compile Include="Models\TargetingStance.cs" />
+    <Compile Include="Models\TargetingTemplate.cs" />
+    <Compile Include="Models\TargetingConfiguration.cs" />
     <Compile Include="Models\ThemeAccents.cs" />
     <Compile Include="Models\ThemeBaseColors.cs" />
     <Compile Include="Models\Vocation.cs" />
@@ -113,13 +121,15 @@
     <Compile Include="Properties\Annotations7.cs" />
     <Compile Include="Services\HealerService.cs" />
     <Compile Include="Services\CavebotService.cs" />
-    <Compile Include="Services\HealItemListProviderService.cs" />
-    <Compile Include="Services\SpellListProviderService.cs" />
+    <Compile Include="Services\HealItemListProvider.cs" />
+    <Compile Include="Services\MonsterListProvider.cs" />
+    <Compile Include="Services\SpellListProvider.cs" />
     <Compile Include="Services\ThemingService.cs" />
     <Compile Include="ViewModels\AppConfigurationViewModel.cs" />
     <Compile Include="ViewModels\CavebotViewModel.cs" />
     <Compile Include="ViewModels\HealerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\TargetingViewModel.cs" />
     <Page Include="Resources\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +188,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\healitems.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\monsters.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

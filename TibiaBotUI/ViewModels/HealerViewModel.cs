@@ -176,8 +176,8 @@ namespace MediviaBotUI.ViewModels
 
         private void _loadCollections()
         {
-            Spells = new ObservableCollection<Spell>(SpellListProviderService.LoadSpells("Healing"));
-            HealItems = new ObservableCollection<HealItem>(HealItemListProviderService.LoadHealItems());
+            Spells = new ObservableCollection<Spell>(SpellListProvider.LoadSpells("Healing"));
+            HealItems = new ObservableCollection<HealItem>(HealItemListProvider.LoadHealItems());
         }
 
         private bool _canChangePriority(HealerRule arg)

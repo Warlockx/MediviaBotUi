@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace MediviaBotUI.Services
 {
-    public static class SpellListProviderService
+    public static class SpellListProvider
     {
         public static IEnumerable<Spell> LoadSpells(string filter)
         {
