@@ -16,12 +16,12 @@ namespace MediviaBotUI.ViewModels
     public class TargetingViewModel : INotifyPropertyChanged
     {
         private bool _targetingEnabled;
-        private TargetingConfiguration _targetingConfiguration = new TargetingConfiguration();
+        private TargetingSetting _targetingConfiguration = new TargetingSetting();
         private ObservableCollection<TargetingTemplate> _targetingTemplates;
         private ObservableCollection<Monster> _monsters;
         private ObservableCollection<Spell> _spells = new ObservableCollection<Spell>();
-        public ICommand AddSpell { get; set; }
-        public ICommand RemoveSpell { get; set; }
+        private ObservableCollection<TargetingSetting> _settings = new ObservableCollection<TargetingSetting>();
+     
 
         public bool TargetingEnabled
         {
@@ -34,7 +34,7 @@ namespace MediviaBotUI.ViewModels
             }
         }
 
-        public TargetingConfiguration Configuration
+        public TargetingSetting Configuration
         {
             get { return _targetingConfiguration; }
             set
@@ -81,17 +81,29 @@ namespace MediviaBotUI.ViewModels
                 OnPropertyChanged();
             }
         }
-      
+
+        public ObservableCollection<TargetingSetting> Settings
+        {
+            get { return _settings; }
+            set
+            {
+                if(value == _settings) return;
+                _settings = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TargetingViewModel()
         {
             LoadMonsters();
             LoadSpells();
-            AddSpell = new RelayCommand<TargetingConfiguration>(Configuration.AddSpell,Configuration.CanAddSpell);
-            RemoveSpell = new RelayCommand<Spell>(Configuration.RemoveSpell, Configuration.CanRemoveSpell);
         }
 
         #region commands
 
+        private void LoadCommands()
+        {
+        }
         private void LoadMonsters()
         {
             Monsters = new ObservableCollection<Monster>(MonsterListProvider.LoadMonsters());

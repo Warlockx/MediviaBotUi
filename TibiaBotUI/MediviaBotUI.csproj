@@ -110,7 +110,7 @@
     <Compile Include="Models\Spell.cs" />
     <Compile Include="Models\TargetingStance.cs" />
     <Compile Include="Models\TargetingTemplate.cs" />
-    <Compile Include="Models\TargetingConfiguration.cs" />
+    <Compile Include="Models\TargetingSetting.cs" />
     <Compile Include="Models\ThemeAccents.cs" />
     <Compile Include="Models\ThemeBaseColors.cs" />
     <Compile Include="Models\Vocation.cs" />

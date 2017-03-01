@@ -6,10 +6,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using MediviaBotUI.Commands;
 
 namespace MediviaBotUI.Models
 {
-    public class TargetingConfiguration :INotifyPropertyChanged
+    public class TargetingSetting :INotifyPropertyChanged
     {
         private int _proximity;
         private int _health;
@@ -21,6 +23,9 @@ namespace MediviaBotUI.Models
         private ObservableCollection<Spell> _spells = new ObservableCollection<Spell>();
         private Spell _currentSpell;
         private bool _onlyIfTrapped;
+        public ICommand AddSpell { get; set; }
+        public ICommand RemoveSpell { get; set; }
+
         public int Proximity
         {
             get { return _proximity; }
@@ -143,22 +148,28 @@ namespace MediviaBotUI.Models
             }
         }
 
-        public bool CanAddSpell(TargetingConfiguration obj)
+        public TargetingSetting()
+        {
+            AddSpell = new RelayCommand<TargetingSetting>(_addSpell, _canAddSpell);
+            RemoveSpell = new RelayCommand<Spell>(_removeSpell, _canRemoveSpell);
+        }
+
+        private bool _canAddSpell(TargetingSetting obj)
         {
             return Spells.All(s => s != CurrentSpell);
         }
 
-        public void AddSpell(TargetingConfiguration obj)
+        private void _addSpell(TargetingSetting obj)
         {
             Spells.Add(CurrentSpell);
         }
 
-        public bool CanRemoveSpell(Spell obj)
+        private bool _canRemoveSpell(Spell obj)
         {
             return Spells.Any(s => s == obj);
         }
 
-        public void RemoveSpell(Spell obj)
+        private void _removeSpell(Spell obj)
         {
             Spells.Remove(obj);
         }

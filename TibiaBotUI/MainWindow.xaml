@@ -10,7 +10,7 @@
         xmlns:attachedBehaviors="clr-namespace:MediviaBotUI.AttachedBehaviors"
         xmlns:models="clr-namespace:MediviaBotUI.Models"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" Height="600" Width="748">
+        Title="{Binding WindowTitle}" Height="600" Width="748" ShowTitleBar="True">
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
@@ -194,6 +194,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="100"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" />
                             <ComboBox SelectedValue="{Binding Configuration.TargetMonster}" Style="{StaticResource FlyoutCombobox}" ItemsSource="{Binding Monsters}" DisplayMemberPath="Name" Grid.Row="0" Grid.Column="1" IsEditable="True"/>
@@ -217,16 +218,20 @@
                                                 <ColumnDefinition Width="30"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0" Text="{Binding Name}"/>
-                                            <Button HorizontalAlignment="Right" Grid.Column="1" Command="{Binding RemoveSpell, Source={StaticResource TargetingViewModel}}"  Content="X" CommandParameter="{Binding Mode=OneWay}"/>
+                                            <Button HorizontalAlignment="Right" Grid.Column="1" Command="{Binding Configuration.RemoveSpell, Source={StaticResource TargetingViewModel}}"  Content="X" CommandParameter="{Binding Mode=OneWay}"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <ToggleButton Margin="5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Name="EditTargetingSpells" Content="..."/>
                             <ComboBox Margin="5,5,50,5"  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding ElementName=EditTargetingSpells, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" HorizontalAlignment="Stretch" SelectedValue="{Binding Configuration.CurrentSpell}" ItemsSource="{Binding Spells}" DisplayMemberPath="Name"/>
-                            <Button Margin="5" Grid.Row="6" Grid.Column="1"  Visibility="{Binding ElementName=EditTargetingSpells, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" HorizontalAlignment="Right" Content="Add" Command="{Binding AddSpell}"/>
+                            <Button Margin="5" Grid.Row="6" Grid.Column="1"  Visibility="{Binding ElementName=EditTargetingSpells, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" HorizontalAlignment="Right" Content="Add" Command="{Binding Configuration.AddSpell}"/>
                             <CheckBox Margin="5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" IsChecked="{Binding Configuration.OnlyIfTrapped}" Content="Only if trapped"/>
-                          </Grid> 
+                            <StackPanel Grid.Row="8" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button Style="{StaticResource RoundButtons}"  Content="ü" Command="{Binding AddRule}"/>
+                                <Button Style="{StaticResource RoundButtons}"  Content="û" Command="{Binding DeleteRule}" CommandParameter="{Binding ElementName=TargetingSettingDataGrid, Path=SelectedItem}"/>
+                             </StackPanel>
+                        </Grid> 
                    
                         
                     </TabItem>
@@ -365,7 +370,7 @@
                     <TextBlock Text="Targeting" Grid.Row="0" Style="{StaticResource HeaderText}"/>
                     <CheckBox  Style="{StaticResource EnabledCheckBox}" Grid.Row="1" IsChecked="{Binding TargetingEnabled}" Content="{Binding TargetingEnabled, Converter={StaticResource CheckboxContentConverter}}"/>
                     <ToggleButton Style="{StaticResource EditToggleButton}" Content="Edit Targeting"  Grid.Row="1"/>
-                    <DataGrid Margin="10,5,5,5" Grid.Row="2">
+                    <DataGrid Name="TargetingSettingDataGrid" Margin="10,5,5,5" Grid.Row="2">
                     </DataGrid>
                     
                 </Grid>
