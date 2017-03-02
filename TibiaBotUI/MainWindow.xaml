@@ -338,7 +338,15 @@
                     <DataGrid IsReadOnly="True" ItemsSource="{Binding Settings}" Name="TargetingSettingDataGrid" Margin="10,5,5,5" Grid.Row="2" Grid.Column="0" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding TargetMonster.Name}"/>
-                            <DataGridTextColumn Header="Spells" Binding="{Binding Spells.Count}" />
+                            <DataGridTemplateColumn Header="Spells">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding Spells}" DisplayMemberPath="Name" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Stance" Binding="{Binding Stance, Converter={StaticResource EnumToStringConverter}}" />
+                            <DataGridTextColumn Header="Danger" Binding="{Binding Danger}" />
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRule}" CommandParameter="{Binding ElementName=TargetingSettingDataGrid, Path=SelectedItem}" />
