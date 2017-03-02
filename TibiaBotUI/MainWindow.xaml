@@ -199,7 +199,8 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="100"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="100"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" />
                             <ComboBox SelectedValue="{Binding CurrentSetting.TargetMonster}" Style="{StaticResource FlyoutCombobox}" ItemsSource="{Binding Monsters}" DisplayMemberPath="Name" Grid.Row="0" Grid.Column="1" IsEditable="True"/>
@@ -214,25 +215,27 @@
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Attack Mode"/>
                             <ComboBox SelectedValue="{Binding CurrentSetting.AttackMode, Converter={StaticResource EnumToStringConverter}}" Style="{StaticResource FlyoutCombobox}" ItemsSource="{Binding Source={StaticResource AttackMode}, Converter={StaticResource EnumToStringConverter}}"  Grid.Row="4" Grid.Column="1"/>
                             <TextBlock Grid.Row="5" Grid.Column="0" Text="Spells" />
-                            <ComboBox Name="TargetingCurrentSpells" Margin="30,5,40,5" Grid.Row="5" Grid.Column="1" IsReadOnly="True" ItemsSource="{Binding CurrentSetting.Spells}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid Width="160">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="30"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" Text="{Binding Name}"/>
-                                            <Button HorizontalAlignment="Right" Grid.Column="1" Command="{Binding CurrentSetting.RemoveSpell, Source={StaticResource TargetingViewModel}}"  Content="X" CommandParameter="{Binding Mode=OneWay}"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <ToggleButton Margin="5" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Name="EditTargetingSpells" Content="..."/>
-                            <ComboBox Margin="5,5,50,5"  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding ElementName=EditTargetingSpells, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" HorizontalAlignment="Stretch" SelectedValue="{Binding CurrentSetting.CurrentSpell}" ItemsSource="{Binding Spells}" DisplayMemberPath="Name"/>
-                            <Button Margin="5" Grid.Row="6" Grid.Column="1"  Visibility="{Binding ElementName=EditTargetingSpells, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" HorizontalAlignment="Right" Content="Add" Command="{Binding CurrentSetting.AddSpell}"/>
-                            <CheckBox Margin="5" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" IsChecked="{Binding CurrentSetting.OnlyIfTrapped}" Content="Only if trapped"/>
-                            <StackPanel Grid.Row="8" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Border BorderBrush="Silver" BorderThickness="1"  Margin="5" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="100">
+                        <ListBox ItemsSource="{Binding CurrentSetting.Spells}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                    <Grid Margin="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="30"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+                                        <Button HorizontalAlignment="Right" Grid.Column="1" Command="{Binding CurrentSetting.RemoveSpell, Source={StaticResource TargetingViewModel}}"  Content="X" CommandParameter="{Binding Mode=OneWay}"/>
+                                    </Grid>
+                              
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    </Border>
+                    <ComboBox Margin="5,5,50,5"  Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding ElementName=EditTargetingSpells, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" HorizontalAlignment="Stretch" SelectedValue="{Binding CurrentSetting.CurrentSpell}" ItemsSource="{Binding Spells}" DisplayMemberPath="Name"/>
+                            <Button Margin="5" Grid.Row="7" Grid.Column="1"  Visibility="{Binding ElementName=EditTargetingSpells, Path=IsChecked, Converter={StaticResource VisibilityConverter}}" HorizontalAlignment="Right" Content="Add" Command="{Binding CurrentSetting.AddSpell}"/>
+                            <CheckBox Margin="5" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" IsChecked="{Binding CurrentSetting.OnlyIfTrapped}" Content="Only if trapped"/>
+                            <StackPanel Grid.Row="9" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
                                 <Button Style="{StaticResource RoundButtons}"  Content="{Binding AddButtonText}" ToolTip="{Binding AddButtonTooltip}" Command="{Binding AddRule}"/>
                                 <Button Style="{StaticResource RoundButtons}"  Content="û" Command="{Binding RemoveRule}" CommandParameter="{Binding ElementName=TargetingSettingDataGrid, Path=SelectedItem}"/>
                              </StackPanel>

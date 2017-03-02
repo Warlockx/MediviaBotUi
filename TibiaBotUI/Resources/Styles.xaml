@@ -122,8 +122,8 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="TextAlignment" Value="Left"/>
         <Setter Property="Height" Value="40"/>
-        <Setter Property="Background" Value="{DynamicResource FlatButtonPressedBackgroundBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource  FlatButtonPressedForegroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource FlatButtonBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource  FlatButtonForegroundBrush}"/>
         <Setter Property="Padding" Value="20,10,0,0"/>
         <Setter Property="Margin" Value="-10,10,0,10"/>
     </Style>
