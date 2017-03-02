@@ -12,4 +12,5 @@
     <converters:HealerPriorityConverter x:Key="HealerPriorityConverter"/>
     <converters:FlyoutMultiBindingConveter x:Key="FlyoutMultiBindingConveter"/>
     <converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+    <converters:ArrayToStringConverter x:Key="ArrayToStringConverter"/>
 </ResourceDictionary>

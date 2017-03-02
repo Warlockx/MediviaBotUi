@@ -18,7 +18,7 @@ namespace MediviaBotUI.Converters
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return new[] {parameter, value};
+            return new[] {int.Parse(parameter.ToString()), value };
         }
     }
 }

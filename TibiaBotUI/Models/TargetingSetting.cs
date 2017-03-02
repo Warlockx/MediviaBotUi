@@ -13,8 +13,6 @@ namespace MediviaBotUI.Models
 {
     public class TargetingSetting :INotifyPropertyChanged
     {
-        private int _proximity;
-        private int _health;
         private int _danger;
         private Monster _targetMonster;
         private TargetingStance _stance;
@@ -25,39 +23,6 @@ namespace MediviaBotUI.Models
         private bool _onlyIfTrapped;
         public ICommand AddSpell { get; set; }
         public ICommand RemoveSpell { get; set; }
-
-        public int Proximity
-        {
-            get { return _proximity; }
-            set
-            {
-                if(value == _proximity) return;
-                _proximity = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int Health
-        {
-            get { return _health; }
-            set
-            {
-                if (value == _health) return;
-                _health = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int Danger
-        {
-            get { return _danger; }
-            set
-            {
-                if (value == _danger) return;
-                _danger = value;
-                OnPropertyChanged();
-            }
-        }
 
         public TargetingStance Stance
         {
@@ -148,12 +113,31 @@ namespace MediviaBotUI.Models
             }
         }
 
+        public int Danger
+        {
+            get
+            {
+                return _danger;
+            }
+
+            set
+            {
+                if (value == _danger) return;
+                _danger = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TargetingSetting()
         {
             AddSpell = new RelayCommand<TargetingSetting>(_addSpell, _canAddSpell);
             RemoveSpell = new RelayCommand<Spell>(_removeSpell, _canRemoveSpell);
         }
 
+        public bool IsValid()
+        {
+            return TargetMonster != null;
+        }
         private bool _canAddSpell(TargetingSetting obj)
         {
             return Spells.All(s => s != CurrentSpell);

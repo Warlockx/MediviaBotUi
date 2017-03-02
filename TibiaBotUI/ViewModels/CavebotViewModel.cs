@@ -25,6 +25,7 @@ namespace MediviaBotUI.ViewModels
         private int _walkOnFireThreshold;
         private int _walkOnPoisonThreshold;
         private int _walkOnEnergyThreshold;
+        //needs a converter
         private int[] _walkableIds;
 
         public ICommand AddWaypoint { get; set; }

@@ -16,12 +16,18 @@ namespace MediviaBotUI.ViewModels
     public class TargetingViewModel : INotifyPropertyChanged
     {
         private bool _targetingEnabled;
-        private TargetingSetting _targetingConfiguration = new TargetingSetting();
+        private TargetingSetting _currentSetting = new TargetingSetting();
         private ObservableCollection<TargetingTemplate> _targetingTemplates;
         private ObservableCollection<Monster> _monsters;
         private ObservableCollection<Spell> _spells = new ObservableCollection<Spell>();
         private ObservableCollection<TargetingSetting> _settings = new ObservableCollection<TargetingSetting>();
-     
+        private TargetingPriorities _priorities = new TargetingPriorities();
+        private string _addButtonText = "ü";
+        private string _addButtonTooltip = "Add";
+
+        public ICommand AddRule { get; set; }
+        public ICommand RemoveRule { get; set; }
+        public ICommand EditRule { get; set; }
 
         public bool TargetingEnabled
         {
@@ -34,13 +40,13 @@ namespace MediviaBotUI.ViewModels
             }
         }
 
-        public TargetingSetting Configuration
+        public TargetingSetting CurrentSetting
         {
-            get { return _targetingConfiguration; }
+            get { return _currentSetting; }
             set
             {
-                if(value == _targetingConfiguration) return;
-                _targetingConfiguration = value;
+                if(value == _currentSetting) return;
+                _currentSetting = value;
                 OnPropertyChanged();
             }
         }
@@ -93,8 +99,42 @@ namespace MediviaBotUI.ViewModels
             }
         }
 
+        public TargetingPriorities Priorities
+        {
+            get { return _priorities; }
+            set
+            {
+                if(value == _priorities) return;
+                _priorities = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AddButtonText
+        {
+            get { return _addButtonText; }
+            set
+            {
+                if (value == _addButtonText) return;
+                _addButtonText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AddButtonTooltip
+        {
+            get { return _addButtonTooltip; }
+            set
+            {
+                if (value == _addButtonText) return;
+                _addButtonTooltip = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TargetingViewModel()
         {
+            LoadCommands();
             LoadMonsters();
             LoadSpells();
         }
@@ -103,7 +143,49 @@ namespace MediviaBotUI.ViewModels
 
         private void LoadCommands()
         {
+            AddRule = new RelayCommand<TargetingSetting>(_addRule,_canAddRule);
+            RemoveRule = new RelayCommand<TargetingSetting>(_removeRule, _canRemoveRule);
+            EditRule = new RelayCommand<TargetingSetting>(_editRule, _canEditRule);
         }
+
+        private bool _canEditRule(TargetingSetting arg)
+        {
+            return arg != null;
+        }
+
+        private void _editRule(TargetingSetting obj)
+        {
+            AddButtonText = "<";
+            AddButtonTooltip = "Save";
+            CurrentSetting = obj;
+        }
+
+        private bool _canRemoveRule(TargetingSetting arg)
+        {
+            return arg != null;
+        }
+
+        private void _removeRule(TargetingSetting obj)
+        {
+            if (obj != null)
+             Settings.Remove(obj);
+        }
+
+        private bool _canAddRule(TargetingSetting arg)
+        {
+            return CurrentSetting.IsValid();
+        }
+
+        private void _addRule(TargetingSetting obj)
+        {
+            if(Settings.All(s => !s.Equals(CurrentSetting)))
+                Settings.Add(CurrentSetting);
+
+            AddButtonText = "ü";
+            AddButtonTooltip = "Add";
+            CurrentSetting = new TargetingSetting();
+        }
+
         private void LoadMonsters()
         {
             Monsters = new ObservableCollection<Monster>(MonsterListProvider.LoadMonsters());
@@ -112,7 +194,7 @@ namespace MediviaBotUI.ViewModels
         private void LoadSpells()
         {
             Spells =  new ObservableCollection<Spell>(SpellListProvider.LoadSpells("Attack"));
-            Configuration.CurrentSpell = Spells.FirstOrDefault();
+            CurrentSetting.CurrentSpell = Spells.FirstOrDefault();
         }
         #endregion
 
