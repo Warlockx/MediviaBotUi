@@ -334,11 +334,11 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Targeting" Grid.Row="0" Style="{StaticResource HeaderText}"/>
                     <CheckBox Grid.Row="1" Grid.Column="0" Style="{StaticResource EnabledCheckBox}"  IsChecked="{Binding TargetingEnabled}" Content="{Binding TargetingEnabled, Converter={StaticResource CheckboxContentConverter}}"/>
-                    <ToggleButton Name="EditTargetingToggleButton" Style="{StaticResource EditToggleButton}" Content="Edit Targeting" Grid.Column="1"  Grid.Row="1"/>
+                    <ToggleButton IsChecked="{Binding EditingRule}" Name="EditTargetingToggleButton" Style="{StaticResource EditToggleButton}" Content="Edit Targeting" Grid.Column="1"  Grid.Row="1"/>
                     <DataGrid IsReadOnly="True" ItemsSource="{Binding Settings}" Name="TargetingSettingDataGrid" Margin="10,5,5,5" Grid.Row="2" Grid.Column="0" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding TargetMonster.Name}"/>
-                            <DataGridTextColumn Header="Spells" Binding="{Binding Spells, Converter={StaticResource ArrayToStringConverter}}"/>
+                            <DataGridTextColumn Header="Spells" Binding="{Binding Spells.Count}" />
                         </DataGrid.Columns>
                         <DataGrid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRule}" CommandParameter="{Binding ElementName=TargetingSettingDataGrid, Path=SelectedItem}" />

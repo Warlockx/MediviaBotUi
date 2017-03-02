@@ -17,7 +17,8 @@ namespace MediviaBotUI.Converters
             StringBuilder result = new StringBuilder();
             if (value?.GetType() == typeof(ObservableCollection<Spell>))
             {
-                ObservableCollection<Spell> spells = (ObservableCollection<Spell>)value;
+                CollectionViewSource collectionView = (CollectionViewSource) value;
+                 ObservableCollection<Spell> spells = (ObservableCollection<Spell>)collectionView.View.SourceCollection;
                 for (int i = 0; i < spells.Count; i++)
                 {
                     result.Append(spells[i].Name);

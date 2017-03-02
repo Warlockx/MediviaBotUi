@@ -15,6 +15,7 @@ namespace MediviaBotUI.ViewModels
 {
     public class TargetingViewModel : INotifyPropertyChanged
     {
+        private bool _editingRule;
         private bool _targetingEnabled;
         private TargetingSetting _currentSetting = new TargetingSetting();
         private ObservableCollection<TargetingTemplate> _targetingTemplates;
@@ -132,6 +133,21 @@ namespace MediviaBotUI.ViewModels
             }
         }
 
+        public bool EditingRule
+        {
+            get
+            {
+                return _editingRule;
+            }
+
+            set
+            {
+                if(value == _editingRule) return;
+                _editingRule = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TargetingViewModel()
         {
             LoadCommands();
@@ -157,6 +173,7 @@ namespace MediviaBotUI.ViewModels
         {
             AddButtonText = "<";
             AddButtonTooltip = "Save";
+            EditingRule = true;
             CurrentSetting = obj;
         }
 
@@ -181,6 +198,7 @@ namespace MediviaBotUI.ViewModels
             if(Settings.All(s => !s.Equals(CurrentSetting)))
                 Settings.Add(CurrentSetting);
 
+         
             AddButtonText = "ü";
             AddButtonTooltip = "Add";
             CurrentSetting = new TargetingSetting();
