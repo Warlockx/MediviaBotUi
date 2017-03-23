@@ -9,7 +9,7 @@ namespace MediviaBotUI.Models
         private int _id;
         private WaypointType _type;
         private string _label;
-        private WaypointDirection _waypointDirection;
+        private WaypointDirection _waypointDirection = WaypointDirection.Center;
         private int _xWaypointRange;
         private int _yWaypointRange;
         private WaypointLocation _location;

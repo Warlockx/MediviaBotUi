@@ -60,11 +60,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Margin="0,2,5,2" Text="Type" Grid.Column="0" Grid.Row="2"/>
-                    <ComboBox ItemsSource="{ Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding WaypointType}" Margin="5,2,5,2"  Grid.Column="1" Grid.Row="2" />
+                    <ComboBox ItemsSource="{ Binding Source={StaticResource WaypointTypes}}" SelectedItem="{Binding CurrentWaypoint.Type}" Margin="5,2,5,2"  Grid.Column="1" Grid.Row="2" />
                     <TextBlock Margin="0,2,5,2"  Text="Range" Grid.Row="3" Grid.Column="0"/>
                     <StackPanel  Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="5">
-                        <controls:NumericUpDown Value="{Binding XWaypointRange}" Minimum="1" Maximum="5"/>
-                        <controls:NumericUpDown  Value="{Binding YWaypointRange}" Minimum="1" Maximum="5"/>
+                        <controls:NumericUpDown Value="{Binding CurrentWaypoint.XWaypointRange}" Minimum="1" Maximum="5"/>
+                        <controls:NumericUpDown  Value="{Binding CurrentWaypoint.YWaypointRange}" Minimum="1" Maximum="5"/>
                     </StackPanel>
                     <StackPanel Grid.Row="4" Margin="0,30,0,0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
                         <Button Style="{StaticResource RoundButtons}" ToolTip="Add"  Content="ü" Command="{Binding AddWaypoint}" CommandParameter="{Binding ElementName=WaypointDataGrid, Path=SelectedItem}"/>
@@ -81,15 +81,15 @@
                     <!--needs a convertor before making it two way string > int[]-->
                     <TextBox Text="{Binding WalkableIds, Mode=OneWay}" Grid.Row="9" Grid.Column="1" Margin="10,5" />
                     <WrapPanel Margin="0,30,0,30" Width="120"  UseLayoutRounding="True" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthEast }}"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="ì" />
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.West }}"   Margin="-3,0,5,0"   GroupName="WaypointDirectionGroup" Content="ç" FlowDirection="RightToLeft"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.Center }}"   Margin="0,0,0,2"  GroupName="WaypointDirectionGroup"  />
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.East }}"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="è"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthWest }}"    Margin="0,0,5,2"  GroupName="WaypointDirectionGroup" Content="í" FlowDirection="RightToLeft"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.South }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
-                        <RadioButton IsChecked="{Binding  WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthEast }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="î"/>
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthWest }}"  Margin="0,0,5,2" Content="ë" GroupName="WaypointDirectionGroup" FlowDirection="RightToLeft" />
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.North }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.NorthEast }}"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="ì" />
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.West }}"   Margin="-3,0,5,0"   GroupName="WaypointDirectionGroup" Content="ç" FlowDirection="RightToLeft"/>
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.Center }}"   Margin="0,0,0,2"  GroupName="WaypointDirectionGroup"  />
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.East }}"  Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="è"/>
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthWest }}"    Margin="0,0,5,2"  GroupName="WaypointDirectionGroup" Content="í" FlowDirection="RightToLeft"/>
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.South }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup"/>
+                        <RadioButton IsChecked="{Binding CurrentWaypoint.WaypointDirection, Converter={StaticResource RadioButtonToEnumConverter}, ConverterParameter={x:Static models:WaypointDirection.SouthEast }}"   Margin="0,0,0,2" GroupName="WaypointDirectionGroup" Content="î"/>
                     </WrapPanel>
                 </Grid>
             </controls:Flyout>
@@ -397,8 +397,16 @@
             </TabItem>
             <!--Looting Tab-->
             <TabItem Name="LootingTab" TabIndex="3">
-              
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <controls:Flyout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="3" Header="Edit Looting" MinWidth="250">
                         <Grid Margin="5">
                             <Grid.RowDefinitions>
@@ -413,19 +421,9 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Grid.Row="0" Text="Name"/>
-                          
+
                         </Grid>
                     </controls:Flyout>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Looting" Style="{StaticResource HeaderText}"/>
                     <CheckBox Grid.Row="1" Grid.Column="0" Style="{StaticResource EnabledCheckBox}"  IsChecked="{Binding LootingEnabled}" Content="{Binding LootingEnabled, Converter={StaticResource CheckboxContentConverter},FallbackValue=Disabled}"/>
                     <ToggleButton IsChecked="{Binding EditingRule}" Name="EditLootingToggleButton" Style="{StaticResource EditToggleButton}" Content="Edit Looting" Grid.Column="1"  Grid.Row="1"/>
