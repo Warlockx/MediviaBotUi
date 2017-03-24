@@ -13,7 +13,7 @@ namespace MediviaBotUI.Models
         private int _xWaypointRange;
         private int _yWaypointRange;
         private WaypointLocation _location;
-        private string _action;
+        private string _action = string.Empty;
 
         public int Id
         {
@@ -97,7 +97,7 @@ namespace MediviaBotUI.Models
             get { return _action; }
             set
             {
-                if (value == _action) return;
+                if (value == _action && Type != WaypointType.Action) return;
                 _action = value;
                 OnPropertyChanged();
             }
@@ -116,7 +116,14 @@ namespace MediviaBotUI.Models
             YWaypointRange = yWaypointRange;
         }
 
+        public Waypoint()
+        {
+        }
 
+        public Waypoint Default()
+        {
+            return new Waypoint(0, WaypointType.Stand, 1, 1, string.Empty, new WaypointLocation(0, 0, 0, WaypointDirection.Center), "");
+        }
         
         public event PropertyChangedEventHandler PropertyChanged;
 

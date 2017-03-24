@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,7 +24,7 @@ namespace MediviaBotUI.ViewModels
         private int[] _walkableIds;
 
         public ICommand AddWaypoint { get; }
-        public ICommand EditWaypointAction { get;  }
+        public ICommand EditWaypointAction { get; }
         public ICommand DeleteWaypoint { get;  }
         public bool CavebotEnabled
         {
@@ -63,7 +64,8 @@ namespace MediviaBotUI.ViewModels
             set
             {
                 if(value == _currentWaypoint) return;
-                _currentWaypoint = value;
+                _currentWaypoint = value ??
+                                   new Waypoint().Default();
                 OnPropertyChanged();
             }
         }
@@ -107,44 +109,15 @@ namespace MediviaBotUI.ViewModels
                 OnPropertyChanged();
             }
         }
-        #region commands
-        private static bool _canEditWaypointAction(Waypoint arg)
-        {
-            return arg?.Type == WaypointType.Action;
-        }
-
-        private void _editWaypointAction(Waypoint obj)
-        {
-            EditingAction = true;
-        }
 
         
-
-        private static bool _canDeleteWaypoint(Waypoint arg)
-        {
-            return arg != null;
-        }
-
-        private void _deleteWaypoint(Waypoint obj)
-        {
-            if (obj == null) return;
-            foreach (Waypoint waypoint in WaypointList)
-            {
-                if (waypoint.Id >= obj.Id)
-                    waypoint.Id = waypoint.Id - 1;
-            }
-            WaypointList.Remove(obj);
-        }
-        #endregion
-
-
         public CavebotViewModel()
         {
-            _currentWaypoint = new Waypoint(0,WaypointType.Stand, 1,1,string.Empty, new WaypointLocation(0, 0, 0, WaypointDirection.Center),string.Empty);
-            AddWaypoint = new AddWaypointCommand(_currentWaypoint,_waypointList).Command;
-         
-            EditWaypointAction = new RelayCommand<Waypoint>(_editWaypointAction, _canEditWaypointAction);
-            DeleteWaypoint = new RelayCommand<Waypoint>(_deleteWaypoint,_canDeleteWaypoint);
+            _currentWaypoint = new Waypoint().Default();
+            AddWaypoint = new AddWaypointCommand(CurrentWaypoint, WaypointList).Command;
+            EditWaypointAction = new RelayCommand<Waypoint>(w => { EditingAction = true; }, w => w?.Type == WaypointType.Action);
+            
+            DeleteWaypoint = new DeleteWaypointCommand(WaypointList).Command;
             _cavebotService = new CavebotService(this);
           
         }

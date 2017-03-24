@@ -98,12 +98,13 @@
                     <MultiBinding Converter="{StaticResource FlyoutMultiBindingConveter}" ConverterParameter="1">
                         <Binding ElementName="MainTabControl" Path="SelectedIndex" Mode="OneWay"/>
                         <Binding Path="EditingAction" />
+                        <Binding Path="CurrentWaypoint.Type"/>
                     </MultiBinding>
                 </controls:Flyout.IsOpen>
                 <Grid>
-                    <avalonEdit:TextEditor ShowLineNumbers="True" Foreground="{DynamicResource FlyoutForegroundBrush}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition, Source={StaticResource AppConfigurationViewModel}}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
+                    <avalonEdit:TextEditor  ShowLineNumbers="True" Foreground="{DynamicResource FlyoutForegroundBrush}" Margin="10" SyntaxHighlighting="{Binding HighlightingDefinition, Source={StaticResource AppConfigurationViewModel}}" Name="ActionEditor" FontFamily="Consolas" FontSize="10pt" WordWrap="False" >
                         <i:Interaction.Behaviors>
-                            <attachedBehaviors:AvalonEditBehaviour GiveMeTheText="{Binding ElementName=WaypointDataGrid, Path=SelectedItem.Action, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <attachedBehaviors:AvalonEditBehaviour  GiveMeTheText="{Binding CurrentWaypoint.Action}"/>
                         </i:Interaction.Behaviors>
                     </avalonEdit:TextEditor>
                 </Grid>
@@ -306,7 +307,7 @@
                     <TextBlock Grid.Row="0" Text="Cavebot" Style="{StaticResource HeaderText}"/>
                     <CheckBox Style="{StaticResource EnabledCheckBox}" Grid.Row="1" Content="{Binding CavebotEnabled, Converter={StaticResource CheckboxContentConverter}}" IsChecked="{Binding CavebotEnabled}" />
                     <ToggleButton Style="{StaticResource EditToggleButton}" Name="EditWaypointsToggleButton" Content="Edit Waypoints" Grid.Row="1"/>
-                    <DataGrid CanUserDeleteRows="False" SelectionMode="Single" SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Row="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
+                    <DataGrid CanUserDeleteRows="false" SelectionMode="Single" SelectedItem="{Binding CurrentWaypoint}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Name="WaypointDataGrid" Margin="5" Grid.Row="2" ItemsSource="{Binding WaypointList,Mode=TwoWay}" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Id}" Header="Id" IsReadOnly="True"/>
                             <DataGridTemplateColumn Header="Type" CellTemplate="{StaticResource WaypointTypeDataTemplate}" CellEditingTemplate="{StaticResource WaypointTypeEditingDataTemplate}"/>
