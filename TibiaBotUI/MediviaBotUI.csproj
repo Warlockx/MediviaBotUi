@@ -120,6 +120,9 @@
     <Compile Include="Models\Waypoint.cs" />
     <Compile Include="Models\WaypointDirection.cs" />
     <Compile Include="Models\WaypointLocation.cs" />
+    <Compile Include="NewWindow.xaml.cs">
+      <DependentUpon>NewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Annotations7.cs" />
     <Compile Include="Services\HealerService.cs" />
     <Compile Include="Services\CavebotService.cs" />
@@ -132,6 +135,10 @@
     <Compile Include="ViewModels\HealerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\TargetingViewModel.cs" />
+    <Page Include="NewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

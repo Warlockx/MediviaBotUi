@@ -1,0 +1,28 @@
+﻿<Window x:Class="MediviaBotUI.NewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediviaBotUI"
+        mc:Ignorable="d"
+        Title="NewWindow" Height="780" Width="1200" WindowStyle="None" Background="{DynamicResource BackgroundGradient}">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BackgroundGradient"  EndPoint="0.5,1" StartPoint="0.504,0.03">
+            <GradientStop Color="#0D4F97" Offset="0"/>
+            <GradientStop Color="#012C4E" Offset="0.567"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+          
+    </Grid>
+</Window>
+
