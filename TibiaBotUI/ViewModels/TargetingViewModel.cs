@@ -18,7 +18,6 @@ namespace MediviaBotUI.ViewModels
         private bool _editingRule;
         private bool _targetingEnabled;
         private TargetingSetting _currentSetting = new TargetingSetting();
-        private ObservableCollection<TargetingTemplate> _targetingTemplates;
         private ObservableCollection<Monster> _monsters;
         private ObservableCollection<Spell> _spells = new ObservableCollection<Spell>();
         private ObservableCollection<TargetingSetting> _settings = new ObservableCollection<TargetingSetting>();
@@ -52,20 +51,7 @@ namespace MediviaBotUI.ViewModels
             }
         }
 
-        public ObservableCollection<TargetingTemplate> TargetingTemplates
-        {
-            get
-            {
-                return _targetingTemplates;
-            }
-
-            set
-            {
-                if (value == TargetingTemplates) return;
-                _targetingTemplates = value;
-                OnPropertyChanged();
-            }
-        }
+       
 
         public ObservableCollection<Monster> Monsters
         {

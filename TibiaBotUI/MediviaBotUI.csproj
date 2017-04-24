@@ -87,6 +87,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AttachedBehaviors\AvalonTextBehavior.cs" />
+    <Compile Include="Commands\AddWaypointCommand.cs" />
+    <Compile Include="Commands\DeleteWaypointCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\ArrayToStringConverter.cs" />
     <Compile Include="Converters\BaseThemeConverter.cs" />
@@ -111,7 +113,6 @@
     <Compile Include="Models\Spell.cs" />
     <Compile Include="Models\TargetingPriorities.cs" />
     <Compile Include="Models\TargetingStance.cs" />
-    <Compile Include="Models\TargetingTemplate.cs" />
     <Compile Include="Models\TargetingSetting.cs" />
     <Compile Include="Models\ThemeAccents.cs" />
     <Compile Include="Models\ThemeBaseColors.cs" />
